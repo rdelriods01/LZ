@@ -16,7 +16,7 @@
         <div>
             <h3>Seleccionar fecha</h3>
             <button md-button (click)="test()"  > Crear   </button>
-            <!--<datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)"></datepicker>-->
+            <datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)"></datepicker>
         </div>
         <div *ngIf="btnGuardarB" class="guardar">
             <button md-button (click)="onSubmit();dialogRef.close()" [disabled]="!formAgendar.form.valid" >Guardar</button>

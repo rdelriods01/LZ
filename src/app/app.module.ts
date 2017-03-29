@@ -21,6 +21,7 @@ export const firebaseConfig = {
 // Imports de los Services
 import { AuthService } from './services/auth.service';
 import { PacienteService } from './services/paciente.service';
+import { VisitaService } from './services/visita.service';
 
 // Imports de los Componentes
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { LoginComponent } from './components/login.component';
 import { LayoutComponent } from './components/layout.component';
 import { HomeComponent } from './components/home.component';
 import { NewPacienteComponent } from './components/newPaciente.component';
+import { FlatpickerComponent } from './components/flatpicker.component';
 
 // Configuracion de las Rutas
 const routes: Routes = [
@@ -43,7 +45,8 @@ const routes: Routes = [
     LoginComponent,
     LayoutComponent,
     HomeComponent,
-    NewPacienteComponent
+    NewPacienteComponent,
+    FlatpickerComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    PacienteService
+    PacienteService,
+    VisitaService
   ],
   bootstrap: [AppComponent],
   entryComponents:[NewPacienteComponent]

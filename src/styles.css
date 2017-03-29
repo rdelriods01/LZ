@@ -17,7 +17,7 @@ md-toolbar-row.mat-toolbar-row{
 .mat-menu-panel.mat-menu-after.mat-menu-below{
     margin: 4.5em 0 0 0;
 }
-/**/
+/*No se para que es*/
 .md-button-toggle-checked .md-button-toggle-label-content{
     background-color:#8BC34A !important;
 }
@@ -25,4 +25,20 @@ md-toolbar-row.mat-toolbar-row{
 div .mat-dialog-container{
     border-radius: 30px;
 }
-/**/
+/*Para que el datepicker se vea en los dialogs*/
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 10 !important; 
+}
+/*Picker de AddPaciente*/
+.picker div{
+    display: inline-flex;
+}
+.picker div input.flatpickr-input.flatpickr-input.form-control.input{
+    font-size: 2em;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+    width: 14em;
+    text-align: center;
+    color: #f44336;
+}

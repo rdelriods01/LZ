@@ -38,16 +38,16 @@ export class NewPacienteComponent implements OnInit{
         this.visita=new Visita(0,"","",0,0,0,0,0,0,"","",false,null);
     }
 
-    // sendFecha(event){
-    //     let fyh =event.mifecha.split(" ");
-    //     this.visita.fecha=fyh[0];
-    //     this.visita.hora=fyh[1];
-    //     if(fyh==""){
-    //         this.btnGuardarB=false;
-    //     }else{
-    //         this.btnGuardarB=true;
-    //     }
-    // }
+    sendFecha(event){
+        let fyh =event.mifecha.split(" ");
+        this.visita.fecha=fyh[0];
+        this.visita.hora=fyh[1];
+        if(fyh==""){
+            this.btnGuardarB=false;
+        }else{
+            this.btnGuardarB=true;
+        }
+    }
     test(){
         this.paciente.nombre=this.toCapital(this.paciente.nombre);
         this.pacienteService.savePaciente(this.paciente);
@@ -63,40 +63,6 @@ export class NewPacienteComponent implements OnInit{
         this.visita.paciente=this.paciente;
         console.log(this.visita);
         this.visitaService.saveVisita(this.visita);
-
-        // this.pacienteService.addPaciente(this.paciente).subscribe(
-        //     result =>{
-        //         this.paciente= result.paciente;
-        //         if(!this.paciente){
-        //             alert('Error en el servidor');
-        //         }else{
-        //             this.visita.paciente=this.paciente._id;
-        //             this._visitaService.addVisita(this.visita).subscribe(
-        //                 result =>{
-        //                     this.visita= result.visita;
-        //                     if(!this.visita){
-        //                         alert('Error en el servidor');
-        //                     }else{
-        //                         // activar GLOBAL.getDatos para recargar DB
-        //                         this._GLOBAL.getDatos();
-        //                     }
-        //                 },
-        //                 error =>{
-        //                     this.errorMessage = <any>error;
-        //                     if (this.errorMessage != null){
-        //                         console.log(this.errorMessage);
-        //                     }
-        //                 }
-        //             );
-        //         }
-        //     },
-        //     error =>{
-        //         this.errorMessage = <any>error;
-        //         if (this.errorMessage != null){
-        //             console.log(this.errorMessage);
-        //         }
-        //     }
-        // );
     }
 
     toCapital(str){
