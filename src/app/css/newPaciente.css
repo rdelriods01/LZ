@@ -1,0 +1,23 @@
+*{
+    font-family: 'Roboto';
+}
+button{
+    background-color:#8BC34A;
+    font-size: 15px;
+    border-radius: 6px;
+    width: 280px;
+    height: 40px;
+    color: white; 
+}
+button:hover {
+    background:#7cb342;
+}
+.guardar button{
+    width: 100%;
+    margin-top: 3em;
+}
+.nombre{
+    width: 350px;
+}
+
+

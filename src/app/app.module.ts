@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import 'hammerjs';
 // configuracion necesaria para Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -16,35 +18,47 @@ export const firebaseConfig = {
     messagingSenderId: "326970238930"
 };
 
-// Configuracion de las Rutas
-const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent }
-];
 // Imports de los Services
 import { AuthService } from './services/auth.service';
+import { PacienteService } from './services/paciente.service';
 
 // Imports de los Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
+import { LayoutComponent } from './components/layout.component';
 import { HomeComponent } from './components/home.component';
+import { NewPacienteComponent } from './components/newPaciente.component';
 
+// Configuracion de las Rutas
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+
+  // {path:'**', component: HomeComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    LayoutComponent,
+    HomeComponent,
+    NewPacienteComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(routes),
-    AngularFireModule.initializeApp(firebaseConfig),
-    MaterialModule
+    AngularFireModule.initializeApp(firebaseConfig, 'LIGHTZONE'),
+    MaterialModule,
+    BrowserAnimationsModule
   ],
-  providers: [AuthService],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    PacienteService
+  ],
+  bootstrap: [AppComponent],
+  entryComponents:[NewPacienteComponent]
 })
 export class AppModule { }

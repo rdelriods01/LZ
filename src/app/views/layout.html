@@ -1,0 +1,47 @@
+  <div class="navbar" >
+    <md-toolbar color="primary">  
+      <!--Boton SideNavigation-->
+      <button *ngIf="isLoggedIn" class="vAlign" md-button id="bSidenav" (click)="sidenavtoggle()"><md-icon>menu</md-icon></button>
+      <!--Logo-->
+      <div class="logo">
+        <img class="logoIcon" src="../assets/images/logo.png" alt="logo">
+        <a class="logoText vAlign" href="" >LIGHTZONE</a>   
+      </div>
+      <!--Espacio en blanco-->
+      <span class="fill-space"></span>    
+      <div *ngIf="isLoggedIn" id="rightElements" >
+        <!--Boton Buscar-->
+        <button class="vAlign" md-button id="bSidenav" (click)="toggleBuscar()"><md-icon>search</md-icon></button>
+        <md-input-container [ngClass]='mostrar'>
+            <input mdInput class="vAlign"  type="text" [(ngModel)]=query (keyup)="filter();showResBus()" placeholder="Buscar...">
+        </md-input-container>
+        
+        <div class="resBusqueda" [ngClass]='mostrar2' >
+            <button md-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" (click)="sendPaciente(item);resetQuery();hideResBus()" >{{item.nombre}} </button>         
+        </div>
+        <!--Usuario-->
+        <div class="userProfile">
+            <span class="userText vAlign">{{usuario.name}}</span>
+            <button md-icon-button class="userAvatar vAlign" [mdMenuTriggerFor]="menu"><img md-card-avatar src="{{usuario.avatar}}"></button>
+            <md-menu id="menuPerfil" #menu="mdMenu">
+              <button md-menu-item (click)="logout()">Cerrar Sesion</button>
+            </md-menu>
+        </div>
+      </div>     
+    </md-toolbar>
+    <button *ngIf="isLoggedIn" md-fab class="btn-floating" (click)="openDialog()"><md-icon>add</md-icon></button>
+  </div>
+
+  <md-sidenav-container  class="sideb" (click)="hideResBus()">   
+    <md-sidenav #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
+      <ul>
+        <li><a [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
+        <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
+        <li><a [routerLink]="['/agenda']"><md-icon class="icon">event</md-icon>Agenda</a></li>
+      
+      </ul>
+    </md-sidenav>
+    <div style="padding: 1em 2em">
+      <router-outlet></router-outlet>
+    </div>
+  </md-sidenav-container>

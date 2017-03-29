@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    zoom: 80%;
+}
+html, body, app-root, md-sidenav-container {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+/*Para la toolbar*/
+.mat-toolbar-layout{
+    min-height: 50px;
+}
+md-toolbar-row.mat-toolbar-row{
+    height: 50px;
+}
+.mat-menu-panel.mat-menu-after.mat-menu-below{
+    margin: 4.5em 0 0 0;
+}
+/**/
+.md-button-toggle-checked .md-button-toggle-label-content{
+    background-color:#8BC34A !important;
+}
+/*Para los Dialogs*/
+div .mat-dialog-container{
+    border-radius: 30px;
+}
+/**/
