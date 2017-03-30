@@ -1,12 +1,17 @@
 <h1>Welcome</h1>
 <p>You should only be able to see that page when you're logged in!</p>
-
+<md-slider ></md-slider>
 <h3>  Lista de Pacientes</h3>
 <ul>
-   <li *ngFor="let pac of pacientes" > <p class="itemPaciente" (click)="enviarID(pac.id)">{{pac.nombre}}</p></li>
+   <li *ngFor="let pac of pacientes" >
+     <p class="itemPaciente" (click)="enviarID(pac.id)">{{pac.nombre}}</p>
+     <button md-button (click)="agregarCita(pac.id)" >Agregar Cita</button>
+   </li>
 </ul>
 
 <md-input-container>  
   <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
 </md-input-container>
 <button md-raised-button (click)="sendPaciente()" >Enviar</button>
+
+

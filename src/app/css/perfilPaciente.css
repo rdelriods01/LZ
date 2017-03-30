@@ -1,0 +1,178 @@
+.perfSuperior{
+    display: inline-flex;
+    width: 100%;
+}
+.perfSupIzq{
+    margin: 0 auto;
+    width: 60%;
+    padding: 1em;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.datosGenerales{
+    display: inline-flex;
+    width: 100%;
+}
+.perfNombre{
+    margin: 0 auto;
+}
+
+.Contacto{
+    margin: auto;
+}
+.Contacto *{
+    margin: 0px;
+    align-items: center;
+}
+.Contacto div{
+    margin:1% 0 0 0;
+    display: flex;
+}
+.Contacto p{
+    margin-left:2%; 
+}
+
+/*Historia Clinica*/
+.historiaClinica{
+    padding-bottom: 30px;
+    margin:5% 0;
+    border-radius: 25px;
+    border-style: dashed;
+    border-color: darkcyan;
+    color: darkcyan;
+}
+.historiaClinica *{
+    margin: 0px;
+    align-items: flex-end;
+}
+.historiaClinica div{
+    margin: 2% 0 0 2%;
+}
+.historiaClinica p{
+    margin-left: 2%;
+}
+/*Superior Derecho*/
+.perfSupDer{
+    margin: 0 auto;
+    align-self: center;
+    padding: 1em;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+/*Pesos Dinamicos */
+.pesos{
+
+}
+.pesos *{
+    margin: 0;
+}
+#dinamicos{
+    margin: 0 auto;
+    color: #8BC34A;
+    display: inline-flex;
+}
+#dinamicos div{
+    text-align: center;
+    margin: 0 1em;
+    align-self: flex-end;
+}
+#dinamicos h5{
+    font-size: 4em;
+}
+#dinamicos h4{
+    font-size: 22%;
+    margin-top: -10%;
+}
+#actual{
+    color: tomato;
+}
+#bajado{
+    color: #8BC34A;
+}
+#bajado h5{
+    font-size: 6em;
+}
+#ajustado{
+    color: turquoise;
+}
+
+#estaticos{
+    text-align: center;
+    margin: 5% auto;
+    margin-bottom: 0;
+    width: 25%;
+    color: dimgray;
+}
+
+.botones{
+    margin: 5% 0;
+}
+/*Boton Consultar*/
+#btnConsultar{
+    width: 100%;
+    height: 2.5em;
+    background-color: blueviolet;
+    border-radius: 20px;
+    color: white;
+    font-size: 2em;
+}
+#btnProxCita{
+    width: 100%;
+    height: 2.5em;
+    background-color: orangered;
+    border-radius: 20px;
+    color: white;
+    font-size: 2em;
+}
+/*Perfil Inferior*/
+.perfInferior md-card{
+    margin: 1em;
+    border-radius: 10px;
+}
+.perfInfTitle{
+    display: flex;
+    clear: both;
+    justify-content: space-between;
+}
+
+/*Tabla de visitas*/
+table {
+    width: 100%;
+    border-spacing: 0px 0px;
+    margin-bottom: 0;
+}
+th {
+    box-sizing: border-box;
+    text-align: left;
+    width: 79px;
+    border-bottom: 3px solid #ddd;
+    padding: 8px;
+    font-weight:bold; 
+}
+tbody tr:hover{
+    background-color:lightgray;
+}
+tbody td {
+    box-sizing: border-box;
+    width: 254px;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 8px;
+}
+.btnSmall{
+    min-width: 1em;
+}
+/*DialogDelete*/
+.dialogDelete{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 0.95;
+    text-align: center;
+}

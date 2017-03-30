@@ -1,0 +1,20 @@
+<div style="overflow-x:auto;">   
+    <table>
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visita of filter()" >
+                <td>{{visita.hora}}</td>
+                <td>{{visita.paciente.nombre}}</td>
+                <td><button md-button *ngIf="!visita.paciente.completo" (click)="openHisCliDialog(visita.paciente)" >Historia Clinica</button>
+                    <button md-button *ngIf="visita.paciente.completo"  [routerLink]="['/paciente',visita.paciente.id]" (click)="sendPaciente(visita.paciente)" >Consultar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

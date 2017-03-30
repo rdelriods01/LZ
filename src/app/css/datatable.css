@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+    border-spacing: 0px 0px;
+    margin-bottom: 0;
+}
+th {
+    box-sizing: border-box;
+    width: 79px;
+    border-bottom: 3px solid #ddd;
+    padding: 8px;
+    font-weight:bold; 
+}
+tbody tr:hover{
+    background-color:lightgray;
+}
+tbody td {
+    box-sizing: border-box;
+    width: 254px;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 8px;
+}

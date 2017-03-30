@@ -35,9 +35,10 @@
   <md-sidenav-container  class="sideb" (click)="hideResBus()">   
     <md-sidenav #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
       <ul>
-        <li><a [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
+        <li><a [routerLink]="['/']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
         <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
         <li><a [routerLink]="['/agenda']"><md-icon class="icon">event</md-icon>Agenda</a></li>
+        <li><a [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Test</a></li>
       
       </ul>
     </md-sidenav>

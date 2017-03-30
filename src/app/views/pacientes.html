@@ -1,0 +1,15 @@
+<h1 class="title"> Lista de Pacientes</h1>     
+<div style="overflow-x:auto;">   
+    <table>
+        <thead>
+            <tr>
+                <th>{{totalDePacientes}} Pacientes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let paciente of pacientes" >
+                <td [routerLink]="['/paciente',paciente.id]" >{{paciente.nombre}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

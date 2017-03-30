@@ -27,16 +27,24 @@ import { VisitaService } from './services/visita.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
 import { LayoutComponent } from './components/layout.component';
+import { DashboardComponent } from './components/dashboard.component';
+import { DatatableComponent } from './components/datatable.component';
 import { HomeComponent } from './components/home.component';
+import { PacientesComponent } from './components/pacientes.component';
+import { PerfilPacienteComponent } from './components/perfilPaciente.component';
 import { NewPacienteComponent } from './components/newPaciente.component';
 import { FlatpickerComponent } from './components/flatpicker.component';
+import { HistoriaClinicaComponent } from './components/historiaClinica.component';
 
 // Configuracion de las Rutas
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path:'', component: DashboardComponent },
+  { path:'home', component: HomeComponent },
+  { path:'login', component: LoginComponent },
+  { path:'pacientes', component: PacientesComponent},
+  { path:'paciente/:id', component: PerfilPacienteComponent},
 
-  // {path:'**', component: HomeComponent}
+  { path:'**', component: DashboardComponent}
 ];
 
 @NgModule({
@@ -44,9 +52,14 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     LayoutComponent,
+    DashboardComponent,
+    DatatableComponent,
     HomeComponent,
     NewPacienteComponent,
-    FlatpickerComponent
+    FlatpickerComponent,
+    PacientesComponent,
+    PerfilPacienteComponent,
+    HistoriaClinicaComponent
   ],
   imports: [
     BrowserModule,
@@ -63,6 +76,6 @@ const routes: Routes = [
     VisitaService
   ],
   bootstrap: [AppComponent],
-  entryComponents:[NewPacienteComponent]
+  entryComponents:[NewPacienteComponent,HistoriaClinicaComponent]
 })
 export class AppModule { }

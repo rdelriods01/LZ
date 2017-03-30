@@ -1,0 +1,27 @@
+.title{
+    color: #444;
+    text-align: center;
+    margin: 0 0 1em 0;
+}
+
+table {
+    width: 85%;
+    border-spacing: 0px 0px;
+    background: white;
+    font-size: 1em;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 1em;
+}
+th {
+    border-bottom: 3px solid #ddd;
+    padding: 1em;
+    margin: 0 auto;
+}
+tbody tr:hover{
+    background-color:lightgray;
+}
+tbody td {
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 4px;
+}

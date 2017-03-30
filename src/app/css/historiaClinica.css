@@ -1,0 +1,76 @@
+*{
+    font-family: 'Roboto';
+}
+button{
+    background-color:#8BC34A;
+    font-size: 15px;
+    border-radius: 6px;
+    width: 280px;
+    height: 40px;
+    color: white; 
+}
+button:hover {
+    background:#7cb342;
+}
+.nombre{
+    width: 350px;
+}
+.genero{
+    margin: 0 50px;
+}
+
+.edad{
+    width: 60px;
+}
+.correo{
+    width: 270px;
+}
+.valores{
+    margin: 0px 5px 15px 5px;
+    text-align: center;
+}
+.valores md-input-container{
+    margin: 0px 30px;
+    width: 115px;
+}
+.multiEnf{
+    margin: 0 auto;
+}
+
+#ck-button {
+    background-color:#FFF;
+    border-radius:4px;
+    border:1px solid #fafafa;
+}
+
+#ck-button:hover {
+    background:#7cb342;
+}
+
+#ck-button label span {
+    text-align:center;
+    padding:3px 20px;
+    display:block;
+}
+
+#ck-button label input {
+    position:absolute;
+    top:-20px;
+}
+
+#ck-button input:checked + span {
+    background-color:#8BC34A;
+    color:#fff;
+    border-radius:4px;
+}
+#ck-button input:checked + span:hover {
+    background-color:#7cb342;
+}
+.malestares{
+    margin: 0 auto;
+}
+.malestares p{
+    margin: 0 4px;
+    height: 35px;
+    text-align: right;
+}

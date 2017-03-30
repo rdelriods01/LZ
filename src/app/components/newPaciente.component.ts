@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import { Router, ActivatedRoute, Params} from '@angular/router';
 
-// import { Ng2FlatpickrComponent } from 'ng2-flatpickr/ng2-flatpickr';
-
-// import {GLOBAL} from '../services/global';
 import { PacienteService } from '../services/paciente.service';
 import { VisitaService } from '../services/visita.service';
 
@@ -22,15 +18,12 @@ import { Visita } from '../models/visita';
 export class NewPacienteComponent implements OnInit{
     public paciente:Paciente;
     public visita: Visita;
-    public errorMessage:any;
     public id:String;
     public btnGuardarB:boolean=false;
 
-    constructor(public dialogRef: MdDialogRef<NewPacienteComponent>,
+    constructor( public dialogRef: MdDialogRef<NewPacienteComponent>,
                 private pacienteService: PacienteService,
-                private visitaService: VisitaService,
-                private route:ActivatedRoute,
-                private router: Router,
+                private visitaService: VisitaService
                 ) {}
 
     ngOnInit(){
@@ -52,7 +45,6 @@ export class NewPacienteComponent implements OnInit{
         this.paciente.nombre=this.toCapital(this.paciente.nombre);
         this.pacienteService.savePaciente(this.paciente);
         this.visita.paciente=this.paciente;
-        console.log(this.visita);
         this.visitaService.saveVisita(this.visita);
     }
 
