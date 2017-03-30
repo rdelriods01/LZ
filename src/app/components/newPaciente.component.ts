@@ -48,15 +48,6 @@ export class NewPacienteComponent implements OnInit{
             this.btnGuardarB=true;
         }
     }
-    test(){
-        this.paciente.nombre=this.toCapital(this.paciente.nombre);
-        this.pacienteService.savePaciente(this.paciente);
-        this.visita.paciente=this.paciente;
-        console.log(this.visita);
-        this.visitaService.saveVisita(this.visita);
-    }
-
-
     onSubmit(){
         this.paciente.nombre=this.toCapital(this.paciente.nombre);
         this.pacienteService.savePaciente(this.paciente);
