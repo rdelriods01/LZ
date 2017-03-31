@@ -28,7 +28,7 @@ export class NewPacienteComponent implements OnInit{
 
     ngOnInit(){
         this.paciente = new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
-        this.visita=new Visita(0,"","",0,0,0,0,0,0,"","",false,null);
+        this.visita=new Visita('',0,"","",0,0,0,0,0,0,"","",false,null);
     }
 
     sendFecha(event){

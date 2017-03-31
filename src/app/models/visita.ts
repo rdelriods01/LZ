@@ -1,5 +1,6 @@
 export class Visita{
     constructor(
+        public id:String,
         public numero: Number,
         public fecha: String,
         public hora:String,
@@ -14,6 +15,7 @@ export class Visita{
         public completo: Boolean,
         public paciente: any 
     ){
+        this.id=id;
         this.numero=numero;
         this.fecha=fecha;
         this.hora=hora;

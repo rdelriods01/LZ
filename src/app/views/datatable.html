@@ -12,7 +12,7 @@
                 <td>{{visita.hora}}</td>
                 <td>{{visita.paciente.nombre}}</td>
                 <td><button md-button *ngIf="!visita.paciente.completo" (click)="openHisCliDialog(visita.paciente)" >Historia Clinica</button>
-                    <button md-button *ngIf="visita.paciente.completo"  [routerLink]="['/paciente',visita.paciente.id]" (click)="sendPaciente(visita.paciente)" >Consultar</button>
+                    <button md-button *ngIf="visita.paciente.completo"  [routerLink]="['/paciente',visita.paciente.id]" >Consultar</button>
                 </td>
             </tr>
         </tbody>

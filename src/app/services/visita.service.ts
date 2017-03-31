@@ -31,7 +31,14 @@ export class VisitaService{
     }
 
     saveVisita(visita:Visita){
-        this.af.database.list('visitas').push(visita);
+        let idV=this.af.database.list('visitas').push(visita).key;
+        visita.id=idV;
+        this.af.database.list('visitas').update(idV,visita);
     }
 
+    editVisita(id,V){
+        console.log(id);
+        console.log(V);
+        this.af.database.list('visitas').update(id,V);
+    }
 }

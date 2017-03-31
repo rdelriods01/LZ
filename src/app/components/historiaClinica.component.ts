@@ -27,63 +27,42 @@ export class HistoriaClinicaComponent implements OnInit{
 
     constructor(public dialogRef: MdDialogRef<HistoriaClinicaComponent>,
                 private pacienteService: PacienteService,
-                private _route:ActivatedRoute,
-                private _router: Router,
+                private route:ActivatedRoute,
+                private router: Router,
                 ) {}
 
     ngOnInit(){
         //  this.paciente = new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
         //  this.paciente = CONST.miPacienteActual;
         console.log('HistoriaClinicaComponent')
-        console.log(this.paciente);
     }
 
-    // actualizarHisCli(x:string){
-    //     this.paciente.completo=true;
-    //     for(let i=0;i<6;i++){
-    //         if(this.maldias[i]!='0'){
-    //             this.males.push(this.malestares[i]+' '+ this.maldias[i]+' dias a la semana')
-    //         }
-    //     }
-    //     this.paciente.malestares=this.males.toString();
-    //     this.males=[];
-    //     this.paciente.enfermedades=this.checked.toString();
-    //     // console.log(this.visita);
-    //     this.pacienteService.editPaciente(this.paciente.id, this.paciente).subscribe(
-    //         result =>{
-    //             this.paciente= result.paciente;
-    //             if(!this.paciente){
-    //                 alert('Error en el servidor al editar');
-    //             }else{
-    //                 if(x='dyc'){
-    //                     this._router.navigate(['/']);
-    //                     this._router.navigate(['/paciente',this.paciente.id]);
-    //                 }else{
-    //                     this._router.navigate(['/paciente',this.paciente.id]);
-    //                 }
-    //             }
-    //         },
-    //         error =>{
-    //             this.errorMessage = <any>error;
-    //             if (this.errorMessage != null){
-    //                 console.log(this.errorMessage);
-    //             }
-    //         }
-    //     );
-    // }
+     actualizarHisCli(){
+       this.paciente.completo=true;
+       for(let i=0;i<6;i++){
+           if(this.maldias[i]!='0'){
+               this.males.push(this.malestares[i]+' '+ this.maldias[i]+' dias a la semana')
+           }
+       }
+       this.paciente.malestares=this.males.toString();
+       this.males=[];
+       this.paciente.enfermedades=this.checked.toString();
+       this.pacienteService.updatePaciente(this.paciente.id, this.paciente);
+       this.router.navigate(['paciente',this.paciente.id]);
+    }
 
     updateChecked(option, event) {
-    var index = this.checked.indexOf(option);
-    if(event.target.checked) {
-      if(index === -1) {
-        this.checked.push(option);
-      }
-    } else {
-      if(index !== -1) {
-        this.checked.splice(index, 1);
+      var index = this.checked.indexOf(option);
+      if(event.target.checked) {
+        if(index === -1) {
+          this.checked.push(option);
+        }
+      } else {
+        if(index !== -1) {
+          this.checked.splice(index, 1);
+        }
       }
     }
-  }
 
 
 //FIN
