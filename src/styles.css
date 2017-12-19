@@ -17,6 +17,11 @@ md-toolbar-row.mat-toolbar-row{
 .mat-menu-panel.mat-menu-after.mat-menu-below{
     margin: 4.5em 0 0 0;
 }
+/*Para el menu de usuario quede en posicion  */
+div#cdk-overlay-0 {
+    bottom: 710px !important;
+    left: 1550px !important;
+}
 /*No se para que es*/
 .mat-button-toggle-checked .mat-button-toggle-label-content{
     background-color:#8BC34A !important;

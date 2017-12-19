@@ -3,7 +3,9 @@
 <h3>  Lista de Pacientes</h3>
 <ul>
    <li *ngFor="let pac of pacientes" >
-     <p class="itemPaciente" (click)="enviarID(pac.id)">{{pac.nombre}}</p>
+     <p class="itemPaciente">{{pac.nombre}}</p>
+     <p *ngFor="let visita of enviarID(pac.id)" (click)="eV(visita.id)">{{visita.id}}
+     </p>
      <button md-button (click)="agregarCita(pac.id)" >Agregar Cita</button>
    </li>
 </ul>

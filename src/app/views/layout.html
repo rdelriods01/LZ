@@ -20,13 +20,14 @@
             <button md-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" (click)="sendPaciente(item);resetQuery();hideResBus()" >{{item.nombre}} </button>         
         </div>
         <!--Usuario-->
-        <div class="userProfile">
+        <button class="userProfile" [mdMenuTriggerFor]="menu">
             <span class="userText vAlign">{{usuario.name}}</span>
-            <button md-icon-button class="userAvatar vAlign" [mdMenuTriggerFor]="menu"><img md-card-avatar src="{{usuario.avatar}}"></button>
-            <md-menu id="menuPerfil" #menu="mdMenu">
+            <button md-icon-button class="userAvatar vAlign" ><img md-card-avatar src="{{usuario.avatar}}"></button>
+            <md-menu #menu="mdMenu">
               <button md-menu-item (click)="logout()">Cerrar Sesion</button>
+              <button md-menu-item> Help </button>
             </md-menu>
-        </div>
+        </button>
       </div>     
     </md-toolbar>
     <button *ngIf="isLoggedIn" md-fab class="btn-floating" (click)="openDialog()"><md-icon>add</md-icon></button>

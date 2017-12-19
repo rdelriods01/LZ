@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 // import { Router } from '@angular/router';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { AuthService } from '../services/auth.service';
 import { PacienteService } from '../services/paciente.service';
@@ -19,12 +19,12 @@ export class HomeComponent {
   public paciente:Paciente;
   public visita:Visita;
   public pacientes:any;
-  public visitas:any;
+  public visitas:any=[];
   public idP:String;
   public errorMessage: any;
   
   constructor(private authService: AuthService,
-              private af: AngularFire,
+              private af: AngularFireDatabase,
               private pacienteService:PacienteService,
               private visitaService:VisitaService) {
 
@@ -41,7 +41,7 @@ export class HomeComponent {
                 if(!this.pacientes){alert('Error en el servidor')}
                 else{
                     this.pacientes=this.pacientes.sort(function(a,b) {return (a.nombre > b.nombre) ? 1 : ((b.nombre > a.nombre) ? -1 : 0);} );                   
-                }
+                 }
             },
             error =>{
                 this.errorMessage = <any>error;
@@ -65,10 +65,13 @@ export class HomeComponent {
   }
 
   enviarID(x:any){
-    this.visita.paciente=this.pacienteService.getPaciente(x);
-        console.log(this.visita.paciente.nombre);
-    this.visitas=this.visitaService.getVisitasP(x);
-    console.log(this.visitas);
-    this.visitas=[];
+        this.visita.paciente=this.pacienteService.getPaciente(x);
+        this.visitas=this.visitaService.getVisitasP(x);
+        return this.visitas;
+  }
+
+  eV(x:any){
+    console.log(x);
+    this.visitaService.deleteVisita(x);
   }
 }

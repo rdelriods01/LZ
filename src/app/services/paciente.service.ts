@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 import { VisitaService } from './visita.service';
 import { Paciente } from '../models/paciente';
@@ -12,15 +12,15 @@ export class PacienteService{
     public actualP:any;
 
 
-    constructor( private visitaService:VisitaService, private af: AngularFire){
-        this.items = this.af.database.list('pacientes');
+    constructor( private visitaService:VisitaService, private af: AngularFireDatabase){
+        this.items = this.af.list('pacientes');
     }
 
     getPacientes() {
         return this.items;
     }
     getPaciente(idP) {
-         let miP= this.af.database.object('pacientes/'+idP, {preserveSnapshot:true});
+         let miP= this.af.object('pacientes/'+idP, {preserveSnapshot:true});
          miP.subscribe(res=>{
             this.actualP=res.val();
          });
@@ -36,11 +36,10 @@ export class PacienteService{
 // regresamos el objeto paciente para despues actualizar cada visita del paciente
         let miP=this.getPaciente(id);
 // obtener las visitas que tengan como paciente el id del paciente
-        this.af.database.object('visitas', {preserveSnapshot:true})
+        this.af.object('visitas', {preserveSnapshot:true})
             .subscribe(res=>{
                 res.forEach(res=>{
                     let Vis=res.val();
-                    console.log(Vis);
                     if(Vis.paciente.id==id){
                         // si la visita corresponde al paciente
         // ntonces actualiza el campo Paciente con el nuevo objeto Paciente
@@ -50,5 +49,9 @@ export class PacienteService{
                     }
                 });
             });
+    }
+
+    deletePaciente(id){
+        this.af.object('pacientes/'+id).remove();
     }
 }

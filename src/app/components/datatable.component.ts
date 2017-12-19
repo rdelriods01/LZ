@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { HistoriaClinicaComponent } from './historiaClinica.component';
 
@@ -56,9 +56,6 @@ export class DatatableComponent{
   openHisCliDialog(P){
     let dialogRef = this.dialog.open(HistoriaClinicaComponent);
     dialogRef.componentInstance.paciente =P;
-  }
-  sendPaciente(x:any){
-    // CONST.miPacienteActual=x;
   }
 
 // FIN

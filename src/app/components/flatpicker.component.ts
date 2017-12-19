@@ -1,7 +1,7 @@
 import {Component, ViewChild, Input, AfterViewInit, forwardRef, Output,EventEmitter} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
-declare const Flatpickr: any;
+const Flatpickr = require("flatpickr");
 
 @Component({
     selector: 'datepicker',
@@ -28,7 +28,7 @@ export class FlatpickerComponent implements AfterViewInit {
     @Input() sticky:boolean=false;
     @Input() jump:any;
     @Output() mifecha = new EventEmitter();
-
+    
     picker: any;
     finalVal: string;
     days:string[]=[
@@ -38,7 +38,6 @@ export class FlatpickerComponent implements AfterViewInit {
 
     constructor() {
          Flatpickr.localize(require('../../assets/es.js').es);
-
     }
     ngOnChanges(changes){
         if(this.picker){

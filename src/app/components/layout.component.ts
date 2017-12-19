@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseListObservable } from 'angularfire2';
+import { FirebaseListObservable } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
+
 import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { AuthService } from '../services/auth.service';
@@ -36,23 +38,58 @@ export class LayoutComponent {
   }
 
   isLogged(){
-    this.authService.af.auth.subscribe(
-      (data) => {
-        if (data == null) {
-          console.log("Logged out");
-          this.isLoggedIn = false;
-          this.usuario = null;
-          this.router.navigate(['login']);
-        } else {
+
+
+    this.authService.af.authState.subscribe((data: firebase.User)=>{
+      if(data==null){
+        console.log("Logged out");
+        this.isLoggedIn = false;
+        this.usuario = null;
+        this.router.navigate(['login']);
+      }else{    
+        if(data.email=='ricardodelrio14@gmail.com'){
           this.isLoggedIn = true;
           console.log("Logged in");
-          this.usuario = new Usuario(data.auth.uid, data.auth.displayName, data.auth.email, data.auth.photoURL)
+          this.usuario = new Usuario(data.uid,data.displayName,data.email,data.photoURL);
           console.log(this.usuario);
           this.router.navigate(['']);
           this.getPacientes();
+        }else{
+          console.log("sin acceso");
+          this.isLoggedIn = false;
+          this.usuario = null;
+          this.router.navigate(['login']);
+          alert('No tiene acceso');
         }
       }
-    );
+    });
+    
+    // this.authService.af.auth.currentUser.     
+    // .subscribe(
+    //   (data) => {
+    //     if (data == null) {
+    //       console.log("Logged out");
+    //       this.isLoggedIn = false;
+    //       this.usuario = null;
+    //       this.router.navigate(['login']);
+    //     } else {
+    //       if(data.auth.email=='ricardodelrio14@gmail.com'){
+    //         this.isLoggedIn = true;
+    //         console.log("Logged in");
+    //         this.usuario = new Usuario(data.auth.uid, data.auth.displayName, data.auth.email, data.auth.photoURL)
+    //         console.log(this.usuario);
+    //         this.router.navigate(['']);
+    //         this.getPacientes();
+    //       }else{            
+    //         console.log("sin acceso");
+    //         this.isLoggedIn = false;
+    //         this.usuario = null;
+    //         this.router.navigate(['login']);
+    //         alert('No tiene acceso');
+    //       }
+    //     }
+    //   }
+    // );
   }
 
   logout() {

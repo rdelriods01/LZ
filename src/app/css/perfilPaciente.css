@@ -23,11 +23,9 @@
 }
 .Contacto *{
     margin: 0px;
-    align-items: center;
 }
 .Contacto div{
     margin:1% 0 0 0;
-    display: flex;
 }
 .Contacto p{
     margin-left:2%; 
@@ -56,6 +54,7 @@
 .perfSupDer{
     margin: 0 auto;
     align-self: center;
+    width: 25%;
     padding: 1em;
     border-radius: 10px;
     background: white;

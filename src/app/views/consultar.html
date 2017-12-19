@@ -1,0 +1,39 @@
+<div class="modalC">
+    <form #formConsulta="ngForm" (ngSubmit)="consultar();dialogRef.close(resultado)"  >
+        <div class="agenda">
+            <h2>Consulta de {{paciente.nombre}} </h2>
+            <md-input-container>
+                <input mdInput class="fecha" #fecha="ngModel" name="fecha" [(ngModel)]="visit.fecha" placeholder="Fecha.." required >
+            </md-input-container>
+            <md-input-container>
+                <input mdInput class="hora" #hora="ngModel" name="hora" [(ngModel)]="visit.hora" placeholder="Hora.." required >
+            </md-input-container>
+        </div>  
+
+        <div class="medidas">
+            <div class="medSup">
+                <div><h2>Peso</h2> <input #peso="ngModel" name="peso" [(ngModel)]="visit.peso" maxlength="5" required > <p>kg</p></div>
+                <div><h2>Grasa</h2> <input name="grasa" [(ngModel)]="visit.grasa" maxlength="4" required> <p>kg</p></div>
+                <div><h2>Musculo</h2> <input #musculo="ngModel" name="musculo" [(ngModel)]="visit.musculo" maxlength="4" required> <p>kg</p></div>
+            </div>
+            <div class="medInf">
+                <div><h2>Abdomen</h2> <input #abdomen="ngModel" name="abdomen" [(ngModel)]="visit.abdomen" maxlength="3" required> <p>cms</p></div>
+                <div *ngIf="paciente.sexo=='Mujer'" ><h2>Cadera</h2> <input #cadera="ngModel" name="cadera" [(ngModel)]="visit.cadera" maxlength="3" required> <p>cms</p></div>
+                <div><h2>Glucosa</h2> <input #glucosa="ngModel" name="glucosa" [(ngModel)]="visit.glucosa" maxlength="3" > <p>mg/dl</p></div>
+            </div>
+        </div>
+        
+        <div class="otros">
+            <md-input-container id="menu">
+                <input mdInput  #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
+            </md-input-container>
+            <md-input-container >
+                <textarea mdInput id="comentarios" #comentarios="ngModel" name="comentarios" [(ngModel)]="visit.comentarios" placeholder="Comentarios.." ></textarea>
+            </md-input-container>
+        </div>
+
+        <div id="btnGuardar">
+            <button md-button type="submit" [disabled]="!formConsulta.form.valid" >Guardar</button>
+        </div>
+    </form>
+</div>

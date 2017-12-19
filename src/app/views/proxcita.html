@@ -1,0 +1,11 @@
+<div md-dialog-content>
+    <form style="margin-top: 1em" >
+        <h2>Proxima Cita de {{paciente.nombre}} </h2>
+
+        <datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)" required></datepicker>
+       
+        <div *ngIf="btnGuardarB" style="text-align: end">
+            <button md-button class="btnGuardar" (click)="agendar();dialogRef.close(visita)" >Guardar</button>
+        </div>
+    </form>
+</div>

@@ -35,6 +35,7 @@ export class HistoriaClinicaComponent implements OnInit{
         //  this.paciente = new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
         //  this.paciente = CONST.miPacienteActual;
         console.log('HistoriaClinicaComponent')
+        console.log(this.paciente);
     }
 
      actualizarHisCli(){

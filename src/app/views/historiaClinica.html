@@ -71,15 +71,15 @@
             </div>
         </div>
 
-        <p class="areas" style="display: flex; height: 100px" >
-            <md-input-container>
-                <textarea mdInput #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
+        <p style="display:flex" >
+            <md-input-container class="areas">
+                <textarea style="overflow:auto" mdInput #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
             </md-input-container>
-            <md-input-container>
-                <textarea mdInput #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.no" placeholder="No incluir.." ></textarea>
+            <md-input-container class="areas">
+                <textarea style="overflow:auto" mdInput #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.no" placeholder="No incluir.." ></textarea>
             </md-input-container>
-            <md-input-container>
-                <textarea mdInput #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>
+            <md-input-container class="areas">
+                <textarea style="overflow:auto" mdInput #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>
             </md-input-container>
         </p>        
         

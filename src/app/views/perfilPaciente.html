@@ -3,9 +3,9 @@
         <div class="datosGenerales">
             <div class="perfNombre">
                 <div style="display: flex">
-                    <h1 style="margin: 0">{{paciente.nombre}}</h1>
-                    <button md-button style="margin: 0 0 0 7em" (click)="openHisCliDialog(paciente)" ><md-icon>mode_edit</md-icon></button>
-                    <button md-button style="margin: 0 auto;min-width: 1em" (click)='seguroElim()' ><md-icon>delete</md-icon></button>
+                    <h1 style="margin: 0 auto">{{paciente.nombre}}</h1>
+                    <button md-button style="margin: 0" (click)="openHisCliDialog(paciente)" ><md-icon>mode_edit</md-icon></button>
+                    <button md-button style="margin: 0;min-width:4em" (click)='seguroElim()' ><md-icon>delete</md-icon></button>
                 </div>
                 <h2 style="color: dimgray">{{paciente.sexo}} de {{paciente.edad}} años, estatura: {{paciente.estatura}} cms </h2>
             </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="botones">
-            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog()" id="btnConsultar">Consultar</button>
+            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>
             <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Proxima Cita</button>
         </div>
     </div>
@@ -71,7 +71,7 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let visita of citas" >
+                    <tr *ngFor="let visita of citas1" >
                         <td >{{visita.fecha}}</td>
                         <td >{{visita.peso}}</td>
                         <td >{{visita.grasa}}</td>
@@ -82,11 +82,11 @@
                         <td >{{visita.menu}}</td>
                         <td >{{visita.comentarios}}</td>
                         <td *ngIf="visible">
-                            <button md-button (click)="editVisita(visita)" ><md-icon>mode_edit</md-icon></button> 
+                            <button md-button (click)="editVisita(visita,paciente)" ><md-icon>mode_edit</md-icon></button> 
                         </td>
                         <td *ngIf='seguroV' class="confirmDelVisita" >
                             <h4 style="margin: 0 auto">¿Elminar?</h4>
-                            <button md-button class="btnSmall" (click)="siDelVisita(visita._id)" >Si</button> 
+                            <button md-button class="btnSmall" (click)="siDelVisita(visita.id)" >Si</button> 
                             <button md-button class="btnSmall" (click)="noDelVisita()" >No</button>
                         </td>
                     </tr> 

@@ -63,6 +63,13 @@ md-toolbar-layout md-toolbar-row{
 }
 .userProfile{
   display: flex;
+  background: 0;
+  border: 0;
+  font-size: 1em;
+  outline: 0;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 .userAvatar{
   transition: transform 0.5s;
