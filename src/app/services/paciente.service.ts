@@ -33,22 +33,6 @@ export class PacienteService{
     }
     updatePaciente(id:any,paciente:Paciente){
         this.items.update(id,paciente);
-// regresamos el objeto paciente para despues actualizar cada visita del paciente
-        let miP=this.getPaciente(id);
-// obtener las visitas que tengan como paciente el id del paciente
-        this.af.object('visitas', {preserveSnapshot:true})
-            .subscribe(res=>{
-                res.forEach(res=>{
-                    let Vis=res.val();
-                    if(Vis.paciente.id==id){
-                        // si la visita corresponde al paciente
-        // ntonces actualiza el campo Paciente con el nuevo objeto Paciente
-                        Vis.paciente=miP;
-                        // actualizar esta visita con el nuevo objeto Visita
-                        this.visitaService.editVisita(Vis.id,Vis);
-                    }
-                });
-            });
     }
 
     deletePaciente(id){

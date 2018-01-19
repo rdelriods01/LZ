@@ -52,22 +52,22 @@
         </p>
         <div style="display: flex; width: 600px; margin: 0 auto" >
             <div class="multiEnf" >
-                <div id="ck-button"><label><input type="checkbox" [value]="Diabetes" (change)="updateChecked('Diabetes', $event)"><span>Diabetes</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Hipertension" (change)="updateChecked('Hipertension', $event)"><span>Hipertension</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Cardiopatia" (change)="updateChecked('Cardiopatia', $event)"><span>Cardiopatia</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Resinsulina" (change)="updateChecked('Resistencia a la insulina', $event)"><span>Resistencia a la insulina</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Hipotiroidismo" (change)="updateChecked('Hipotiroidismo', $event)"><span>Hipotiroidismo</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Hipertiroidismo" (change)="updateChecked('Hipertiroidismo', $event)"><span>Hipertiroidismo</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Colitis" (change)="updateChecked('Colitis', $event)"><span>Colitis</span></label></div>
-                <div id="ck-button"><label><input type="checkbox" [value]="Gastritis" (change)="updateChecked('Gastritis', $event)"><span>Gastritis</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[0][1]" (change)="togglecb(0)"><span>{{paciente.enfermedades[0][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[1][1]" (change)="togglecb(1)"><span>{{paciente.enfermedades[1][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[2][1]" (change)="togglecb(2)"><span>{{paciente.enfermedades[2][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[3][1]" (change)="togglecb(3)"><span>{{paciente.enfermedades[3][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[4][1]" (change)="togglecb(4)"><span>{{paciente.enfermedades[4][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[5][1]" (change)="togglecb(5)"><span>{{paciente.enfermedades[5][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[6][1]" (change)="togglecb(6)"><span>{{paciente.enfermedades[6][0]}}</span></label></div>
+                <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[7][1]" (change)="togglecb(7)"><span>{{paciente.enfermedades[7][0]}}</span></label></div>
             </div>
             <div class="malestares" >
-                <p><label>Estreñimiento </label>        <md-slider #mal1="ngModel" name="mal1" [(ngModel)]="maldias[0]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal1.value}}/7</label></p>
-                <p><label>Insomnio </label>             <md-slider #mal2="ngModel" name="mal2" [(ngModel)]="maldias[1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal2.value}}/7</label></p>
-                <p><label>Dolor de cabeza </label>      <md-slider #mal3="ngModel" name="mal3" [(ngModel)]="maldias[2]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal3.value}}/7</label></p>
-                <p><label>Zumbido de oidos </label>     <md-slider #mal4="ngModel" name="mal4" [(ngModel)]="maldias[3]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal4.value}}/7</label></p>
-                <p><label>Cansancio excesivo </label>   <md-slider #mal5="ngModel" name="mal5" [(ngModel)]="maldias[4]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal5.value}}/7</label></p>
-                <p><label>Inflamación </label>          <md-slider #mal6="ngModel" name="mal6" [(ngModel)]="maldias[5]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true [value]="0"></md-slider><label>{{mal6.value}}/7</label></p>
+                <p><label>{{paciente.malestares[0][0]}}</label> <md-slider #mal1="ngModel" name="mal1" [(ngModel)]="paciente.malestares[0][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[0][1]}}/7</label></p>
+                <p><label>{{paciente.malestares[1][0]}}</label> <md-slider #mal2="ngModel" name="mal2" [(ngModel)]="paciente.malestares[1][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[1][1]}}/7</label></p>
+                <p><label>{{paciente.malestares[2][0]}}</label> <md-slider #mal3="ngModel" name="mal3" [(ngModel)]="paciente.malestares[2][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[2][1]}}/7</label></p>
+                <p><label>{{paciente.malestares[3][0]}}</label> <md-slider #mal4="ngModel" name="mal4" [(ngModel)]="paciente.malestares[3][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[3][1]}}/7</label></p>
+                <p><label>{{paciente.malestares[4][0]}}</label> <md-slider #mal5="ngModel" name="mal5" [(ngModel)]="paciente.malestares[4][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[4][1]}}/7</label></p>
+                <p><label>{{paciente.malestares[5][0]}}</label> <md-slider #mal6="ngModel" name="mal6" [(ngModel)]="paciente.malestares[5][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></md-slider><label>{{paciente.malestares[5][1]}}/7</label></p>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
                 <textarea style="overflow:auto" mdInput #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
             </md-input-container>
             <md-input-container class="areas">
-                <textarea style="overflow:auto" mdInput #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.no" placeholder="No incluir.." ></textarea>
+                <textarea style="overflow:auto" mdInput #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.noincluir" placeholder="No incluir.." ></textarea>
             </md-input-container>
             <md-input-container class="areas">
                 <textarea style="overflow:auto" mdInput #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>

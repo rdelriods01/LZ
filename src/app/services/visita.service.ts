@@ -22,7 +22,7 @@ export class VisitaService{
         misV.subscribe(res=>{
             res.forEach(res=>{
                 let Vis=res.val();
-                 if(Vis.paciente.id==idP){
+                 if(Vis.paciente==idP){
                      this.visitasP.push(Vis);
                 }
             });

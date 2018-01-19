@@ -40,6 +40,9 @@ export class PerfilPacienteComponent implements OnInit{
     public mes:string[]=[
         'ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'
     ];
+    public enf:string;
+    public malesta:string;
+    public temp:any=[];
 
     constructor (
         private _route:ActivatedRoute,
@@ -50,7 +53,7 @@ export class PerfilPacienteComponent implements OnInit{
     ){}
     
     ngOnInit(){
-         this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
+        //  this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
          this.mostrarPaciente();
     }
 
@@ -60,11 +63,28 @@ export class PerfilPacienteComponent implements OnInit{
             this.paciente= this.pacienteService.getPaciente(id);
             if(!this.paciente){this._router.navigate(['/'])}
             else{
+                // Ajustar datos del paciente para poder visualizarlos correctamente
+                // enfermedades
+                for(let i=0;i<8;i++){
+                    if(this.paciente.enfermedades[i][1]){
+                        this.temp.push(this.paciente.enfermedades[i][0])
+                    }
+                }
+                if(this.temp.length>0){this.enf=this.temp.toString();}else{this.enf="";}
+                this.temp=[];
+                // malestares
+                for(let i=0;i<6;i++){
+                    if(this.paciente.malestares[i][1]!="0"){
+                        this.temp.push(this.paciente.malestares[i][0]+' '+this.paciente.malestares[i][1]+' dias a la semana');        
+                    }
+                }
+                if(this.temp.length>0){this.malesta=this.temp.toString();}else{this.malesta="";}
+                this.temp=[];
+                // Obtener visitas del paciente actual
                 this.visitas=this.visitaService.getVisitasP(id);
                 if(!this.visitas){alert('Paciente Sin Visitas')}
                 else{
                     this.totaldevisitas=this.visitas.length;
-                    
                     if(this.visitas[this.totaldevisitas-1].completo == true){
                         this.proxcita=true;
                         this.pesoactual=this.visitas[this.totaldevisitas-1].peso;
@@ -86,13 +106,10 @@ export class PerfilPacienteComponent implements OnInit{
                         this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
                     }
                     this.citas=this.ordenados.slice().reverse();
-                     console.log(this.citas);
                      this.citas1=this.ordenados.slice().reverse();
                      if (this.proxcita == false){
                         this.citas1.shift();                        
                      }
-                     console.log(this.citas);
-                     
                 }
             }
         });
@@ -153,10 +170,12 @@ export class PerfilPacienteComponent implements OnInit{
     }
 
     openHisCliDialog(P){
-        console.log('openHisCliDialog()');
-//         CONST.miPacienteActual=P;
          let dialogRef = this.dialog.open(HistoriaClinicaComponent);
-         dialogRef.componentInstance.paciente =P;
+         dialogRef.componentInstance.paciente=P;
+         dialogRef.componentInstance.flag=true;
+         dialogRef.afterClosed().subscribe(result=>{
+             this.mostrarPaciente();
+         })
   }
 // Funciones para eliminar Paciente
     seguroElim(){

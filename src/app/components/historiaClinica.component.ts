@@ -6,8 +6,6 @@ import { Router, ActivatedRoute, Params} from '@angular/router';
 import { PacienteService } from '../services/paciente.service';
 import { Paciente } from '../models/paciente';
 
-// import {CONST} from '../services/constantes';
-
 @Component({
    selector: 'historia-clinica',
    templateUrl: '../views/historiaClinica.html',
@@ -16,14 +14,13 @@ import { Paciente } from '../models/paciente';
 })
 export class HistoriaClinicaComponent implements OnInit{
     public paciente:any;
-    public errorMessage:any;
-    public checked:string[]=[];
-    public maldias:string[]=["0","0","0","0","0","0"];
-    public males:string[]=[];
-    public malestares:string[]=[
-        'Estreñimiento','Insomnio','Dolor de cabeza','Zumbido de oidos','Cansancio excesivo','Inflamación'
+    public males=[
+      [' Estreñimiento ','0'],[' Insomnio ','0'],[' Dolor de cabeza ','0'],[' Zumbido de oidos ','0'],[' Cansancio excesivo ','0'],[' Inflamación ','0']
+      ];
+    public enfercb=[
+      [' Diabetes',false],[' Hipertensión',false],[' Cardiopatía',false],[' Resistencia a la insulina',false],[' Hipotiroidismo',false],[' Hipertiroidismo',false],[' Colitis',false],[' Gastritis',false]
     ];
-    
+    public flag:boolean;
 
     constructor(public dialogRef: MdDialogRef<HistoriaClinicaComponent>,
                 private pacienteService: PacienteService,
@@ -32,37 +29,29 @@ export class HistoriaClinicaComponent implements OnInit{
                 ) {}
 
     ngOnInit(){
-        //  this.paciente = new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
-        //  this.paciente = CONST.miPacienteActual;
-        console.log('HistoriaClinicaComponent')
-        console.log(this.paciente);
+        // Cargar enfermedades y malestares
+        if(this.paciente.malestares==""){this.paciente.malestares=this.males;}
+        if(this.paciente.enfermedades==""){this.paciente.enfermedades=this.enfercb;}
+        if(this.flag==true){}else{this.flag=false;}
     }
 
      actualizarHisCli(){
        this.paciente.completo=true;
-       for(let i=0;i<6;i++){
-           if(this.maldias[i]!='0'){
-               this.males.push(this.malestares[i]+' '+ this.maldias[i]+' dias a la semana')
-           }
-       }
-       this.paciente.malestares=this.males.toString();
-       this.males=[];
-       this.paciente.enfermedades=this.checked.toString();
+      //  Llenar array de malestares con el nombre del malestar en [i][0]
+      for (let i=0;i<6;i++){
+        this.paciente.malestares[i][0]=this.males[i][0];
+      }
        this.pacienteService.updatePaciente(this.paciente.id, this.paciente);
-       this.router.navigate(['paciente',this.paciente.id]);
+      //  Agregar flag para indicar que se inicio desde un dialog y cerrarlo
+      if(this.flag==true){
+        this.dialogRef.close();
+      } else{
+        this.router.navigate(['paciente',this.paciente.id]);
+      }
     }
 
-    updateChecked(option, event) {
-      var index = this.checked.indexOf(option);
-      if(event.target.checked) {
-        if(index === -1) {
-          this.checked.push(option);
-        }
-      } else {
-        if(index !== -1) {
-          this.checked.splice(index, 1);
-        }
-      }
+    togglecb(x){
+      this.paciente.enfermedades[x][1]=!this.paciente.enfermedades[x][1];
     }
 
 
