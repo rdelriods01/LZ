@@ -17,10 +17,10 @@
         </div>
         <div class="historiaClinica">
             <h3 style="text-align: center">Historia Clínica</h3>
-            <div *ngIf="!paciente.enfermedades==''" ><h5>Enfermedades: </h5><p>{{paciente.enfermedades}}</p></div>
-            <div *ngIf="!paciente.malestares==''" ><h5>Malestares: </h5><p>{{paciente.malestares}}</p></div>
+            <div *ngIf="!enf==''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
+            <div *ngIf="!malesta==''" ><h5>Malestares: </h5><p>{{malesta}}</p></div>
             <div *ngIf="!paciente.alergias==''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
-            <div *ngIf="!paciente.no==''" ><h5>No incluir en la dieta: </h5><p>{{paciente.no}}</p></div>
+            <div *ngIf="!paciente.noincluir==''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
             <div *ngIf="!paciente.observaciones==''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
         </div>
     </div>

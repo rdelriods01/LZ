@@ -1,32 +1,40 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { HistoriaClinicaComponent } from './historiaClinica.component';
 
 import { VisitaService } from '../services/visita.service';
+import { PacienteService } from '../services/paciente.service';
+
 
 @Component({
   selector: 'datatable',
   templateUrl:'../views/datatable.html',
   styleUrls: ['../css/datatable.css'],
 })
-export class DatatableComponent{ 
+export class DatatableComponent implements OnInit{ 
   
   public filteredList:any=[];
   public visitas:any=[];
   public errorMessage:any;
+  public pacientes:any=[];
 
   @Input() fecha:string;
 
-  constructor( private visitaService:VisitaService, public dialog: MdDialog){
-      this.getVisitas();
+  constructor( private visitaService:VisitaService, private pacienteService:PacienteService, public dialog: MdDialog){
   }
+
+  ngOnInit(){
+    this.getVisitas();
+  }
+
   getVisitas(){
       this.visitaService.getVisitas().subscribe(
         (result: FirebaseListObservable<any>)=>{
           this.visitas=result;
-          if(!this.visitas){alert('Error en el servidor');}
+          if(!this.visitas){alert('Error en el servidor de visitas');}
+          this.getPacientes();
         },
         error =>{
           this.errorMessage = <any>error;
@@ -36,9 +44,38 @@ export class DatatableComponent{
         }
       );
   }
-  filter(){
-    return this.filteredList=this.filterByProperty(this.visitas,"fecha",this.fecha);
+
+  getPacientes(){
+    this.pacienteService.getPacientes().subscribe(
+      (result: FirebaseListObservable<any>)=>{
+        this.pacientes=result;
+        if(!this.pacientes){alert("Error en el servidor de pacientes")}
+        this.filter();
+      },
+      error=>{
+        this.errorMessage = <any>error;
+        if (this.errorMessage != null){
+            console.log(this.errorMessage);
+        }
+      }
+    );
   }
+
+  filter(){
+    // filtrar las visitas del día de hoy
+    this.filteredList=this.filterByProperty(this.visitas,"fecha",this.fecha);
+    // buscar los pacientes que tengan en el id el idPaciente que tiene la visita
+   
+    for(let i=0;i<this.pacientes.length;i++){
+      for(let j=0;j<this.filteredList.length;j++){
+        if(this.pacientes[i].id==this.filteredList[j].paciente){
+          this.filteredList[j].paciente=this.pacientes[i];
+        }
+      }
+    }
+    return this.filteredList;
+  }
+    
   filterByProperty(array, prop, value){
       var filtered = [];
       var filtrado = [];

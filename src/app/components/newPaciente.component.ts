@@ -44,7 +44,7 @@ export class NewPacienteComponent implements OnInit{
     onSubmit(){
         this.paciente.nombre=this.toCapital(this.paciente.nombre);
         this.pacienteService.savePaciente(this.paciente);
-        this.visita.paciente=this.paciente;
+        this.visita.paciente=this.paciente.id;
         this.visitaService.saveVisita(this.visita);
     }
 
