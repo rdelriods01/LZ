@@ -14,29 +14,49 @@ button:hover {
 }
 .nombre{
     width: 350px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .genero{
     margin: 0 50px;
 }
-
 .edad{
+    text-align: center;
+    text-align-last: center;
     width: 60px;
 }
-.correo{
-    width: 270px;
+.allItems{
+    display: flex;
+    margin: 1em 0;
+}
+.lefties{
+    margin: 0px;
+}
+.datos{
+    display: flex;
+    font-size:86%;
+    text-align: center;
+}
+.contacto, .direccion, .multiEnf, .malestares{
+    margin: 0 auto;
 }
 .valores{
-    margin: 0px 5px 15px 5px;
     text-align: center;
+    margin:0;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 .valores md-input-container{
     margin: 0px 30px;
-    width: 115px;
+    width: 125px;
+    text-align: center;
+    text-align-last: center;
 }
-.multiEnf{
-    margin: 0 auto;
+.enfymal{
+    display: flex; 
+    width: 650px;
+    margin: 1em 0;
 }
-
 #ck-button {
     background-color:#FFF;
     border-radius:4px;
@@ -67,13 +87,16 @@ button:hover {
     background-color:#7cb342;
 }
 .malestares{
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
-.malestares p{
-    margin: 0 4px;
+.malestares span{
     height: 35px;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
 }
 .areas{
-    margin: 0 auto
+    width: 100%;
+    margin: 1px 0;
 }
