@@ -43,13 +43,14 @@ export class ConsultarComponent implements OnInit {
     this.miUltimaVisita.menu,
     "",
     false,
-    this.paciente );
+    this.paciente.id );
 
     this.resultado=[false,this.visit];
 
     }
 
     consultar(){
+        console.log(this.visit.fecha);
         this.visit.completo=true;
         this.visit.numero++;
         this.resultado[0]=true;  //habilitar proxCita en perfilP  

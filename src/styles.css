@@ -22,7 +22,7 @@ div#cdk-overlay-0 {
     bottom: 710px !important;
     left: 1550px !important;
 }
-/*No se para que es*/
+/*Creo que es para darle color a los checkbutons de enfermedades*/
 .mat-button-toggle-checked .mat-button-toggle-label-content{
     background-color:#8BC34A !important;
 }

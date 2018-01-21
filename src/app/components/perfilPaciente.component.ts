@@ -82,7 +82,12 @@ export class PerfilPacienteComponent implements OnInit{
                 this.temp=[];
                 // Obtener visitas del paciente actual
                 this.visitas=this.visitaService.getVisitasP(id);
-                if(!this.visitas){alert('Paciente Sin Visitas')}
+
+                if(this.visitas.length==0){
+                    // Cambiar boton de consultar por agendar cita
+                    this.proxcita=true;
+                    alert('Paciente Sin Visitas');
+                }
                 else{
                     this.totaldevisitas=this.visitas.length;
                     if(this.visitas[this.totaldevisitas-1].completo == true){
@@ -162,6 +167,7 @@ export class PerfilPacienteComponent implements OnInit{
     openProxCitaDialog(P){
         let dialogRef = this.dialog.open(ProxCitaComponent);
         dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.editFlag=false;
 //         dialogRef.afterClosed().subscribe(result => {
 //             if(result==null){}else{
 //                 this.visitas.push(result);
