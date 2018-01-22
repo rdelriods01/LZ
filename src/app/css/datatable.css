@@ -17,7 +17,7 @@ tbody td {
     box-sizing: border-box;
     width: 254px;
     border-top: 1px solid rgb(221, 221, 221);
-    padding: 8px;
+    padding: 8px 0px;
 }
 .btnverde{
     font-weight: bold;

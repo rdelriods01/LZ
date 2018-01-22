@@ -50,8 +50,8 @@ export class ProxCitaComponent implements OnInit{
             this.dialogRef.close();
         }else{
             this.visitaService.saveVisita(this.visita);
+            this._router.navigate(['/']);
             this.dialogRef.close();
         }
-        // this._router.navigate(['/']);
     }
 }

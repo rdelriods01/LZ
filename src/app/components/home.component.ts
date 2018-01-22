@@ -36,7 +36,6 @@ export class HomeComponent {
   getPacientes(){
     this.pacienteService.getPacientes().subscribe(
             (result: FirebaseListObservable<any>) =>{
-                console.log(result);
                 this.pacientes=result;
                 if(!this.pacientes){alert('Error en el servidor')}
                 else{
@@ -71,7 +70,6 @@ export class HomeComponent {
   }
 
   eV(x:any){
-    console.log(x);
     this.visitaService.deleteVisita(x);
   }
 }

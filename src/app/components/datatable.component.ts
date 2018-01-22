@@ -63,7 +63,7 @@ export class DatatableComponent implements OnInit{
       }
     );
   }
-
+  
   filter(){
     // filtrar las visitas del día de hoy
     this.filteredList=this.filterByProperty(this.visitas,"fecha",this.fecha);
@@ -97,7 +97,7 @@ export class DatatableComponent implements OnInit{
     let dialogRef = this.dialog.open(HistoriaClinicaComponent);
     dialogRef.componentInstance.paciente =P;
   }
-  // AGENDAAAAAAAR CITAAAA DIALOG!!!! AQUI ME QUEDE
+  // Agendar Cita
   editVisita(V){
     let dialogRef = this.dialog.open(ProxCitaComponent);
     dialogRef.componentInstance.paciente=V.paciente;
@@ -109,7 +109,6 @@ export class DatatableComponent implements OnInit{
 //             }
 //         });
   }
-
 
 // Eliminar alguna visita
   seguroDelVisita(V){
