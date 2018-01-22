@@ -19,13 +19,13 @@
             <h3 style="text-align: center">Historia Clínica</h3>
             <div *ngIf="!enf==''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
             <div *ngIf="!malesta==''" ><h5>Malestares: </h5><p>{{malesta}}</p></div>
-            <div *ngIf="!paciente.alergias==''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
-            <div *ngIf="!paciente.noincluir==''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
-            <div *ngIf="!paciente.observaciones==''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
+            <div *ngIf="!alerg==''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
+            <div *ngIf="!noinclu==''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
+            <div *ngIf="!observa==''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
         </div>
     </div>
     <div class="perfSupDer">
-        <div *ngIf="totaldevisitas>1" class="pesos">
+        <!-- <div *ngIf="totaldevisitas>1" class="pesos">
             <div id="dinamicos">   
                 <div id="actual"><h5>{{pesoactual}}<h4>Kg</h4></h5><p>Peso actual</p></div>
                 <div *ngIf="totalbajado<=0" style="color: red" id="bajado"><h5>{{totalbajado}} <h4>Kg</h4></h5><p>Total bajado</p></div>
@@ -35,14 +35,17 @@
             <div id="estaticos" >   
                 <div><h5>Peso inicial: </h5><p>{{pesoinicial}} Kg</p></div>
             </div>
-        </div>
-        <div class="botones">
+        </div> -->
+        <div *ngIf="yaConsultar" class="botones">
+            <h3 *ngIf="!proxcita" style="text-align:center;"  >Paciente con cita programada </h3>
             <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>
-            <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Proxima Cita</button>
+            <h3 *ngIf="!showList && proxcita" style="text-align: center;" >Paciente sin citas aun</h3>
+            <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Agendar Cita</button>
         </div>
+        <h2 *ngIf="!yaConsultar" style="text-align:center;" >Aun no es el dia de la consulta</h2>
     </div>
 </div>
-<div class="perfInferior">
+<div *ngIf="showList"  class="perfInferior">
     <md-card>   
         <div class="perfInfTitle">
             <h2 *ngIf="proxcita" >{{totaldevisitas}} Consultas previas
@@ -62,7 +65,7 @@
                         <th>Grasa</th>
                         <th>Músculo</th>
                         <th>Abdomen</th>
-                        <th *ngIf="paciente.sexo=='Mujer'"  >Cadera</th>
+                        <th *ngIf="genero=='Mujer'"  >Cadera</th>
                         <th>Glucosa</th>
                         <th>Menú</th>
                         <th>Comentarios</th>
@@ -77,7 +80,7 @@
                         <td >{{visita.grasa}}</td>
                         <td >{{visita.musculo}}</td>
                         <td >{{visita.abdomen}}</td>
-                        <td *ngIf="paciente.sexo=='Mujer'">{{visita.cadera}}</td>
+                        <td *ngIf="genero=='Mujer'">{{visita.cadera}}</td>
                         <td >{{visita.glucosa}}</td>
                         <td >{{visita.menu}}</td>
                         <td >{{visita.comentarios}}</td>

@@ -42,7 +42,13 @@ export class PerfilPacienteComponent implements OnInit{
     ];
     public enf:string;
     public malesta:string;
+    public alerg:String;
+    public noinclu:String;
+    public observa:String;
+    public genero:String;
     public temp:any=[];
+    public showList:Boolean=false;
+    public yaConsultar:Boolean=false;
 
     constructor (
         private _route:ActivatedRoute,
@@ -50,10 +56,12 @@ export class PerfilPacienteComponent implements OnInit{
         private visitaService: VisitaService,
         private pacienteService: PacienteService,
         public dialog: MdDialog,
-    ){}
+    ){
+        this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
+        this.mostrarPaciente();
+    }
     
     ngOnInit(){
-        //  this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
          this.mostrarPaciente();
     }
 
@@ -63,7 +71,7 @@ export class PerfilPacienteComponent implements OnInit{
             this.paciente= this.pacienteService.getPaciente(id);
             if(!this.paciente){this._router.navigate(['/'])}
             else{
-                // Ajustar datos del paciente para poder visualizarlos correctamente
+                // Ajustar datos del paciente para poder visualizarlos correctamente al iniciar 
                 // enfermedades
                 for(let i=0;i<8;i++){
                     if(this.paciente.enfermedades[i][1]){
@@ -80,41 +88,116 @@ export class PerfilPacienteComponent implements OnInit{
                 }
                 if(this.temp.length>0){this.malesta=this.temp.toString();}else{this.malesta="";}
                 this.temp=[];
-                // Obtener visitas del paciente actual
-                this.visitas=this.visitaService.getVisitasP(id);
-                if(!this.visitas){alert('Paciente Sin Visitas')}
-                else{
-                    this.totaldevisitas=this.visitas.length;
-                    if(this.visitas[this.totaldevisitas-1].completo == true){
-                        this.proxcita=true;
-                        this.pesoactual=this.visitas[this.totaldevisitas-1].peso;
-                    }else{
-                        this.proxcita=false;
-                        if(this.totaldevisitas>1){this.pesoactual=this.visitas[this.totaldevisitas-2].peso;}
-                    }
-                    this.pesoinicial=this.visitas[0].peso;
-                    this.totalbajado=Math.round((this.pesoinicial-this.pesoactual) * 10)/10;
-                    // ordenar visitas de ultima a primera
-                    this.ordenados = this.visitas
-                    for(let i=0;i<this.totaldevisitas;i++){
-                        this.fechaSplit =  this.ordenados[i].fecha.split("-");
-                        for(let j=1;j<=12;j++){
-                            if(this.fechaSplit[1]==j){
-                                this.fechaSplit[1]=this.mes[j-1];
-                            }
-                        }
-                        this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
-                    }
-                    this.citas=this.ordenados.slice().reverse();
-                     this.citas1=this.ordenados.slice().reverse();
-                     if (this.proxcita == false){
-                        this.citas1.shift();                        
-                     }
-                }
+                // otros
+                this.alerg=this.paciente.alergias;
+                this.noinclu=this.paciente.noincluir;
+                this.observa=this.paciente.observaciones;
+                this.genero=this.paciente.sexo;
+                // Ya que se tiene el paciente, ahora hay que mostrar las visitas
+                this.mostrarVisitasP();
             }
         });
     }
 
+    mostrarVisitasP(){
+        // Obtener visitas del paciente actual
+        // puede tener 0 visitas 
+            // entonces poner boton de agregara visita si tiene 0 visitas
+        // puede tener 1 visita programada pero no completa
+            // entonces mostrar que tiene cita programa y poner boton de consultar
+        // al termino de consultar (tiene 1 visita completa), 
+            // volver al perfil paciente y mostrar en la lista su visita recien
+            // asi tambien poner un boton para agendar siguiente cita
+        // tendrá 1 visita completas y una mas programada
+            // volver a dashboard, y al entrar a su perfil habilitar boton consultar hasta que sea la fecha
+        // ---> cuando sea tiempo de consultar la siguiente cita, consultar y finalizar
+            // mostrar avances y comparativa y boton de programar la siguiente cita
+        // tendrá X visitas completas y una mas programada
+            // volver a dashboard, y al entrar a su perfil habilitar boton consultar hasta que sea la fecha
+            // Se repite desde flecha --->
+
+        this.visitas=this.visitaService.getVisitasP(this.paciente.id);
+        this.totaldevisitas=this.visitas.length;
+        if(this.visitas.length==0){ // Si no tiene citas
+            // Cambiar boton de consultar por agendar cita
+            this.yaConsultar=true; //muestra botones por que aun no hay fecha de cita
+            this.proxcita=true;
+            this.showList=false;
+            console.log('Paciente Sin Visitas');
+        }
+        else{
+            if(this.visitas.length==1){ // Si es la primer cita
+                if(this.visitas[0].completo==false){ //y aun no se consulta
+                    this.showList=false;
+                    this.proxcita=false; //Se habilita boton Consultar
+                    this.citas=this.visitas;
+                    // Siempre y cuando sea la fecha programada
+                    this.yaConsultar=this.yaEsHoraDeConsultar(this.visitas[0]);
+                }else{
+                    this.showList=true;
+                    this.proxcita=true;
+                    this.yaConsultar=true;
+                    this.citas1=this.visitas;
+                }
+             }else{ //Si tiene mas de una cita
+                this.showList=true;
+                // Estan completas?
+                let incompleta:any=null;
+                for(let i=0;i<this.totaldevisitas;i++){
+                    if(this.visitas[i].completo==true){
+                        // si esta completa
+                        console.log("Visita No: " + i + " completa");
+                    }else{
+                        // si no esta completa guarda la que no esta completa
+                        console.log("Visita No: " + i + " incompleta");
+                        incompleta=this.visitas[i];
+                    }
+                }
+                if(incompleta!=null){ // Si hay una incompleta
+                    this.yaConsultar=this.yaEsHoraDeConsultar(incompleta); // Es dia de consulta?
+                    this.proxcita=false;
+                }else{
+                    this.yaConsultar=true;
+                    this.proxcita=true;
+                }
+                // Si ya es hora de consultar
+                this.ordenados = this.visitas
+                for(let i=0;i<this.totaldevisitas;i++){
+                    this.fechaSplit =  this.ordenados[i].fecha.split("-");
+                    for(let j=1;j<=12;j++){
+                        if(this.fechaSplit[1]==j){
+                            this.fechaSplit[1]=this.mes[j-1];
+                        }
+                    }
+                    this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
+                }
+                this.citas=this.ordenados.slice().reverse();
+                this.citas1=this.ordenados.slice().reverse();
+                if (this.proxcita == false){
+                    this.citas1.shift();                        
+                }
+            }    
+            // LA VISITA con i = totaldevisitas-1 es la mas reciente <===============
+
+
+
+            // Calcular peso bajado
+
+            // if(this.visitas[this.totaldevisitas-1].completo == true){
+            //     this.proxcita=true;
+            //     this.pesoactual=this.visitas[this.totaldevisitas-1].peso;
+            // }else{
+            //     this.proxcita=false;
+            //     if(this.totaldevisitas>1){this.pesoactual=this.visitas[this.totaldevisitas-2].peso;}
+            // }
+            // this.pesoinicial=this.visitas[0].peso;
+            // this.totalbajado=Math.round((this.pesoinicial-this.pesoactual) * 10)/10;
+
+
+            // ordenar visitas de ultima a primera
+            
+        }
+    }
 
 // Funciones para los Dialogs Consultar / Proxima Cita / Editar historiaClinica
     openConsultarDialog(P,V){
@@ -134,6 +217,7 @@ export class PerfilPacienteComponent implements OnInit{
         let UV={};
         if(V[0].completo == true){
             this.proxcita=true;
+            console.log("aqui entró")
         }else{
             VA=V[0];            
             if(this.totaldevisitas==1){
@@ -162,6 +246,7 @@ export class PerfilPacienteComponent implements OnInit{
     openProxCitaDialog(P){
         let dialogRef = this.dialog.open(ProxCitaComponent);
         dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.editFlag=false;
 //         dialogRef.afterClosed().subscribe(result => {
 //             if(result==null){}else{
 //                 this.visitas.push(result);
@@ -249,5 +334,21 @@ export class PerfilPacienteComponent implements OnInit{
         this.visible=true;
     }
 
+    yaEsHoraDeConsultar(X){
+        let d = new Date();
+        let miFecha:any[]=[];
+        miFecha[0]=d.getFullYear();
+        miFecha[1]=d.getMonth()+1;
+        if(miFecha[1]<10){
+            miFecha[1]=('0'+miFecha[1]);
+        }
+        miFecha[2]=d.getDate();
+        let hoy=miFecha[0]+'-'+miFecha[1]+'-'+miFecha[2];
+        if(X.fecha==hoy){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }

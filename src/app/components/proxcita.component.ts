@@ -6,9 +6,6 @@ import { Router} from '@angular/router';
 import { VisitaService } from '../services/visita.service';
 import { Visita } from '../models/visita';
 
-// import {GLOBAL} from '../services/global';
-// import {CONST} from '../services/constantes';
-
 @Component({
    selector: 'proxcita',
    templateUrl: '../views/proxcita.html',
@@ -20,6 +17,7 @@ export class ProxCitaComponent implements OnInit{
     public paciente:any;
     public btnGuardarB:boolean=false;
     public min:string="today";
+    public editFlag:Boolean=false;
 
     constructor(public dialogRef: MdDialogRef<ProxCitaComponent>,
                 private visitaService: VisitaService,
@@ -28,7 +26,11 @@ export class ProxCitaComponent implements OnInit{
                 }
 
     ngOnInit(){
-                    this.visita = new Visita("",0,"","",0,0,0,0,0,0,"","",false,this.paciente);
+        if(this.editFlag==true){
+            console.log(this.visita);
+        }else{
+            this.visita = new Visita("",0,"","",0,0,0,0,0,0,"","",false,this.paciente.id);
+        }
     }
     sendFecha(event){
         let fyh =event.mifecha.split(" ");
@@ -42,31 +44,14 @@ export class ProxCitaComponent implements OnInit{
     }
 
     agendar(){
-
-        this.visitaService.saveVisita(this.visita)
-        this._router.navigate(['/']);
-
-
-        // this._visitaService.addVisita(this.visita).subscribe(
-        //     result =>{
-        //         this.visita= result.visita;
-        //         if(!this.visita){
-        //             alert('Error en el servidor al agendar proxima visita');
-        //         }else{
-        //             this._router.navigate(['/']);
-        //         }
-        //     },
-        //     error =>{
-        //         this.errorMessage = <any>error;
-        //         if (this.errorMessage != null){
-        //             console.log(this.errorMessage);
-        //         }
-        //     }
-        // );
+        if(this.editFlag==true){
+            this.visita.paciente=this.paciente.id;
+            this.visitaService.editVisita(this.visita.id,this.visita);
+            this.dialogRef.close();
+        }else{
+            this.visitaService.saveVisita(this.visita);
+            this._router.navigate(['/']);
+            this.dialogRef.close();
+        }
     }
-
-
-
-
-//FIN
 }

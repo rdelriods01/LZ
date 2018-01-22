@@ -20,6 +20,9 @@ export class ConsultarComponent implements OnInit {
     public paciente:any;
     public errorMessage:any;
     public resultado:[Boolean,{}];
+    public mes:string[]=[
+        'ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'
+    ];
 
     constructor(public dialogRef: MdDialogRef<ConsultarComponent>,
                 private visitaService: VisitaService,
@@ -43,13 +46,25 @@ export class ConsultarComponent implements OnInit {
     this.miUltimaVisita.menu,
     "",
     false,
-    this.paciente );
+    this.paciente.id );
 
     this.resultado=[false,this.visit];
 
     }
 
     consultar(){
+        // Necesito volver a ajustar la fecha al formato YYYY-MM-DD
+        let dateSplit =  this.visit.fecha.split("-");
+        for(let j=1;j<=12;j++){
+            if(dateSplit[1]==this.mes[j-1]){
+                dateSplit[1]=j;
+                if(dateSplit[1]<10){
+                    dateSplit[1]=('0'+dateSplit[1]);
+                }
+            }
+        }
+        this.visit.fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
+        // 
         this.visit.completo=true;
         this.visit.numero++;
         this.resultado[0]=true;  //habilitar proxCita en perfilP  
