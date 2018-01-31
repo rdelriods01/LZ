@@ -25,6 +25,9 @@
         </div>
     </div>
     <div class="perfSupDer">
+        <div *ngIf="showAvances" class="avances" >
+            <h2>Aqui iran los avances del paciente</h2>
+        </div>
         <!-- <div *ngIf="totaldevisitas>1" class="pesos">
             <div id="dinamicos">   
                 <div id="actual"><h5>{{pesoactual}}<h4>Kg</h4></h5><p>Peso actual</p></div>
@@ -37,12 +40,17 @@
             </div>
         </div> -->
         <div *ngIf="yaConsultar" class="botones">
-            <h3 *ngIf="!proxcita" style="text-align:center;"  >Paciente con cita programada </h3>
+            <h3 *ngIf="!proxcita" style="text-align:center;"  >Cita programada hoy a las {{horaCita}} hrs. </h3>
             <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>
+            <button md-button *ngIf="!proxcita" (click)="editCita(cita)" >Cambiar cita</button>
             <h3 *ngIf="!showList && proxcita" style="text-align: center;" >Paciente sin citas aun</h3>
             <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Agendar Cita</button>
         </div>
-        <h2 *ngIf="!yaConsultar" style="text-align:center;" >Aun no es el dia de la consulta</h2>
+        <div *ngIf="!yaConsultar" class="aunNo">
+            <h2>No es el dia de la cita</h2>
+            <h3>Cita programada para el {{fechaProx}} a las {{horaCita}}</h3>
+            <button md-button (click)="editCita(cita)" >Cambiar cita</button>
+        </div>
     </div>
 </div>
 <div *ngIf="showList"  class="perfInferior">
@@ -54,7 +62,7 @@
             <h2 *ngIf="!proxcita" >{{totaldevisitas-1}} Consultas previas
                 <button md-button *ngIf="visible" class="btnSmall btnTrash" (click)="seguroDelVisita()" ><md-icon>delete</md-icon></button>    
             </h2>
-            <button md-button (click)="showAdvance()" ><md-icon>more_horiz</md-icon></button>
+            <button md-button (click)="showMore()" ><md-icon>more_horiz</md-icon></button>
         </div>
         <div style="overflow-x:auto;">   
             <table>
@@ -76,12 +84,12 @@
                     
                     <tr *ngFor="let visita of citas1" >
                         <td >{{visita.fecha}}</td>
-                        <td >{{visita.peso}}</td>
-                        <td >{{visita.grasa}}</td>
-                        <td >{{visita.musculo}}</td>
-                        <td >{{visita.abdomen}}</td>
-                        <td *ngIf="genero=='Mujer'">{{visita.cadera}}</td>
-                        <td >{{visita.glucosa}}</td>
+                        <td [ngStyle]="{'color':visita.colP}"> {{visita.peso}} Kg <md-icon *ngIf="visita.arrowP" class="arrow" > {{visita.arrowP}}</md-icon> {{visita.difP}} </td>
+                        <td [ngStyle]="{'color':visita.colG}"> {{visita.grasa}} Kg <md-icon *ngIf="visita.arrowG" class="arrow" > {{visita.arrowG}}</md-icon> {{visita.difG}} </td>
+                        <td [ngStyle]="{'color':visita.colM}"> {{visita.musculo}} Kg <md-icon *ngIf="visita.arrowM" class="arrow" > {{visita.arrowM}}</md-icon> {{visita.difM}} </td>
+                        <td [ngStyle]="{'color':visita.colA}"> {{visita.abdomen}} cm <md-icon *ngIf="visita.arrowA" class="arrow" > {{visita.arrowA}}</md-icon> {{visita.difA}} </td>
+                        <td *ngIf="genero=='Mujer'" [ngStyle]="{'color':visita.colC}"> {{visita.cadera}} cm <md-icon *ngIf="visita.arrowC" class="arrow" > {{visita.arrowC}}</md-icon> {{visita.difC}} </td>
+                        <td [ngStyle]="{'color':visita.colGl}"> {{visita.glucosa}} mg/dl <md-icon *ngIf="visita.arrowGl" class="arrow" > {{visita.arrowGl}}</md-icon> {{visita.difGl}} </td>
                         <td >{{visita.menu}}</td>
                         <td >{{visita.comentarios}}</td>
                         <td *ngIf="visible">
@@ -95,6 +103,17 @@
                     </tr> 
                 </tbody>
             </table>
+        </div>
+    </md-card>
+    <md-card>
+        <div *ngIf="showGraf" class="graficaProgreso">
+            <canvas baseChart 
+                [datasets]="gData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType">
+            </canvas>
         </div>
     </md-card>
 </div>

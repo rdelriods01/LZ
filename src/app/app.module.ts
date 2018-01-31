@@ -7,6 +7,8 @@ import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import 'hammerjs';
+// Import de ChartJS
+import { ChartsModule } from 'ng2-charts';
 
 // configuracion necesaria para Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -78,7 +80,8 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartsModule
     ],
   providers: [
     AuthService,

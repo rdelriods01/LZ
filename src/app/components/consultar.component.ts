@@ -70,6 +70,9 @@ export class ConsultarComponent implements OnInit {
         this.resultado[0]=true;  //habilitar proxCita en perfilP  
         this.visitaService.editVisita(this.visit.id, this.visit)
         this.resultado[1]=this.visit;
+        console.log(this.resultado);
+        this.dialogRef.close(this.resultado);
+
     }
 
 
