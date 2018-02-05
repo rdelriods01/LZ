@@ -1,11 +1,25 @@
-<div id="loginC" class="grad" >
+<div class="bg" >
+  <div class="logo">
+    <img class="LZlogo" src="../assets/images/logo.png" alt="LZlogo">
+  </div>
   <md-card class="loginCard" > 
     <div>
-      <h1 style="margin: 0">Inicia Sesion</h1>
-      <div class="Glogo">
-        <img class="GlogoIcon" src="../assets/images/google.png" alt="Glogo">
+      <div class="textSup">
+          <h1>Inicia Sesion</h1>
       </div>
-      <button md-button (click)="login()">Google Login</button>
+      <div class="inputs">
+        <p><md-icon class="icons" >mail</md-icon></p>
+        <md-input-container>
+             <input mdInput [(ngModel)]="email" placeholder="email.." required >
+        </md-input-container>
+        <p><md-icon class="icons" >lock</md-icon></p>
+        <md-input-container>
+             <input mdInput type="password" [(ngModel)]="pass" placeholder="pass.." required >
+        </md-input-container>
+      </div>
+      <div class="btnLogin" > 
+        <button md-button (click)="login()">Login</button>
+      </div>
     </div>
   </md-card>
 </div>

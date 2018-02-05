@@ -1,3 +1,8 @@
+.tituloTable{
+    font-size: 24px;
+    margin-top: -4px;
+    color: grey;
+}
 table {
     width: 100%;
     border-spacing: 0px 0px;

@@ -1,6 +1,17 @@
 *{
     font-family: 'Roboto';
 }
+.hiscli{
+    max-height: fit-content;
+}
+.first{
+    display: flex;
+    flex-direction: row;
+}
+.edadygen{
+    display: flex;
+}
+
 button{
     background-color:#8BC34A;
     font-size: 15px;
@@ -13,17 +24,17 @@ button:hover {
     background:#7cb342;
 }
 .nombre{
-    width: 350px;
     font-size: 1.2em;
     font-weight: bold;
 }
 .genero{
-    margin: 0 50px;
+    margin: 0.9em 6em;
+    display: table;
 }
 .edad{
-    text-align: center;
     text-align-last: center;
-    width: 60px;
+    width: 4em;
+    margin: auto;
 }
 .allItems{
     display: flex;
@@ -37,7 +48,7 @@ button:hover {
     font-size:86%;
     text-align: center;
 }
-.contacto, .direccion, .multiEnf, .malestares{
+.contacto, .direccion, .multiEnf, .malestares, .enfermedades{
     margin: 0 auto;
 }
 .valores{
@@ -47,14 +58,14 @@ button:hover {
     font-weight: bold;
 }
 .valores md-input-container{
-    margin: 0px 30px;
-    width: 125px;
+    margin: 0px 2em;
+    width: 7em;
     text-align: center;
     text-align-last: center;
 }
 .enfymal{
     display: flex; 
-    width: 650px;
+    width: 40em;
     margin: 1em 0;
 }
 #ck-button {
@@ -91,7 +102,7 @@ button:hover {
     flex-direction: column;
 }
 .malestares span{
-    height: 35px;
+    height: 2.2em;
     display: flex;
     align-items: center;
     align-self: flex-end;
@@ -99,4 +110,42 @@ button:hover {
 .areas{
     width: 100%;
     margin: 1px 0;
+}
+
+@media only screen 
+  and (max-device-width: 800px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (-moz-min-device-pixel-ratio: 2 ) { 
+    .hiscli{
+        max-height: -webkit-fill-available; 
+    }
+    .first{
+        text-align-last: center;
+        flex-direction: column;
+    }
+    .genero{
+        margin: .5em auto;
+        display: inline-table;
+    }
+    .allItems{
+        flex-direction: column;
+        zoom: 70%;
+    }
+    .datos{
+        flex-direction: column;
+        background-color: #f1f1f1;
+        margin: -1em 0 4em 0;
+        text-align-last: center;
+        padding-top: 2em;
+    }
+    .enfymal{
+        flex-direction: column;
+        width: 100%
+    }
+    #ck-button{
+        margin: 0 auto;
+    }
+    .malestares, .enfermedades{
+        margin: 1em auto;
+    }
 }

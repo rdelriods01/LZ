@@ -20,8 +20,8 @@ import { NewPacienteComponent } from './newPaciente.component';
 })
 export class LayoutComponent {
 
-  private isLoggedIn: Boolean;
-  private usuario:Usuario;
+  public isLoggedIn: Boolean;
+  public usuario:Usuario;
   public pacientes:any;
   
   public visible : Boolean=true;
@@ -30,10 +30,15 @@ export class LayoutComponent {
   public mostrar2: String='hideResultado';
   public mostrar3: String ='hideResItem';
 
+  public winWidth:any; 
+
   constructor(public authService: AuthService, 
-              private pacienteService: PacienteService, 
-              private router: Router,
+              public pacienteService: PacienteService, 
+              public router: Router,
               public dialog: MdDialog) {
+    this.winWidth=(window.screen.width);
+    if(this.winWidth<800){ this.sidenavVisible=false }
+    this.usuario=new Usuario('','','','','');
     this.isLogged();
   }
 
@@ -41,55 +46,39 @@ export class LayoutComponent {
 
 
     this.authService.af.authState.subscribe((data: firebase.User)=>{
-      if(data==null){
+      if(data){
+        console.log(data);
+        if(data.email=='ricardo@delrioperez.com'){
+          data.updateProfile({ displayName:'Ricardo Del Rio',photoURL:'../assets/images/google.png'})
+          this.usuario= new Usuario(data.uid,data.displayName,data.email,data.photoURL,'admin');
+          console.log(this.usuario);
+          this.isLoggedIn=true;
+          this.getPacientes();
+          this.router.navigate(['']);
+        }else{
+          if(data.email=='karen.guerra@lightzone.com.mx'){
+            data.updateProfile({ displayName:'Karen Guerra',photoURL:'../assets/images/pp.png'})
+            this.usuario= new Usuario(data.uid,data.displayName,data.email,data.photoURL,'user');
+            console.log(this.usuario);
+            this.isLoggedIn=true;
+            this.getPacientes();
+            this.router.navigate(['']);
+          }else{
+            console.log("sin acceso");
+            this.isLoggedIn = false;
+            this.usuario = null;
+            alert('No tiene acceso');
+            this.authService.logout();
+            this.router.navigate(['login']);
+          }
+        }
+      }else{    
         console.log("Logged out");
         this.isLoggedIn = false;
         this.usuario = null;
         this.router.navigate(['login']);
-      }else{    
-        if(data.email=='ricardodelrio14@gmail.com'){
-          this.isLoggedIn = true;
-          console.log("Logged in");
-          this.usuario = new Usuario(data.uid,data.displayName,data.email,data.photoURL);
-          console.log(this.usuario);
-          this.router.navigate(['']);
-          this.getPacientes();
-        }else{
-          console.log("sin acceso");
-          this.isLoggedIn = false;
-          this.usuario = null;
-          this.router.navigate(['login']);
-          alert('No tiene acceso');
-        }
       }
     });
-    
-    // this.authService.af.auth.currentUser.     
-    // .subscribe(
-    //   (data) => {
-    //     if (data == null) {
-    //       console.log("Logged out");
-    //       this.isLoggedIn = false;
-    //       this.usuario = null;
-    //       this.router.navigate(['login']);
-    //     } else {
-    //       if(data.auth.email=='ricardodelrio14@gmail.com'){
-    //         this.isLoggedIn = true;
-    //         console.log("Logged in");
-    //         this.usuario = new Usuario(data.auth.uid, data.auth.displayName, data.auth.email, data.auth.photoURL)
-    //         console.log(this.usuario);
-    //         this.router.navigate(['']);
-    //         this.getPacientes();
-    //       }else{            
-    //         console.log("sin acceso");
-    //         this.isLoggedIn = false;
-    //         this.usuario = null;
-    //         this.router.navigate(['login']);
-    //         alert('No tiene acceso');
-    //       }
-    //     }
-    //   }
-    // );
   }
 
   logout() {
@@ -144,12 +133,6 @@ export class LayoutComponent {
 // Acciones para sidenav
   sidenavtoggle(){
     this.sidenavVisible=!this.sidenavVisible;
-    console.log(this.sidenavVisible);
-  }
-
-  sendPaciente(x:any){
-    console.log(x);
-    // CONST.miPacienteActual=x;
   }
 
   openDialog() {

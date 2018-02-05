@@ -1,15 +1,15 @@
-  <div class="navbar" >
+  <div *ngIf="isLoggedIn" class="navbar" >
     <md-toolbar color="primary">  
       <!--Boton SideNavigation-->
-      <button *ngIf="isLoggedIn" class="vAlign" md-button id="bSidenav" (click)="sidenavtoggle()"><md-icon>menu</md-icon></button>
+      <button class="vAlign" md-button id="bSidenav" (click)="sidenavtoggle()"><md-icon>menu</md-icon></button>
       <!--Logo-->
       <div class="logo">
         <img class="logoIcon" src="../assets/images/logo.png" alt="logo">
-        <a class="logoText vAlign" href="" >LIGHTZONE</a>   
+        <a class="logoText vAlign" [routerLink]="['/']" >LIGHTZONE</a>   
       </div>
       <!--Espacio en blanco-->
       <span class="fill-space"></span>    
-      <div *ngIf="isLoggedIn" id="rightElements" >
+      <div id="rightElements" >
         <!--Boton Buscar-->
         <button class="vAlign" md-button id="bSidenav" (click)="toggleBuscar()"><md-icon>search</md-icon></button>
         <md-input-container [ngClass]='mostrar'>
@@ -30,7 +30,7 @@
         </button>
       </div>     
     </md-toolbar>
-    <button *ngIf="isLoggedIn" md-fab class="btn-floating" (click)="openDialog()"><md-icon>add</md-icon></button>
+    <button md-fab class="btn-floating" (click)="openDialog()"><md-icon>add</md-icon></button>
   </div>
 
   <md-sidenav-container  class="sideb" (click)="hideResBus()">   
@@ -38,9 +38,10 @@
       <ul>
         <li><a [routerLink]="['/']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
         <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
-        <li><a [routerLink]="['/agenda']"><md-icon class="icon">event</md-icon>Agenda</a></li>
-        <li><a [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Test</a></li>
-      
+        <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/agenda']"><md-icon class="icon">event</md-icon>Agenda</a></li>
+        <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Test</a></li>
+        <span class="fill-space"></span>
+        <li><a (click)="logout()"><md-icon class="icon">exit_to_app</md-icon>Cerrar Sesión</a></li>
       </ul>
     </md-sidenav>
     <div style="padding: 1em 2em">

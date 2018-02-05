@@ -1,22 +1,24 @@
 <div class="dashContainer"> 
     <h1 class="title">Dashboard</h1>
     <br>
-    <md-card class="dashSupIzq">
-        <datatable [fecha]="miFechaDeCitas" ></datatable>
-    </md-card>
-    <md-card class="dashSupDer">
-        <div style="display: flex">
-            <div class="unaFecha">
-                <span id="uFdia">{{dia}}</span><span id="uFd">{{d}}</span><span id="uFmes">{{mes}}</span><span id="uFaño">{{y}}</span>
+    <div class="dbItems">
+        <md-card class="dashSupIzq">
+            <datatable [fecha]="miFechaDeCitas" ></datatable>
+        </md-card>
+        <md-card class="dashSupDer">
+            <div style="display: flex">
+                <div class="unaFecha">
+                    <span id="uFdia">{{dia}}</span><span id="uFd">{{d}}</span><span id="uFmes">{{mes}}</span><span id="uFaño">{{y}}</span>
+                </div>
+                <div id="dbPicker">
+                    <datepicker class="pckrCal" [fechaMin]="min" [jump]="miFechaDeCitas" [sticky]="true" (mifecha)="sendFecha($event)" ></datepicker>
+                </div>
             </div>
-            <div>
-                <datepicker class="pckrCal" [fechaMin]="min" [jump]="miFechaDeCitas" [sticky]="true" (mifecha)="sendFecha($event)" ></datepicker>
+            <div class="btnsFecha">
+                <button md-button (click)="diaMenos()"> < </button>
+                <button style="width: 10em" md-button (click)="today()"> Hoy </button>
+                <button md-button (click)="diaMas()"> > </button>
             </div>
-        </div>
-        <div class="btnsFecha">
-            <button md-button (click)="diaMenos()"> < </button>
-            <button style="width: 10em" md-button (click)="today()"> Hoy </button>
-            <button md-button (click)="diaMas()"> > </button>
-        </div>
-    </md-card>
+        </md-card>
+    </div>
 </div>

@@ -1,16 +1,20 @@
-<div md-dialog-content style="max-height: fit-content;">
+<div md-dialog-content class="hiscli">
     <form #formPaciente="ngForm">
-        <md-input-container>
-            <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
-        </md-input-container>
-            <span style="color: red" *ngIf="!nombre.valid && nombre.touched">*Requerido</span>
-        <md-button-toggle-group class="genero" #sexo="ngModel" name="sexo" [(ngModel)]="paciente.sexo" >
-            <md-button-toggle value="Mujer">M</md-button-toggle>
-            <md-button-toggle value="Hombre">H</md-button-toggle>
-        </md-button-toggle-group>
-        <md-input-container class="edad">   
-            <input mdInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2">
-        </md-input-container>
+        <div class="first">
+            <md-input-container>
+                <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
+            </md-input-container>
+                <span style="color: red" *ngIf="!nombre.valid && nombre.touched">*Requerido</span>
+            <div class="edadygen">
+                <md-button-toggle-group class="genero" #sexo="ngModel" name="sexo" [(ngModel)]="paciente.sexo" >
+                    <md-button-toggle value="Mujer">M</md-button-toggle>
+                    <md-button-toggle value="Hombre">H</md-button-toggle>
+                </md-button-toggle-group>
+                <md-input-container class="edad">   
+                    <input mdInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2">
+                </md-input-container>
+            </div>
+        </div>
         <div class="allItems">
             <div class="lefties">
                 <div class="datos" >
@@ -25,7 +29,7 @@
                                 <input mdInput #correo="ngModel" name="correo" [(ngModel)]="paciente.correo" type="email" placeholder="Correo.."  >
                             </md-input-container>
                         </p>
-                        </div>
+                    </div>
                     <div class="direccion" >
                         <label>Dirección</label>
                         <p>
@@ -53,7 +57,7 @@
                     </md-input-container>
                 </p>
                 <div class="enfymal" >
-                    <div >
+                    <div class="enfermedades" >
                         <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[0][1]" (change)="togglecb(0)"><span>{{paciente.enfermedades[0][0]}}</span></label></div>
                         <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[1][1]" (change)="togglecb(1)"><span>{{paciente.enfermedades[1][0]}}</span></label></div>
                         <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[2][1]" (change)="togglecb(2)"><span>{{paciente.enfermedades[2][0]}}</span></label></div>

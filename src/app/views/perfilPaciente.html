@@ -3,9 +3,10 @@
         <div class="datosGenerales">
             <div class="perfNombre">
                 <div style="display: flex">
-                    <h1 style="margin: 0 auto">{{paciente.nombre}}</h1>
-                    <button md-button style="margin: 0" (click)="openHisCliDialog(paciente)" ><md-icon>mode_edit</md-icon></button>
-                    <button md-button style="margin: 0;min-width:4em" (click)='seguroElim()' ><md-icon>delete</md-icon></button>
+                    <h1 style="margin: 0 auto">{{paciente.nombre}}
+                        <button md-button (click)="openHisCliDialog(paciente)" ><md-icon>mode_edit</md-icon></button>
+                        <button style="min-width: 2em" md-button (click)='seguroElim()' ><md-icon>delete</md-icon></button>
+                    </h1>
                 </div>
                 <h2 style="color: dimgray">{{paciente.sexo}} de {{paciente.edad}} años, estatura: {{paciente.estatura}} cms </h2>
             </div>
@@ -17,11 +18,11 @@
         </div>
         <div class="historiaClinica">
             <h3 style="text-align: center">Historia Clínica</h3>
-            <div *ngIf="!enf==''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
-            <div *ngIf="!malesta==''" ><h5>Malestares: </h5><p>{{malesta}}</p></div>
-            <div *ngIf="!alerg==''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
-            <div *ngIf="!noinclu==''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
-            <div *ngIf="!observa==''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
+            <div *ngIf="enf!=''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
+            <div *ngIf="malesta!=''" ><h5>Malestares: </h5><p>{{malesta}}</p></div>
+            <div *ngIf="alerg!=''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
+            <div *ngIf="noinclu!=''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
+            <div *ngIf="observa!=''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
         </div>
     </div>
     <div class="perfSupDer">
@@ -105,8 +106,8 @@
             </table>
         </div>
     </md-card>
-    <md-card>
-        <div *ngIf="showGraf" class="graficaProgreso">
+    <md-card *ngIf="showGraf">
+        <div class="graficaProgreso">
             <canvas baseChart 
                 [datasets]="gData"
                 [labels]="lineChartLabels"

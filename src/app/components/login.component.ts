@@ -10,10 +10,14 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent{
 
+  public email:String;
+  public pass:String;
+
   constructor(public authService: AuthService, private router:Router) { }
 
   login() {
-    this.authService.loginWithGoogle();
+    // this.authService.loginWithGoogle();
+    this.authService.loginWithEmail(this.email,this.pass);
   }
 
 }

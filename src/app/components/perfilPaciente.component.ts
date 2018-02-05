@@ -66,10 +66,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
 
     public gData:Array<any> = [];
     public lineChartLabels:Array<any> =[];
-    public lineChartOptions:any = {
-        maintainAspectRatio: false,
-        responsive: true
-    };
+    
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
     public showGraf:Boolean=false;
@@ -148,6 +145,10 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         this.gDfechas=[];
         this.gDgrasa=[];
         this.gDpeso=[];
+        this.gDmusculo=[];
+        this.gDabdomen=[];
+        this.gDcadera=[];
+        this.gDglucosa=[];
         this.visitas=this.visitaService.getVisitasP(this.paciente.id);
         console.log(this.visitas);
         this.totaldevisitas=this.visitas.length;
@@ -298,37 +299,37 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
                 this.ordenados[k].colGl=arrGl[k];
             }else{
                 // peso
-                arrP[k]=this.calculosTabla(k,pesos[k],pesos[k-1],this.ordenados[k].peso);
+                arrP[k]=this.calculosTabla(k,pesos[k],pesos[k-1],this.ordenados[k].peso,false);
                 this.ordenados[k].colP=arrP[k][0];
                 this.ordenados[k].arrowP=arrP[k][1];
                 this.ordenados[k].difP=arrP[k][2];
                 this.ordenados[k].peso=arrP[k][3];
                 // grasa
-                arrG[k]=this.calculosTabla(k,grasas[k],grasas[k-1],this.ordenados[k].grasa);
+                arrG[k]=this.calculosTabla(k,grasas[k],grasas[k-1],this.ordenados[k].grasa,false);
                 this.ordenados[k].colG=arrG[k][0];
                 this.ordenados[k].arrowG=arrG[k][1];
                 this.ordenados[k].difG=arrG[k][2];
                 this.ordenados[k].grasa=arrG[k][3];
                 // musculo
-                arrM[k]=this.calculosTabla(k,musculos[k],musculos[k-1],this.ordenados[k].musculo);
+                arrM[k]=this.calculosTabla(k,musculos[k],musculos[k-1],this.ordenados[k].musculo,true);
                 this.ordenados[k].colM=arrM[k][0];
                 this.ordenados[k].arrowM=arrM[k][1];
                 this.ordenados[k].difM=arrM[k][2];
                 this.ordenados[k].musculo=arrM[k][3];
                 // abdomen
-                arrA[k]=this.calculosTabla(k,abdomenes[k],abdomenes[k-1],this.ordenados[k].abdomen);
+                arrA[k]=this.calculosTabla(k,abdomenes[k],abdomenes[k-1],this.ordenados[k].abdomen,false);
                 this.ordenados[k].colA=arrA[k][0];
                 this.ordenados[k].arrowA=arrA[k][1];
                 this.ordenados[k].difA=arrA[k][2];
                 this.ordenados[k].abdomen=arrA[k][3];
                 // cadera
-                arrC[k]=this.calculosTabla(k,caderas[k],caderas[k-1],this.ordenados[k].cadera);
+                arrC[k]=this.calculosTabla(k,caderas[k],caderas[k-1],this.ordenados[k].cadera,false);
                 this.ordenados[k].colC=arrC[k][0];
                 this.ordenados[k].arrowC=arrC[k][1];
                 this.ordenados[k].difC=arrC[k][2];
                 this.ordenados[k].cadera=arrC[k][3];
                 // glucosa
-                arrGl[k]=this.calculosTabla(k,glucosas[k],glucosas[k-1],this.ordenados[k].glucosa);
+                arrGl[k]=this.calculosTabla(k,glucosas[k],glucosas[k-1],this.ordenados[k].glucosa,false);
                 this.ordenados[k].colGl=arrGl[k][0];
                 this.ordenados[k].arrowGl=arrGl[k][1];
                 this.ordenados[k].difGl=arrGl[k][2];
@@ -478,6 +479,19 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
 
 
 // Funcion para actualizar los graficos
+    public lineChartOptions:any = {
+        maintainAspectRatio: false,
+        responsive: true,
+        // scales: {
+        //     yAxes: [{
+        //         ticks: {
+        //             max: 5,
+        //             min: 0,
+        //             stepSize: 0.5
+        //         }
+        //     }]
+        // }
+    };
     parseGraficos(){
         this.showGraf=false;
         this.gData=[
@@ -500,6 +514,9 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
             miFecha[1]=('0'+miFecha[1]);
         }
         miFecha[2]=d.getDate();
+        if(miFecha[2]<10){
+            miFecha[2]=('0'+miFecha[2]);
+        }
         let hoy=miFecha[0]+'-'+miFecha[1]+'-'+miFecha[2];
         console.log(hoy);
         if(X.fecha==hoy){
@@ -509,23 +526,25 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         }
     }
 
-    calculosTabla(i,datA,datB,X){
+    calculosTabla(i,datA,datB,X,m){
         let arr:any[]=[];
+        datA=Number(datA);
+        datB=Number(datB);
         if(datA<datB){
-            arr[0]='green';
+            (m==true) ? arr[0]='red': arr[0]='green';
             arr[1]='arrow_downward';
             arr[2]=((datA-datB)*-1).toFixed(1);
             arr[3]=Number(X).toFixed(1);
             return arr;
         }else{
             if(datA==datB){
-                arr[0]='green';
-                arr[1]='remove';
+                arr[0]='#555';
+                arr[1]='swap_horiz';
                 arr[2]=((datA-datB)*-1).toFixed(1);
                 arr[3]=Number(X).toFixed(1);
                 return arr;
             }else{
-                arr[0]='red';
+                (m==true) ? arr[0]='green' : arr[0]='red';
                 arr[1]='arrow_upward';
                 arr[2]=(datA-datB).toFixed(1);
                 arr[3]=Number(X).toFixed(1);

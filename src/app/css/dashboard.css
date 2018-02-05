@@ -5,19 +5,31 @@
     color: #444;
     margin: 0 0 1em 0;
 }
+@media only screen 
+  and (max-device-width: 800px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+    .dbItems{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    #dbPicker{
+        display: none;
+    }
+    .unaFecha{
+        margin: 0 auto;
+    }
+}
+
 .dashSupIzq{
     min-width: 52.7%;
     float: left;
 }
-
 .dashSupDer{
     display: inline-block;
 }
-
 .unaFecha{
     text-align: center;
     width: 14em;
-    margin-right: 1em;
     background: white;
     border: 1px solid gainsboro;
     border-radius: 10px;
@@ -44,6 +56,9 @@
 }
 #uFaño{
     font-size: 1.5em;
+}
+#dbPicker{
+    margin-left: 1em;
 }
 .btnsFecha{
     margin-top: 1em;

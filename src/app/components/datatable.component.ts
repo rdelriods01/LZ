@@ -103,11 +103,6 @@ export class DatatableComponent implements OnInit{
     dialogRef.componentInstance.paciente=V.paciente;
     dialogRef.componentInstance.visita=V;
     dialogRef.componentInstance.editFlag=true;
-//         dialogRef.afterClosed().subscribe(result => {
-//             if(result==null){}else{
-//                 this.visitas.push(result);
-//             }
-//         });
   }
 
 // Eliminar alguna visita
