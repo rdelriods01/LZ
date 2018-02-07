@@ -32,7 +32,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     public totaldevisitas:number;
     public pesoactual:number;
     public pesoinicial:number;
-    public totalbajado:number;
+    public totalbajado:any;
     public proxcita:Boolean;
     public seguro:Boolean=false;
     public visible:Boolean=false;
@@ -270,9 +270,18 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
             
         }
     }
+// Para hacer pruebas con el spinner
+    calculatePercent(V){
+        this.spinval=V;
+    }
 
+public spinval:number;
+public subio:Boolean=false;
+public porbajar:any;
     calcularAvances(){
         this.showAvances=true;
+
+        let tov=this.gDpeso.length;
 
         let arrP:any[]=[];
         let arrG:any[]=[];
@@ -288,7 +297,29 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         let caderas=this.gDcadera;
         let glucosas=this.gDglucosa;
 
-        for(let k=0; k<this.totaldevisitas; k++){
+        // Calcular peso bajado
+        let des=Number(this.paciente.pesoajustado);
+        let ini=this.pesoinicial=pesos[0];
+        let act=this.pesoactual=pesos[tov-1];
+        let baj=ini-act;
+        // si total bajado es negativo, quiere decir que subio de peso
+        if(baj<0){
+            this.subio=true;
+            baj=baj*-1;
+            this.totalbajado=Number(baj).toFixed(1);
+        }else{
+            this.subio=false;
+            // El peso inicial es el 100% y el peso deseado es el 0%
+            let cien=ini-des; //cien es el total de kilos entre el max y el min
+            let xbaj =cien-baj; //el total menos lo bajado da, por bajar
+            this.spinval=xbaj*100/cien; //regla de 3, spinval esta en % con respecto a 100
+            // Y luego spinval se transforma en el ngstyle del arc2
+            this.totalbajado=Number(baj).toFixed(1);
+            this.porbajar=Number(xbaj).toFixed(1);
+        }
+        
+        // Mostrar 
+        for(let k=0; k<tov; k++){
             if(k==0){
                 arrP[k]=arrG[k]=arrM[k]=arrA[k]=arrC[k]=arrGl[k]='black';
                 this.ordenados[k].colP=arrP[k];
@@ -496,7 +527,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         this.showGraf=false;
         this.gData=[
             {data: this.gDpeso, label: 'Peso'},
-            {data: this.gDgrasa, label: 'Grasa'},
+            // {data: this.gDgrasa, label: 'Grasa'},
         ];
         this.lineChartLabels=this.gDfechas;
         setTimeout(()=>this.showGraf=true, 100);

@@ -1,13 +1,15 @@
-<div class="modalC">
-    <form #formConsulta="ngForm" (ngSubmit)="consultar();dialogRef.close(resultado)"  >
+<div class="consultarC" >
+    <form class="formConsultar" #formConsulta="ngForm" (ngSubmit)="consultar();dialogRef.close(resultado)"  >
         <div class="agenda">
             <h2>Consulta de {{paciente.nombre}} </h2>
-            <md-input-container>
-                <input mdInput class="fecha" #fecha="ngModel" name="fecha" [(ngModel)]="visit.fecha" placeholder="Fecha.." required >
-            </md-input-container>
-            <md-input-container>
-                <input mdInput class="hora" #hora="ngModel" name="hora" [(ngModel)]="visit.hora" placeholder="Hora.." required >
-            </md-input-container>
+            <div class="fechayhora">
+                <md-input-container>
+                    <input mdInput class="fecha" #fecha="ngModel" name="fecha" [(ngModel)]="visit.fecha" placeholder="Fecha.." required >
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput class="hora" #hora="ngModel" name="hora" [(ngModel)]="visit.hora" placeholder="Hora.." required >
+                </md-input-container>
+            </div>
         </div>  
 
         <div class="medidas">
@@ -23,17 +25,21 @@
             </div>
         </div>
         
-        <div class="otros">
-            <md-input-container id="menu">
-                <input mdInput  #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
-            </md-input-container>
-            <md-input-container >
-                <textarea mdInput id="comentarios" #comentarios="ngModel" name="comentarios" [(ngModel)]="visit.comentarios" placeholder="Comentarios.." ></textarea>
-            </md-input-container>
-        </div>
-
-        <div id="btnGuardar">
-            <button md-button type="submit" [disabled]="!formConsulta.form.valid" >Guardar</button>
+        <div class="inferior">
+            <p class="infIzq">
+                <md-input-container class="comentarios">
+                    <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="6" id="comentarios" #comentarios="ngModel" name="comentarios" [(ngModel)]="visit.comentarios" placeholder="Comentarios.." ></textarea>
+                </md-input-container>
+            </p>
+            <div class="infDer">
+                <md-input-container id="menu">
+                    <input mdInput  #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
+                </md-input-container>
+                <div id="btnGuardar">
+                    <button md-button type="submit" [disabled]="!formConsulta.form.valid" >Guardar</button>
+                </div>
+            </div>
+            
         </div>
     </form>
 </div>

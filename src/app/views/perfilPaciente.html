@@ -27,19 +27,36 @@
     </div>
     <div class="perfSupDer">
         <div *ngIf="showAvances" class="avances" >
-            <h2>Aqui iran los avances del paciente</h2>
+            <div *ngIf="!subio" class="spinners">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="75" viewbox="5 5 100 80" preserveAspectRatio="xMidYMid meet">
+                    <path class="backS" d="M80,70 A40,40 0 1,0 20,70"
+                          style="fill:none;"/>
+                    <path class="frontS" d="M80,70 A40,40 0 1,0 20,70" [ngStyle]="{'stroke-dashoffset':(-184+(spinval*1.84))}"
+                          style="fill:none;"/>
+                </svg>
+                <div class="porBajar">
+                    <p>{{porbajar}}Kg</p>
+                    <h4>por bajar</h4>
+                </div>
+            </div>
+            <div *ngIf="subio" class="subio" >
+                <md-icon class="sad">sentiment_very_dissatisfied</md-icon>
+                <h2> Por arriba del peso inicial </h2>
+            </div>
+                    <!-- <input type="range" #ranger min="0" max="100" step="1" value="50" (input)="calculatePercent(ranger.value)" >{{spinval}} -->
+            <div class="pesos" >
+                <div class="pesosSup">
+                    <p>{{paciente.pesoajustado}} kg <span>Peso ajustado</span> </p>
+                    <p>{{pesoinicial}} kg <span>Peso inicial</span> </p>
+                </div>
+                <div class="pesosInf">
+                    <p style="color:tomato" >{{pesoactual}} kg <span>Peso actual</span> </p>
+                    <p *ngIf="!subio" style="color:#4CAF50" >{{totalbajado}} kg <span>Total bajado</span> </p>
+                    <p *ngIf="subio" style="color:#d11e11" >{{totalbajado}} kg <span>Total subido</span> </p>
+                </div>
+            </div>
         </div>
-        <!-- <div *ngIf="totaldevisitas>1" class="pesos">
-            <div id="dinamicos">   
-                <div id="actual"><h5>{{pesoactual}}<h4>Kg</h4></h5><p>Peso actual</p></div>
-                <div *ngIf="totalbajado<=0" style="color: red" id="bajado"><h5>{{totalbajado}} <h4>Kg</h4></h5><p>Total bajado</p></div>
-                <div *ngIf="totalbajado>0" id="bajado"><h5>{{totalbajado}} <h4>Kg</h4></h5><p>Total bajado</p></div>
-                <div id="ajustado" ><h5>{{paciente.pesoajustado}}<h4>Kg</h4></h5><p>Peso ajustado</p></div>
-            </div>
-            <div id="estaticos" >   
-                <div><h5>Peso inicial: </h5><p>{{pesoinicial}} Kg</p></div>
-            </div>
-        </div> -->
+                
         <div *ngIf="yaConsultar" class="botones">
             <h3 *ngIf="!proxcita" style="text-align:center;"  >Cita programada hoy a las {{horaCita}} hrs. </h3>
             <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>

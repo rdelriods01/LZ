@@ -1,14 +1,9 @@
-.modalC{
-    height: 40em;
+.formConsultar{
     width: 100%;
-    max-height: 100em;
     background: tomato;
     border-radius: 30px;
     padding: 20px;
     margin: -20px;
-}
-form{
-    height: 40em;
 }
 .agenda{
     margin: 0 0 2em 0;
@@ -27,9 +22,6 @@ form{
     margin: 0 auto;
     width: 8em;
     text-align-last: center;
-}
-.medidas{
-    margin: 2em 0;
 }
 .medidas div{
     margin: 0 auto;
@@ -68,28 +60,26 @@ form{
     font-size: x-large;
     color: ghostwhite;
 }
-.otros{
-    color: white;
-    text-align-last: center;
-    width: 60%;
-    display: block;
-    font-size: 1.1em;
-}
-#menu {
+.inferior{
     display: flex;
-    width: 10em;
+    justify-content: space-around;
+    color: white;
+}
+.infIzq{
+    width: 44%;
+}
+.comentarios{
+    width: 100%;
+    zoom: 101%;
+}
+.infDer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#menu{
     margin: 0 auto;
-}
-#comentarios {
-    height: 5em;
-    width: 20em;
-    border: 1px solid gainsboro;
-    border-radius: 10px;
-}
-#btnGuardar{
-    text-align: end;
-    margin-top: -9em;
-    width: 92%;
+    text-align-last: center;
 }
 #btnGuardar button{
     width: 15em;
@@ -98,4 +88,39 @@ form{
     background: yellowgreen;
     border-radius: 10px;   
     color: white;
+}
+@media only screen 
+  and (max-device-width: 800px) 
+  and (-webkit-min-device-pixel-ratio: 2) 
+  { 
+    .consultarC{
+        min-height: -webkit-fill-available;
+        height: -webkit-fill-available;
+    } 
+    .formConsultar{
+        height: auto;
+        width: 108%;
+    }
+    .agenda, .medidas{
+        margin: 0;
+    }
+    .agenda, .medSup, .medInf, .otros{
+        display: flex;
+        flex-direction: column;
+    }
+    .fechayhora{
+        margin-top: 1em;
+        font-size: 134%;
+        display: flex;
+    }
+    .inferior{
+        flex-direction: column;
+    }
+    .infIzq{
+        width: auto;
+        zoom: 150%;
+    }
+    #menu{
+        zoom:150%;
+    }
 }
