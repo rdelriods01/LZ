@@ -66,11 +66,13 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
 
     public gData:Array<any> = [];
     public lineChartLabels:Array<any> =[];
-    
     public lineChartLegend:boolean = true;
     public lineChartType:string = 'line';
     public showGraf:Boolean=false;
 
+    public spinval:number;
+    public subio:Boolean=false;
+    public porbajar:any;
 
 
     constructor (
@@ -141,7 +143,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         // tendrá X visitas completas y una mas programada
             // volver a dashboard, y al entrar a su perfil habilitar boton consultar hasta que sea la fecha
             // Se repite desde flecha --->
-
+        this.incompleta=null;
         this.gDfechas=[];
         this.gDgrasa=[];
         this.gDpeso=[];
@@ -150,27 +152,29 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         this.gDcadera=[];
         this.gDglucosa=[];
         this.visitas=this.visitaService.getVisitasP(this.paciente.id);
-        console.log(this.visitas);
         this.totaldevisitas=this.visitas.length;
         if(this.visitas.length==0){ // Si no tiene citas
             // Cambiar boton de consultar por agendar cita
             this.yaConsultar=true; //muestra botones por que aun no hay fecha de cita
             this.proxcita=true;
+            // pero esconde los avances, la lista y la grafica
             this.showList=false;
+            this.showGraf=false;
+            this.showAvances=false;
             console.log('Paciente Sin Visitas');
         }
         else{
             if(this.visitas.length==1){ // Si es la primer cita
+                this.showAvances=false;
+                this.showGraf=false;
+                this.showList=false;
                 if(this.visitas[0].completo==false){ //y aun no se consulta
                     // pregunta si es el día de la consulta
                     if(this.yaConsultar=this.yaEsHoraDeConsultar(this.visitas[0])){// si si es el dia
-                        this.showList=false;
                         this.proxcita=false; //Se habilita boton Consultar
                         this.horaCita=this.visitas[0].hora;
                         this.citas=this.visitas;
-                    }else{
-                        this.showList=false;
-                        this.proxcita=false; //Se habilita boton Consultar
+                    }else{//si no es el dia a consltar uestra cuando es la fecha de consulta
                         this.horaCita=this.visitas[0].hora;
                         let temp=this.visitas[0].fecha.split("-");
                         for(let j=1;j<=12;j++){
@@ -181,9 +185,8 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
                         this.fechaProx=(temp[2] + " de " + temp[1]);
                         this.cita=this.visitas[0];                    
                     }
-                }else{ //Si ya se consulto entonces muestra btn prox cita
+                }else{ //Si ya se consulto entonces muestra lista y btn prox cita
                     this.showList=true;
-                    this.showGraf=false;
                     this.proxcita=true;
                     this.yaConsultar=true;
                     this.citas1=this.visitas;
@@ -191,11 +194,11 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
              }else{ //Si tiene mas de una cita
                 this.showList=true;                
                 this.showGraf=false;
+                this.showAvances=false;
 
-                // Estan completas?
+                // Revisa si estan completas
                 for(let i=0;i<this.totaldevisitas;i++){
                     if(this.visitas[i].completo==true){
-                        
                         // si esta completa
                         console.log("Visita No: " + i + " completa");
                         // guardar datos en un array
@@ -205,82 +208,69 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
                         this.gDabdomen.push(this.visitas[i].abdomen);
                         this.gDcadera.push(this.visitas[i].cadera);
                         this.gDglucosa.push(this.visitas[i].glucosa);
-
                         this.gDfechas.push(this.visitas[i].fecha);
-
                     }else{
                         // si no esta completa guarda la que no esta completa
                         console.log("Visita No: " + i + " incompleta");
                         this.incompleta=this.visitas[i];
                     }
                 }
-                console.log(this.incompleta);
-                if(this.incompleta!=null){ // Si hay una incompleta habilita boton de consultar, siempre y cuando sea dia de consulta
-                    this.yaConsultar=this.yaEsHoraDeConsultar(this.incompleta); // Es dia de consulta?
-                    this.proxcita=false; //<-- Btn consultar habilitado
-                    this.horaCita=this.incompleta.hora;
-                    // Si no es dia de la cita, habilita el mensaje diciendo que aun no es la cita
-                    // Y muestralo en el formato correcto
-                    let temp=this.incompleta.fecha.split("-");
-                    for(let j=1;j<=12;j++){
-                        if(temp[1]==j){
-                            temp[1]=this.mes[j-1];
-                        }
-                    }
-                    this.fechaProx=(temp[2] + " de " + temp[1]);
+                
+                // Si hay una incompleta pregunta si es dia de consulta  
+                if(this.incompleta!=null){ 
                     this.cita=this.incompleta;
-                }else{
+                    this.horaCita=this.incompleta.hora;
+                    this.proxcita=false; //habilita el boton consultar
+                    if(this.yaEsHoraDeConsultar(this.incompleta)){
+                        this.yaConsultar=true; //ya es el dia de consulta
+                    }else{
+                        this.yaConsultar=false; //no es el dia de la consulta, los botones se esconden
+                        let temp=this.incompleta.fecha.split("-");
+                        for(let j=1;j<=12;j++){
+                            if(temp[1]==j){
+                                temp[1]=this.mes[j-1];
+                            }
+                        }
+                        this.fechaProx=(temp[2] + " de " + temp[1]);
+                    }
+                }else{ 
+                    // Si no hay ninguna incompleta habilita los botones para que se muestre agendar prox cita
                     this.yaConsultar=true;
                     this.proxcita=true;
+                    this.incompleta=null;
                 }
-                // Si ya es hora de consultar, ordena el listado cn el mas nuevo arriba y el mes en formato MMM
-                this.ordenados = this.visitas
-                for(let i=0;i<this.totaldevisitas;i++){
-                    this.fechaSplit =  this.ordenados[i].fecha.split("-");
-                    for(let j=1;j<=12;j++){
-                        if(this.fechaSplit[1]==j){
-                            this.fechaSplit[1]=this.mes[j-1];
-                        }
-                    }
-                    this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
+
+                
+                this.ordenar(); //ordena el listado cn el mas nuevo arriba y el mes en formato MMM
+                this.calcularAvances(); //calcula los avances (de la lista y del spinner)
+                if(this.gDfechas.length>1){ //peeeeero solo muestra si tiene 2 o mas citas completas
+                    this.parseGraficos(); //los graficos
+                    this.showAvances=true; // y el spinner
                 }
-                this.calcularAvances();
                 this.citas=this.ordenados.slice().reverse();
                 this.citas1=this.ordenados.slice().reverse();
                 // Esto es para que al momento de consultar no se vea en la lista la cita en ceros.
                 if (this.proxcita == false){
                     this.citas1.shift();                        
-                }
-                if(this.gDfechas.length>1){this.parseGraficos()}
-                
+                }                
             }    
-            // LA VISITA con i = totaldevisitas-1 es la mas reciente <===============
-            
-            // Calcular peso bajado
-
-            // if(this.visitas[this.totaldevisitas-1].completo == true){
-            //     this.proxcita=true;
-            //     this.pesoactual=this.visitas[this.totaldevisitas-1].peso;
-            // }else{
-            //     this.proxcita=false;
-            //     if(this.totaldevisitas>1){this.pesoactual=this.visitas[this.totaldevisitas-2].peso;}
-            // }
-            // this.pesoinicial=this.visitas[0].peso;
-            // this.totalbajado=Math.round((this.pesoinicial-this.pesoactual) * 10)/10;
-            
         }
     }
-// Para hacer pruebas con el spinner
-    calculatePercent(V){
-        this.spinval=V;
+
+    ordenar(){
+        this.ordenados = this.visitas
+        for(let i=0;i<this.totaldevisitas;i++){
+            this.fechaSplit =  this.ordenados[i].fecha.split("-");
+            for(let j=1;j<=12;j++){
+                if(this.fechaSplit[1]==j){
+                    this.fechaSplit[1]=this.mes[j-1];
+                }
+            }
+            this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
+        }
     }
 
-public spinval:number;
-public subio:Boolean=false;
-public porbajar:any;
     calcularAvances(){
-        this.showAvances=true;
-
         let tov=this.gDpeso.length;
 
         let arrP:any[]=[];
@@ -509,19 +499,10 @@ public porbajar:any;
     }
 
 
-// Funcion para actualizar los graficos
+// Funcion para actualizar los graficos y sus opciones
     public lineChartOptions:any = {
         maintainAspectRatio: false,
         responsive: true,
-        // scales: {
-        //     yAxes: [{
-        //         ticks: {
-        //             max: 5,
-        //             min: 0,
-        //             stepSize: 0.5
-        //         }
-        //     }]
-        // }
     };
     parseGraficos(){
         this.showGraf=false;
@@ -583,5 +564,10 @@ public porbajar:any;
             }
         }
     }
+    
+    // Para hacer pruebas con el spinner
+    // calculatePercent(V){
+    //     this.spinval=V;
+    // }
 
 }

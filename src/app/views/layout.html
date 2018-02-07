@@ -17,7 +17,8 @@
         </md-input-container>
         
         <div class="resBusqueda" [ngClass]='mostrar2' >
-            <button md-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" (click)="sendPaciente(item);resetQuery();hideResBus()" >{{item.nombre}} </button>         
+            <button md-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" 
+            (click)="resetQuery();hideResBus()" >{{item.nombre}} </button>         
         </div>
         <!--Usuario-->
         <button class="userProfile" [mdMenuTriggerFor]="menu">
