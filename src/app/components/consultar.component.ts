@@ -38,9 +38,7 @@ export class ConsultarComponent implements OnInit {
         if(this.flag==true){
             // entro desde editVisita() de PP 
             this.resultado=[false,this.visit];
-            console.log("True a flag");
         }else{
-            console.log("False a flag");
             this.visit=new Visita(this.visit.id,
                                   this.miUltimaVisita.numero,
                                   this.visit.fecha,
@@ -57,12 +55,6 @@ export class ConsultarComponent implements OnInit {
                                   this.paciente.id );
             this.resultado=[false,this.visit];
         }
-    console.log("ngOnInit de Consultar component");
-    console.log(this.paciente);
-    console.log(this.visit);
-    console.log(this.miUltimaVisita);
-   
-
     }
 
     consultar(){
@@ -88,14 +80,7 @@ export class ConsultarComponent implements OnInit {
             this.resultado[0]=true;  //habilitar proxCita en perfilP  
             this.visitaService.editVisita(this.visit.id, this.visit)
             this.resultado[1]=this.visit;
-            console.log("Se activo el boton guardar en consultar component y el resultado es: ")
-            console.log(this.resultado);
             this.dialogRef.close(this.resultado);
         }
     }
-
-
-
-
-//FIN
-}
+} //FIN
