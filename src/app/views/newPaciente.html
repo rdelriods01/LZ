@@ -1,6 +1,6 @@
 <form #formAgendar="ngForm" >
     <div style="margin-top: 1em;height: 360px; width: 560px">
-        <h2>Agendar nueva cita</h2>
+        <h2>Agendar nuevo Paciente</h2>
         <div>
             <md-input-container>    
                 <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
@@ -18,7 +18,7 @@
             <datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)"></datepicker>
         </div>
         <div *ngIf="btnGuardarB" class="guardar">
-            <button md-button (click)="onSubmit();dialogRef.close()" [disabled]="!formAgendar.form.valid" >Guardar</button>
+            <button md-button (click)="onSubmit()" [disabled]="!formAgendar.form.valid" >Guardar</button>
         </div>
     </div>
-</form>
+</form> 

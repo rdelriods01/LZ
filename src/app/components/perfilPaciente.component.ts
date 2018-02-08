@@ -387,12 +387,14 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
             }
             this.proxcita=false;
         }
+
         let dialogRef = this.dialog.open(ConsultarComponent);
         dialogRef.componentInstance.paciente=P;
         dialogRef.componentInstance.miUltimaVisita=UV;
         dialogRef.componentInstance.visit=VA;
         dialogRef.afterClosed().subscribe(result => {
             if(result!=null){
+                console.log("After close de openConsultarDialog() en PP")
                 console.log(result);
                 this.proxcita=result[0];
                 this.pesoactual=result[1].peso;
@@ -474,11 +476,16 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         v.fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2]);
         // Se pasa la visita a editar por medio de la variable v, y se inician las constantes igual a variable
         // para no alterar el dialog ConsultarComponent.
+        console.log("entro edit visita");
+        console.log(P);
+        console.log(v);
         let dialogRef = this.dialog.open(ConsultarComponent);
         dialogRef.componentInstance.paciente=P;
         dialogRef.componentInstance.miUltimaVisita=v;
         dialogRef.componentInstance.visit=v;
+        dialogRef.componentInstance.flag=true;
         dialogRef.afterClosed().subscribe(result => {
+            console.log("After close de editVisita() en PP")
             this.mostrarPaciente();
         });
     }

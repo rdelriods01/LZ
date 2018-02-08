@@ -1,5 +1,5 @@
 <div class="consultarC" >
-    <form class="formConsultar" #formConsulta="ngForm" (ngSubmit)="consultar();dialogRef.close(resultado)"  >
+    <form class="formConsultar" #formConsulta="ngForm" (ngSubmit)="consultar()" >
         <div class="agenda">
             <h2>Consulta de {{paciente.nombre}} </h2>
             <div class="fechayhora">
@@ -19,9 +19,9 @@
                 <div><h2>Musculo</h2> <input #musculo="ngModel" name="musculo" [(ngModel)]="visit.musculo" maxlength="4" required> <p>kg</p></div>
             </div>
             <div class="medInf">
-                <div><h2>Abdomen</h2> <input #abdomen="ngModel" name="abdomen" [(ngModel)]="visit.abdomen" maxlength="3" required> <p>cms</p></div>
-                <div *ngIf="paciente.sexo=='Mujer'" ><h2>Cadera</h2> <input #cadera="ngModel" name="cadera" [(ngModel)]="visit.cadera" maxlength="3" required> <p>cms</p></div>
-                <div><h2>Glucosa</h2> <input #glucosa="ngModel" name="glucosa" [(ngModel)]="visit.glucosa" maxlength="3" > <p>mg/dl</p></div>
+                <div><h2>Abdomen</h2> <input #abdomen="ngModel" name="abdomen" [(ngModel)]="visit.abdomen" maxlength="5" required> <p>cms</p></div>
+                <div *ngIf="paciente.sexo=='Mujer'" ><h2>Cadera</h2> <input #cadera="ngModel" name="cadera" [(ngModel)]="visit.cadera" maxlength="5" required> <p>cms</p></div>
+                <div><h2>Glucosa</h2> <input #glucosa="ngModel" name="glucosa" [(ngModel)]="visit.glucosa" maxlength="5" > <p>mg/dl</p></div>
             </div>
         </div>
         
@@ -33,7 +33,7 @@
             </p>
             <div class="infDer">
                 <md-input-container id="menu">
-                    <input mdInput  #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
+                    <input mdInput #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
                 </md-input-container>
                 <div id="btnGuardar">
                     <button md-button type="submit" [disabled]="!formConsulta.form.valid" >Guardar</button>

@@ -46,6 +46,7 @@ export class NewPacienteComponent implements OnInit{
         this.pacienteService.savePaciente(this.paciente);
         this.visita.paciente=this.paciente.id;
         this.visitaService.saveVisita(this.visita);
+        this.dialogRef.close();
     }
 
     toCapital(str){

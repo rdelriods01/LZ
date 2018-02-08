@@ -17,6 +17,7 @@ export class ConsultarComponent implements OnInit {
     public visit:any;
     public miUltimaVisita:any;
 
+    public flag:Boolean;
     public paciente:any;
     public errorMessage:any;
     public resultado:[Boolean,{}];
@@ -33,22 +34,34 @@ export class ConsultarComponent implements OnInit {
 }
 
     ngOnInit(){
-    this.visit=new Visita(this.visit.id,
-    this.miUltimaVisita.numero,
-    this.visit.fecha,
-    this.visit.hora,
-    this.miUltimaVisita.peso,
-    this.miUltimaVisita.grasa,
-    this.miUltimaVisita.musculo,
-    this.miUltimaVisita.abdomen,
-    this.miUltimaVisita.cadera,
-    this.miUltimaVisita.glucosa,
-    this.miUltimaVisita.menu,
-    "",
-    false,
-    this.paciente.id );
 
-    this.resultado=[false,this.visit];
+        if(this.flag==true){
+            // entro desde editVisita() de PP 
+            this.resultado=[false,this.visit];
+            console.log("True a flag");
+        }else{
+            console.log("False a flag");
+            this.visit=new Visita(this.visit.id,
+                                  this.miUltimaVisita.numero,
+                                  this.visit.fecha,
+                                  this.visit.hora,
+                                  this.miUltimaVisita.peso,
+                                  this.miUltimaVisita.grasa,
+                                  this.miUltimaVisita.musculo,
+                                  this.miUltimaVisita.abdomen,
+                                  this.miUltimaVisita.cadera,
+                                  this.miUltimaVisita.glucosa,
+                                  this.miUltimaVisita.menu,
+                                  "",
+                                  false,
+                                  this.paciente.id );
+            this.resultado=[false,this.visit];
+        }
+    console.log("ngOnInit de Consultar component");
+    console.log(this.paciente);
+    console.log(this.visit);
+    console.log(this.miUltimaVisita);
+   
 
     }
 
@@ -65,14 +78,20 @@ export class ConsultarComponent implements OnInit {
         }
         this.visit.fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
         // 
-        this.visit.completo=true;
-        this.visit.numero++;
-        this.resultado[0]=true;  //habilitar proxCita en perfilP  
-        this.visitaService.editVisita(this.visit.id, this.visit)
-        this.resultado[1]=this.visit;
-        console.log(this.resultado);
-        this.dialogRef.close(this.resultado);
-
+        if(this.flag){
+            this.visitaService.editVisita(this.visit.id, this.visit)
+            this.flag=false;
+            this.dialogRef.close();
+        }else{
+            this.visit.completo=true;
+            this.visit.numero++;
+            this.resultado[0]=true;  //habilitar proxCita en perfilP  
+            this.visitaService.editVisita(this.visit.id, this.visit)
+            this.resultado[1]=this.visit;
+            console.log("Se activo el boton guardar en consultar component y el resultado es: ")
+            console.log(this.resultado);
+            this.dialogRef.close(this.resultado);
+        }
     }
 
 
