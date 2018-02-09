@@ -72,6 +72,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
 
     public spinval:number;
     public subio:Boolean=false;
+    public acabo:Boolean=false;
     public porbajar:any;
 
 
@@ -271,6 +272,9 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     }
 
     calcularAvances(){
+        this.subio=false;
+        this.acabo=false;
+
         let tov=this.gDpeso.length;
 
         let arrP:any[]=[];
@@ -307,6 +311,8 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
             this.totalbajado=Number(baj).toFixed(1);
             this.porbajar=Number(xbaj).toFixed(1);
         }
+        // Si el peso actual es igual al peso deseado o menor, entonces ya acabo
+        if(act<=des){this.acabo=true};
         
         // Mostrar 
         for(let k=0; k<tov; k++){

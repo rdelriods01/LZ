@@ -27,7 +27,7 @@
     </div>
     <div class="perfSupDer">
         <div *ngIf="showAvances" class="avances" >
-            <div *ngIf="!subio" class="spinners">
+            <div *ngIf="!subio && !acabo" class="spinners">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="75" viewbox="5 5 100 80" preserveAspectRatio="xMidYMid meet">
                     <path class="backS" d="M80,70 A40,40 0 1,0 20,70"
                           style="fill:none;"/>
@@ -43,6 +43,10 @@
                 <md-icon class="sad">sentiment_very_dissatisfied</md-icon>
                 <h2> Por arriba del peso inicial </h2>
             </div>
+            <div *ngIf="acabo" class="acabo" >
+                    <md-icon class="happy">sentiment_very_satisfied</md-icon>
+                    <h2> FELICIDADES!!! Lo has logrado </h2>
+                </div>
                     <!-- <input type="range" #ranger min="0" max="100" step="1" value="50" (input)="calculatePercent(ranger.value)" >{{spinval}} -->
             <div class="pesos" >
                 <div class="pesosSup">

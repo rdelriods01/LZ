@@ -198,6 +198,19 @@ tbody td {
 .subio h2{
     padding: 0 3em;
 }
+/* Acabo */
+.acabo{
+    text-align: center;
+    color: #52d258;
+}
+.happy{
+    font-size: 10em;
+    display: table;
+    margin: 0 auto;
+}
+.acabo h2{
+    padding: 0 3em;
+}
 /* Spinner */
 .spinners{
     zoom:350%;
