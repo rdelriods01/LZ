@@ -30,9 +30,9 @@
             <div *ngIf="!subio && !acabo" class="spinners">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="75" viewbox="5 5 100 80" preserveAspectRatio="xMidYMid meet">
                     <path class="backS" d="M80,70 A40,40 0 1,0 20,70"
-                          style="fill:none;"/>
+                          />
                     <path class="frontS" d="M80,70 A40,40 0 1,0 20,70" [ngStyle]="{'stroke-dashoffset':(-184+(spinval*1.84))}"
-                          style="fill:none;"/>
+                          />
                 </svg>
                 <div class="porBajar">
                     <p>{{porbajar}}Kg</p>
@@ -127,15 +127,14 @@
             </table>
         </div>
     </md-card>
-    <md-card *ngIf="showGraf">
+    <md-card style="padding-bottom:5em" *ngIf="showGraf">
         <div class="graficaProgreso">
-            <canvas baseChart 
-                [datasets]="gData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType">
-            </canvas>
+            <div class="btnsChangeGraph">
+                <button md-button (click)="chartMenos()"> < </button>
+                <button style="width: 10em" md-button (click)="showPesoGraph()"> {{gData[0].label}} </button>
+                <button md-button (click)="chartMas()"> > </button>
+            </div>
+            <canvas baseChart [datasets]="gData" [labels]="cLabels" [options]="cOptions" [legend]=false [chartType]="'line'"></canvas>
         </div>
     </md-card>
 </div>
