@@ -12,6 +12,7 @@ import { Visita } from '../models/visita';
 
 import {VisitaService} from '../services/visita.service';
 import {PacienteService} from '../services/paciente.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'perfil-paciente',
@@ -20,7 +21,7 @@ import {PacienteService} from '../services/paciente.service';
     providers:[VisitaService,PacienteService]
 })
 
-export class PerfilPacienteComponent implements OnInit, OnChanges{
+export class PerfilPacienteComponent implements OnInit{
     
     public paciente:Paciente;
     public visitas: any[]=[];
@@ -29,31 +30,35 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     public citas: any[];
     public citas1: any[];
     public errorMessage : any;
+
     public totaldevisitas:number;
-    public pesoactual:number;
-    public pesoinicial:number;
-    public totalbajado:any;
-    public proxcita:Boolean;
+
+// Flags para ngIf's en html
+    public proxcita:Boolean=false;
     public seguro:Boolean=false;
     public visible:Boolean=false;
     public seguroV:Boolean=false;
-    public fechaSplit:any[];
-    public mes:string[]=[
-        'ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'
-    ];
-    public  enf:string; 
-            malesta:string;
-            alerg:String;
-            noinclu:String;
-            observa:String;
-            genero:String;
-    public horaCita:String;
-    public temp:any=[];
-    public incompleta:any=null;
     public yaConsultar:Boolean=false;
-           fechaProx:String;
+    public subio:Boolean=false;
+    public acabo:Boolean=false;
     public showList:Boolean=false;
     public showAvances:Boolean=false;
+    public showGraf:Boolean=false;
+ 
+    // para mostrar correctamente la historia clinica
+    public enf:string; 
+    public malesta:string;
+    public alerg:String;
+    public noinclu:String;
+    public observa:String;
+    public genero:String;
+
+    // Para los avances
+    public spinval:number;
+    public pesoactual:number;
+    public pesoinicial:number;
+    public totalbajado:any;
+    public porbajar:any;
 
     // variables para graficos y calculos
     public gDpeso:any[]=[];
@@ -63,17 +68,25 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     public gDcadera:any[]=[];
     public gDglucosa:any[]=[];
     public gDfechas:any[]=[];
-
     public gData:Array<any> = [];
-    public lineChartLabels:Array<any> =[];
-    public lineChartLegend:boolean = true;
-    public lineChartType:string = 'line';
-    public showGraf:Boolean=false;
+    public gMasDatos:Array<any>;
+    public cLabels:Array<any> =[];
+    public cOptions:any = {
+        maintainAspectRatio: false,
+        responsive: true,
+    };
+    public cualGraph:any=[];
+    public indexChart=0;
 
-    public spinval:number;
-    public subio:Boolean=false;
-    public acabo:Boolean=false;
-    public porbajar:any;
+    // Otras variables utiles
+    public horaCita:String;
+    public temp:any=[];
+    public incompleta:any=null;
+    public fechaProx:String;
+    public fechaSplit:any[];
+    public mes:string[]=[
+        'ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'
+    ];
 
 
     constructor (
@@ -90,9 +103,9 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     ngOnInit(){
     }
 
-    ngOnChanges(){
-        this.parseGraficos();
-    }
+    // ngOnChanges(){
+    //     this.parseGraficos();
+    // }
 
     mostrarPaciente(){
         this._route.params.forEach((params:Params)=>{
@@ -245,15 +258,14 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
                 this.ordenar(); //ordena el listado cn el mas nuevo arriba y el mes en formato MMM
                 this.calcularAvances(); //calcula los avances (de la lista y del spinner)
                 if(this.gDfechas.length>1){ //peeeeero solo muestra si tiene 2 o mas citas completas
+                    this.gData=[{data:this.gDpeso, label:"Peso"}];
                     this.parseGraficos(); //los graficos
                     this.showAvances=true; // y el spinner
                 }
                 this.citas=this.ordenados.slice().reverse();
                 this.citas1=this.ordenados.slice().reverse();
                 // Esto es para que al momento de consultar no se vea en la lista la cita en ceros.
-                if (this.proxcita == false){
-                    this.citas1.shift();                        
-                }                
+                if (this.proxcita == false){ this.citas1.shift() }               
             }    
         }
     }
@@ -274,9 +286,6 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
     calcularAvances(){
         this.subio=false;
         this.acabo=false;
-
-        let tov=this.gDpeso.length;
-
         let arrP:any[]=[];
         let arrG:any[]=[];
         let arrM:any[]=[];
@@ -284,6 +293,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         let arrC:any[]=[];
         let arrGl:any[]=[];
 
+        let tov=this.gDpeso.length;
         let pesos=this.gDpeso;
         let grasas=this.gDgrasa;
         let musculos=this.gDmusculo;
@@ -292,10 +302,10 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         let glucosas=this.gDglucosa;
 
         // Calcular peso bajado
-        let des=Number(this.paciente.pesoajustado);
-        let ini=this.pesoinicial=pesos[0];
-        let act=this.pesoactual=pesos[tov-1];
-        let baj=ini-act;
+        let des=Number(this.paciente.pesoajustado); //deseado
+        let ini=this.pesoinicial=pesos[0]; //inicial
+        let act=this.pesoactual=pesos[tov-1]; //actual
+        let baj=ini-act; //bajado
         // si total bajado es negativo, quiere decir que subio de peso
         if(baj<0){
             this.subio=true;
@@ -314,7 +324,7 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         // Si el peso actual es igual al peso deseado o menor, entonces ya acabo
         if(act<=des){this.acabo=true};
         
-        // Mostrar 
+        // Mostrar avances en la tabla
         for(let k=0; k<tov; k++){
             if(k==0){
                 arrP[k]=arrG[k]=arrM[k]=arrA[k]=arrC[k]=arrGl[k]='black';
@@ -365,164 +375,186 @@ export class PerfilPacienteComponent implements OnInit, OnChanges{
         }
     }
 
+// Funcion para los graficos 
+    chartMenos(){
+        this.indexChart--;
+        if(this.indexChart<0){this.indexChart=5}
+        this.cualGraph=this.gMasDatos[this.indexChart];
+        this.gData=this.cualGraph;
+        this.parseGraficos();
+    }
+    chartMas(){
+        this.indexChart++;
+        if(this.indexChart>5){this.indexChart=0}
+        this.cualGraph=this.gMasDatos[this.indexChart];
+        this.gData=this.cualGraph;
+        this.parseGraficos();
+    }
+    showPesoGraph(){
+        this.indexChart=0;
+        this.cualGraph=this.gMasDatos[this.indexChart];
+        this.gData=this.cualGraph;
+        this.parseGraficos();
+    }
+    parseGraficos(){
+        this.showGraf=true;
+        this.gMasDatos=[
+            [{data: this.gDpeso,    label:'Peso'}],
+            [{data: this.gDgrasa,   label:'Grasa'}],
+            [{data: this.gDmusculo, label:'Musculo'}],
+            [{data: this.gDabdomen, label:'Abdomen'}],
+            [{data: this.gDcadera,  label:'Cadera'}],
+            [{data: this.gDglucosa, label:'Glucosa'}]
+        ];
+        // Truco con JSON.parse y JSON.stringify para actualizar los datos
+        let clone = JSON.parse(JSON.stringify(this.gData));
+        this.gData=clone;
+        this.cLabels=this.gDfechas;
+        clone = JSON.parse(JSON.stringify(this.cLabels));
+        this.cLabels=clone;
+    }
+
 // Funciones para los Dialogs Consultar / Proxima Cita / Editar historiaClinica / Editar fecha de visita
-    openConsultarDialog(P,V){
-        for(let i=0;i<this.totaldevisitas-1;i++){
-            let dateSplit =  V[i].fecha.split("-");
-            for(let j=1;j<=12;j++){
-                if(dateSplit[1]==this.mes[j-1]){
-                    dateSplit[1]=j;
-                    if(dateSplit[1]<10){
-                        dateSplit[1]=('0'+dateSplit[1]);
-                    }
+openConsultarDialog(P,V){
+    for(let i=0;i<this.totaldevisitas-1;i++){
+        let dateSplit =  V[i].fecha.split("-");
+        for(let j=1;j<=12;j++){
+            if(dateSplit[1]==this.mes[j-1]){
+                dateSplit[1]=j;
+                if(dateSplit[1]<10){
+                    dateSplit[1]=('0'+dateSplit[1]);
                 }
             }
-            V[i].fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
         }
-        // Preparar datos de la ultima visita para que se despliegen en el dialog
-        let VA={};
-        let UV={};
-        if(V[0].completo == true){
-            this.proxcita=true;
+        V[i].fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
+    }
+    // Preparar datos de la ultima visita para que se despliegen en el dialog
+    let VA={};
+    let UV={};
+    if(V[0].completo == true){
+        this.proxcita=true;
+    }else{
+        VA=V[0];            
+        if(this.totaldevisitas==1){
+            UV=VA;
         }else{
-            VA=V[0];            
-            if(this.totaldevisitas==1){
-                UV=VA;
-            }else{
-                UV=V[1];  
-            }
-            this.proxcita=false;
+            UV=V[1];  
         }
-
-        let dialogRef = this.dialog.open(ConsultarComponent);
-        dialogRef.componentInstance.paciente=P;
-        dialogRef.componentInstance.miUltimaVisita=UV;
-        dialogRef.componentInstance.visit=VA;
-        dialogRef.afterClosed().subscribe(result => {
-            if(result!=null){
-                this.proxcita=result[0];
-                this.pesoactual=result[1].peso;
-                this.incompleta=null;
-                this.showGraf=false;
-            }        
-            this.totalbajado=this.pesoinicial-this.pesoactual;
-            this.mostrarPaciente();
-        });
+        this.proxcita=false;
     }
 
-    openProxCitaDialog(P){
-        let dialogRef = this.dialog.open(ProxCitaComponent);
-        dialogRef.componentInstance.paciente=P;
-        dialogRef.componentInstance.editFlag=false;
-    }
+    let dialogRef = this.dialog.open(ConsultarComponent);
+    dialogRef.componentInstance.paciente=P;
+    dialogRef.componentInstance.miUltimaVisita=UV;
+    dialogRef.componentInstance.visit=VA;
+    dialogRef.afterClosed().subscribe(result => {
+        if(result!=null){
+            this.proxcita=result[0];
+            this.pesoactual=result[1].peso;
+            this.incompleta=null;
+            this.showGraf=false;
+        }        
+        this.totalbajado=this.pesoinicial-this.pesoactual;
+        this.mostrarPaciente();
+    });
+}
 
-    openHisCliDialog(P){
-         let dialogRef = this.dialog.open(HistoriaClinicaComponent);
-         dialogRef.componentInstance.paciente=P;
-         dialogRef.componentInstance.flag=true;
-         dialogRef.afterClosed().subscribe(result=>{
-             this.mostrarPaciente();
-         });
-    }
+openProxCitaDialog(P){
+    let dialogRef = this.dialog.open(ProxCitaComponent);
+    dialogRef.componentInstance.paciente=P;
+    dialogRef.componentInstance.editFlag=false;
+}
 
-    editCita(V){
-        let dialogRef = this.dialog.open(ProxCitaComponent);
-        dialogRef.componentInstance.paciente=this.paciente;
-        dialogRef.componentInstance.visita=V;
-        dialogRef.componentInstance.editFlag=true;
-        dialogRef.afterClosed().subscribe(result=>{
-            this.mostrarPaciente();
-        });
-      }
+openHisCliDialog(P){
+     let dialogRef = this.dialog.open(HistoriaClinicaComponent);
+     dialogRef.componentInstance.paciente=P;
+     dialogRef.componentInstance.flag=true;
+     dialogRef.afterClosed().subscribe(result=>{
+         this.mostrarPaciente();
+     });
+}
+
+editCita(V){
+    let dialogRef = this.dialog.open(ProxCitaComponent);
+    dialogRef.componentInstance.paciente=this.paciente;
+    dialogRef.componentInstance.visita=V;
+    dialogRef.componentInstance.editFlag=true;
+    dialogRef.afterClosed().subscribe(result=>{
+        this.mostrarPaciente();
+    });
+  }
 
 // Funciones para eliminar Paciente
-    seguroElim(){
-        this.seguro=true;
-    }
-    noEliminar(){
-        this.seguro=false;
-    }
-    siEliminar(){
-        console.log('Se eliminará el paciente: ' + this.paciente.nombre);
-        // ya tengo las visitas del paciente en this.visitas,
-        // ahora a eliminarlas una por una por id
-        for(let i=0; i < this.totaldevisitas; i++){
-            let id=this.visitas[i].id;
-            this.visitaService.deleteVisita(id);
-            console.log('Visita eliminada: '+ id);
-        }
-        // finalmente eliminar paciente por id
-        this._route.params.forEach((params:Params)=>{
-            let idP = params['id'];
-            this.pacienteService.deletePaciente(idP)
-            console.log('Paciente eliminado: '+ idP);
-        });
-        // reiniciar variable seguro e ir a dashboard
-        this.seguro=false;
-        this._router.navigate(['/']);
-    }
-
-// Funciones para eliminar o editar visita del List
-    showMore(){
-        this.visible=!this.visible;
-    }
-
-    editVisita(v,P){
-        this.fechaSplit =  v.fecha.split("-");
-        for(let j=1;j<=12;j++){
-            if(this.fechaSplit[1]==this.mes[j-1]){
-                this.fechaSplit[1]=j;
-                if(this.fechaSplit[1]<10){
-                    this.fechaSplit[1]=('0'+this.fechaSplit[1]);
-                }
-            }
-        }
-        v.fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2]);
-        // Se pasa la visita a editar por medio de la variable v, y se inician las constantes igual a variable
-        // para no alterar el dialog ConsultarComponent.
-        let dialogRef = this.dialog.open(ConsultarComponent);
-        dialogRef.componentInstance.paciente=P;
-        dialogRef.componentInstance.miUltimaVisita=v;
-        dialogRef.componentInstance.visit=v;
-        dialogRef.componentInstance.flag=true;
-        dialogRef.afterClosed().subscribe(result => {
-            this.mostrarPaciente();
-        });
-    }
-    seguroDelVisita(){
-        this.seguroV=true;
-        this.visible=false
-    }
-    noDelVisita(){        
-        this.seguroV=false;
-        this.visible=true;
-    }
-    siDelVisita(id){
+seguroElim(){
+    this.seguro=true;
+}
+noEliminar(){
+    this.seguro=false;
+}
+siEliminar(){
+    console.log('Se eliminará el paciente: ' + this.paciente.nombre);
+    // ya tengo las visitas del paciente en this.visitas,
+    // ahora a eliminarlas una por una por id
+    for(let i=0; i < this.totaldevisitas; i++){
+        let id=this.visitas[i].id;
         this.visitaService.deleteVisita(id);
         console.log('Visita eliminada: '+ id);
+    }
+    // finalmente eliminar paciente por id
+    this._route.params.forEach((params:Params)=>{
+        let idP = params['id'];
+        this.pacienteService.deletePaciente(idP)
+        console.log('Paciente eliminado: '+ idP);
+    });
+    // reiniciar variable seguro e ir a dashboard
+    this.seguro=false;
+    this._router.navigate(['/']);
+}
+
+// Funciones para eliminar o editar visita del List
+showMore(){
+    this.visible=!this.visible;
+}
+
+editVisita(v,P){
+    this.fechaSplit =  v.fecha.split("-");
+    for(let j=1;j<=12;j++){
+        if(this.fechaSplit[1]==this.mes[j-1]){
+            this.fechaSplit[1]=j;
+            if(this.fechaSplit[1]<10){
+                this.fechaSplit[1]=('0'+this.fechaSplit[1]);
+            }
+        }
+    }
+    v.fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2]);
+    // Se pasa la visita a editar por medio de la variable v, y se inician las constantes igual a variable
+    // para no alterar el dialog ConsultarComponent.
+    let dialogRef = this.dialog.open(ConsultarComponent);
+    dialogRef.componentInstance.paciente=P;
+    dialogRef.componentInstance.miUltimaVisita=v;
+    dialogRef.componentInstance.visit=v;
+    dialogRef.componentInstance.flag=true;
+    dialogRef.afterClosed().subscribe(result => {
         this.mostrarPaciente();
-        this.seguroV=false;
-        this.visible=true;
-    }
-
-
-// Funcion para actualizar los graficos y sus opciones
-    public lineChartOptions:any = {
-        maintainAspectRatio: false,
-        responsive: true,
-    };
-    parseGraficos(){
-        this.showGraf=false;
-        this.gData=[
-            {data: this.gDpeso, label: 'Peso'},
-            // {data: this.gDgrasa, label: 'Grasa'},
-        ];
-        this.lineChartLabels=this.gDfechas;
-        setTimeout(()=>this.showGraf=true, 100);
-    }
+    });
+}
+seguroDelVisita(){
+    this.seguroV=true;
+    this.visible=false
+}
+noDelVisita(){        
+    this.seguroV=false;
+    this.visible=true;
+}
+siDelVisita(id){
+    this.visitaService.deleteVisita(id);
+    console.log('Visita eliminada: '+ id);
+    this.mostrarPaciente();
+    this.seguroV=false;
+    this.visible=true;
+}
 
 // Otras funciones utiles para comprimir codigo
-
     yaEsHoraDeConsultar(X){
         console.log(X);
         let d = new Date();
