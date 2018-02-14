@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogRef , MdRadioChange} from '@angular/material';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { PacienteService } from '../services/paciente.service';
@@ -12,12 +12,12 @@ import { Paciente } from '../models/paciente';
     styleUrls: ['../css/historiaClinica.css'],
     providers:[PacienteService]
 })
-export class HistoriaClinicaComponent implements OnInit{
+export class HistoriaClinicaComponent implements OnInit, OnChanges{
     public paciente:any;
-    public males=[
+    public males:any=[
       [' Estreñimiento ','0'],[' Insomnio ','0'],[' Dolor de cabeza ','0'],[' Zumbido de oidos ','0'],[' Cansancio excesivo ','0'],[' Inflamación ','0']
       ];
-    public enfercb=[
+    public enfercb:any=[
       [' Diabetes',false],[' Hipertensión',false],[' Cardiopatía',false],[' Resistencia a la insulina',false],[' Hipotiroidismo',false],[' Hipertiroidismo',false],[' Colitis',false],[' Gastritis',false]
     ];
     public flag:boolean;
@@ -33,6 +33,11 @@ export class HistoriaClinicaComponent implements OnInit{
         if(this.paciente.malestares==""){this.paciente.malestares=this.males;}
         if(this.paciente.enfermedades==""){this.paciente.enfermedades=this.enfercb;}
         if(this.flag==true){}else{this.flag=false;}
+        console.log(this.paciente);
+    }
+
+    ngOnChanges(){
+      console.log(this.paciente.motivo);
     }
 
      actualizarHisCli(){
@@ -43,6 +48,7 @@ export class HistoriaClinicaComponent implements OnInit{
       }
        this.pacienteService.updatePaciente(this.paciente.id, this.paciente);
       //  Agregar flag para indicar que se inicio desde un dialog y cerrarlo
+      console.log(this.paciente);
       if(this.flag==true){
         this.dialogRef.close();
       } else{
@@ -55,5 +61,6 @@ export class HistoriaClinicaComponent implements OnInit{
     }
 
 
-//FIN
+//FIN     <script src="https://unpkg.com/@angular/material@2.0.0-beta.5/bundles/material.umd.js"></script>
+
 }

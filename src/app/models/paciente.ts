@@ -16,8 +16,11 @@ export class Paciente{
         public pesoideal: String,
         public enfermedades: String, 
         public malestares: String,
+        public motivo:String,
         public alergias: String,
-        public noincluir: String ,
+        public noincluir: String,
+        public agua: String,
+        public ejercicio: String,
         public observaciones: String,
         public completo:Boolean
     ){
@@ -35,8 +38,11 @@ export class Paciente{
         this.pesoideal=pesoideal;
         this.enfermedades=enfermedades;
         this.malestares=malestares;
+        this.motivo=motivo;
         this.alergias=alergias;
         this.noincluir=noincluir;
+        this.agua=agua;
+        this.ejercicio=ejercicio;
         this.observaciones=observaciones;
         this.completo=completo;
     }

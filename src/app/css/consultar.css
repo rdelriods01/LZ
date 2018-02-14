@@ -94,15 +94,13 @@
   and (-webkit-min-device-pixel-ratio: 2) 
   { 
     .consultarC{
-        min-height: -webkit-fill-available;
-        height: -webkit-fill-available;
+        height: 100vh;
     } 
-    .formConsultar{
-        height: auto;
-        width: 108%;
-    }
     .agenda, .medidas{
         margin: 0;
+    }
+    .medidas{
+        zoom: 95%;
     }
     .agenda, .medSup, .medInf, .otros{
         display: flex;

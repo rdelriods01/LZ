@@ -42,7 +42,8 @@ import { NewPacienteComponent } from './components/newPaciente.component';
 import { FlatpickerComponent } from './components/flatpicker.component';
 import { HistoriaClinicaComponent } from './components/historiaClinica.component';
 import { ConsultarComponent } from './components/consultar.component';
-import { ProxCitaComponent } from './components/proxcita.component';
+import { ProxCitaComponent } from './components/proxcita.component';  
+import { ViejosComponent } from './components/viejos.component';
 
 // Configuracion de las Rutas
 const routes: Routes = [
@@ -51,6 +52,7 @@ const routes: Routes = [
   { path:'login', component: LoginComponent },
   { path:'pacientes', component: PacientesComponent},
   { path:'paciente/:id', component: PerfilPacienteComponent},
+  { path:'viejos', component: ViejosComponent },
 
   { path:'**', component: DashboardComponent}
 ];
@@ -69,7 +71,8 @@ const routes: Routes = [
     PerfilPacienteComponent,
     HistoriaClinicaComponent,
     ConsultarComponent,
-    ProxCitaComponent
+    ProxCitaComponent,
+    ViejosComponent
   ],
   imports: [
     BrowserModule,

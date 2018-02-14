@@ -18,11 +18,15 @@
         </div>
         <div class="historiaClinica">
             <h3 style="text-align: center">Historia Clínica</h3>
+            <div *ngIf="motivo!=''" ><h5>Motivo de la consulta: </h5><p>{{paciente.motivo}}</p></div>
             <div *ngIf="enf!=''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
             <div *ngIf="malesta!=''" ><h5>Malestares: </h5><p>{{malesta}}</p></div>
             <div *ngIf="alerg!=''" ><h5>Alergias: </h5><p>{{paciente.alergias}}</p></div>
             <div *ngIf="noinclu!=''" ><h5>No incluir en la dieta: </h5><p>{{paciente.noincluir}}</p></div>
+            <div *ngIf="agua!=''" ><h5>Ingesta de agua: </h5><p>{{paciente.agua}}</p></div>
+            <div *ngIf="ejer!=''" ><h5>Ejercicio: </h5><p>{{paciente.ejercicio}}</p></div>
             <div *ngIf="observa!=''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
+
         </div>
     </div>
     <div class="perfSupDer">
@@ -31,7 +35,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="75" viewbox="5 5 100 80" preserveAspectRatio="xMidYMid meet">
                     <path class="backS" d="M80,70 A40,40 0 1,0 20,70"
                           />
-                    <path class="frontS" d="M80,70 A40,40 0 1,0 20,70" [ngStyle]="{'stroke-dashoffset':(-184+(spinval*1.84))}"
+                    <path class="frontS" d="M80,70 A40,40 0 1,0 20,70" [ngStyle]="{'stroke-dashoffset':this.spinner}"
                           />
                 </svg>
                 <div class="porBajar">
@@ -108,7 +112,7 @@
                         <td >{{visita.fecha}}</td>
                         <td [ngStyle]="{'color':visita.colP}"> {{visita.peso}} Kg <md-icon *ngIf="visita.arrowP" class="arrow" > {{visita.arrowP}}</md-icon> {{visita.difP}} </td>
                         <td [ngStyle]="{'color':visita.colG}"> {{visita.grasa}} Kg <md-icon *ngIf="visita.arrowG" class="arrow" > {{visita.arrowG}}</md-icon> {{visita.difG}} </td>
-                        <td [ngStyle]="{'color':visita.colM}"> {{visita.musculo}} Kg <md-icon *ngIf="visita.arrowM" class="arrow" > {{visita.arrowM}}</md-icon> {{visita.difM}} </td>
+                        <td [ngStyle]="{'color':visita.colM}"> {{visita.musculo}} % <md-icon *ngIf="visita.arrowM" class="arrow" > {{visita.arrowM}}</md-icon> {{visita.difM}} </td>
                         <td [ngStyle]="{'color':visita.colA}"> {{visita.abdomen}} cm <md-icon *ngIf="visita.arrowA" class="arrow" > {{visita.arrowA}}</md-icon> {{visita.difA}} </td>
                         <td *ngIf="genero=='Mujer'" [ngStyle]="{'color':visita.colC}"> {{visita.cadera}} cm <md-icon *ngIf="visita.arrowC" class="arrow" > {{visita.arrowC}}</md-icon> {{visita.difC}} </td>
                         <td [ngStyle]="{'color':visita.colGl}"> {{visita.glucosa}} mg/dl <md-icon *ngIf="visita.arrowGl" class="arrow" > {{visita.arrowGl}}</md-icon> {{visita.difGl}} </td>
@@ -131,7 +135,7 @@
         <div class="graficaProgreso">
             <div class="btnsChangeGraph">
                 <button md-button (click)="chartMenos()"> < </button>
-                <button style="width: 10em" md-button (click)="showPesoGraph()"> {{gData[0].label}} </button>
+                <button class="btnGraf" md-button (click)="showPesoGraph()"> {{gData[0].label}} </button>
                 <button md-button (click)="chartMas()"> > </button>
             </div>
             <canvas baseChart [datasets]="gData" [labels]="cLabels" [options]="cOptions" [legend]=false [chartType]="'line'"></canvas>

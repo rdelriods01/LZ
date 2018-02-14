@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -13,6 +13,7 @@ import { Visita } from '../models/visita';
 import {VisitaService} from '../services/visita.service';
 import {PacienteService} from '../services/paciente.service';
 import { forEach } from '@angular/router/src/utils/collection';
+import { delay } from 'q';
 
 @Component({
     selector: 'perfil-paciente',
@@ -21,7 +22,7 @@ import { forEach } from '@angular/router/src/utils/collection';
     providers:[VisitaService,PacienteService]
 })
 
-export class PerfilPacienteComponent implements OnInit{
+export class PerfilPacienteComponent implements AfterViewInit {
     
     public paciente:Paciente;
     public visitas: any[]=[];
@@ -52,6 +53,9 @@ export class PerfilPacienteComponent implements OnInit{
     public noinclu:String;
     public observa:String;
     public genero:String;
+    public motivo:String;
+    public agua:String;
+    public ejer:String;
 
     // Para los avances
     public spinval:number;
@@ -59,6 +63,7 @@ export class PerfilPacienteComponent implements OnInit{
     public pesoinicial:number;
     public totalbajado:any;
     public porbajar:any;
+    public spinner=-184;
 
     // variables para graficos y calculos
     public gDpeso:any[]=[];
@@ -96,16 +101,18 @@ export class PerfilPacienteComponent implements OnInit{
         private pacienteService: PacienteService,
         public dialog: MdDialog,
     ){
-        this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","",false);
+        this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","","","","",false);
         this.mostrarPaciente();
     }
-    
-    ngOnInit(){
-    }
 
-    // ngOnChanges(){
-    //     this.parseGraficos();
-    // }
+
+    ngAfterViewInit(){
+        for(let i=0;i<=this.spinval;i++){
+            setTimeout(() => {
+                this.spinner=(-184+(i*1.84));
+            }, 200);
+        } 
+    }
 
     mostrarPaciente(){
         this._route.params.forEach((params:Params)=>{
@@ -131,8 +138,11 @@ export class PerfilPacienteComponent implements OnInit{
                 if(this.temp.length>0){this.malesta=this.temp.toString();}else{this.malesta="";}
                 this.temp=[];
                 // otros
+                this.motivo=this.paciente.motivo;
                 this.alerg=this.paciente.alergias;
                 this.noinclu=this.paciente.noincluir;
+                this.agua=this.paciente.agua;
+                this.ejer=this.paciente.ejercicio;
                 this.observa=this.paciente.observaciones;
                 this.genero=this.paciente.sexo;
                 // Ya que se tiene el paciente, ahora hay que mostrar las visitas
@@ -265,7 +275,7 @@ export class PerfilPacienteComponent implements OnInit{
                 this.citas=this.ordenados.slice().reverse();
                 this.citas1=this.ordenados.slice().reverse();
                 // Esto es para que al momento de consultar no se vea en la lista la cita en ceros.
-                if (this.proxcita == false){ this.citas1.shift() }               
+                if (this.proxcita == false){ this.citas1.shift() }    
             }    
         }
     }
@@ -407,11 +417,16 @@ export class PerfilPacienteComponent implements OnInit{
             [{data: this.gDglucosa, label:'Glucosa'}]
         ];
         // Truco con JSON.parse y JSON.stringify para actualizar los datos
-        let clone = JSON.parse(JSON.stringify(this.gData));
-        this.gData=clone;
+        // let clone = JSON.parse(JSON.stringify(this.gData));
+        // this.gData=clone;
+        // console.log(clone);
         this.cLabels=this.gDfechas;
-        clone = JSON.parse(JSON.stringify(this.cLabels));
-        this.cLabels=clone;
+        let clone = this.cLabels.reverse();
+        console.log(clone);
+
+        this.cLabels=clone.reverse();
+        console.log(this.cLabels);
+
     }
 
 // Funciones para los Dialogs Consultar / Proxima Cita / Editar historiaClinica / Editar fecha de visita
@@ -452,7 +467,6 @@ openConsultarDialog(P,V){
             this.proxcita=result[0];
             this.pesoactual=result[1].peso;
             this.incompleta=null;
-            this.showGraf=false;
         }        
         this.totalbajado=this.pesoinicial-this.pesoactual;
         this.mostrarPaciente();

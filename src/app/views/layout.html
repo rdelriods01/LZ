@@ -39,7 +39,7 @@
       <ul>
         <li><a [routerLink]="['/']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
         <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
-        <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/agenda']"><md-icon class="icon">event</md-icon>Agenda</a></li>
+        <li><a [routerLink]="['/viejos']"><md-icon class="icon">event</md-icon>Agregar Pacientes</a></li>
         <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Test</a></li>
         <span class="fill-space"></span>
         <li><a (click)="logout()"><md-icon class="icon">exit_to_app</md-icon>Cerrar Sesión</a></li>

@@ -109,7 +109,10 @@ button:hover {
 }
 .areas{
     width: 100%;
-    margin: 1px 0;
+    margin: -1px 0;
+}
+.motivo{
+    padding: 0;
 }
 
 @media only screen 
@@ -117,7 +120,7 @@ button:hover {
   and (-webkit-min-device-pixel-ratio: 2)
   { 
     .hiscli{
-        max-height: -webkit-fill-available; 
+        max-height: 100vh; 
     }
     .first{
         text-align-last: center;

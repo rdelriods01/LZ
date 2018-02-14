@@ -249,9 +249,13 @@ svg {
   path.frontS {
     stroke: purple;
     stroke-dasharray: calc(40 * 3.142 * 1.85);
-    animation: ani 2.5s;
+    /* transition: stroke-dashoffset 2.5s; */
 }
 
+
+.btnGraf{
+    width: 10em;
+}
 
 .porBajar{
     color: grey;
@@ -285,5 +289,8 @@ svg {
     }
     .spinners{
         zoom: 300%;
+    }
+    .btnGraf{
+        width: 5em;
     }
 }

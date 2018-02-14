@@ -50,10 +50,10 @@
                         <input mdInput #estatura="ngModel" name="estatura" [(ngModel)]="paciente.estatura" placeholder="Estatura.." maxlength="3" >
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput #pesoajustado="ngModel" name="pesoajustado" [(ngModel)]="paciente.pesoajustado" placeholder="Peso ajustado.." maxlength="2" required>
+                        <input mdInput #pesoajustado="ngModel" name="pesoajustado" [(ngModel)]="paciente.pesoajustado" placeholder="Peso ajustado.." maxlength="4" required>
                     </md-input-container>
                     <md-input-container>
-                        <input mdInput #pesoideal="ngModel" name="pesoideal" [(ngModel)]="paciente.pesoideal" placeholder="Peso ideal.." maxlength="2">
+                        <input mdInput #pesoideal="ngModel" name="pesoideal" [(ngModel)]="paciente.pesoideal" placeholder="Peso ideal.." maxlength="4">
                     </md-input-container>
                 </p>
                 <div class="enfymal" >
@@ -79,17 +79,26 @@
             </div>
     
             <div class="righties">
-                <p >
+                <div>
                     <md-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="4" #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
+                        <input class="motivo" mdInput #motivo="ngModel" name="motivo" [(ngModel)]="paciente.motivo" placeholder="Motivo de la consulta.." >
+                    </md-input-container>                    
+                    <md-input-container class="areas">
+                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="2" #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
                     </md-input-container>
                     <md-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="5" #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.noincluir" placeholder="No incluir.." ></textarea>
+                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="2" #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.noincluir" placeholder="No incluir.." ></textarea>
+                    </md-input-container>
+                    <md-input-container class="areas">
+                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" #agua="ngModel" name="agua" [(ngModel)]="paciente.agua" placeholder="Ingesta de Agua.." ></textarea>
+                    </md-input-container>
+                    <md-input-container class="areas">
+                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" #ejercicio="ngModel" name="ejercicio" [(ngModel)]="paciente.ejercicio" placeholder="Ejercicio.." ></textarea>
                     </md-input-container>
                     <md-input-container class="areas">
                         <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="6" #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>
                     </md-input-container>
-                </p>
+                </div>
             </div> 
         </div>       
         
