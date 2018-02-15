@@ -1,7 +1,6 @@
-import {Component, AfterViewInit } from '@angular/core';
+import {Component } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 import {MdDialog, MdDialogRef} from '@angular/material';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { ConsultarComponent } from './consultar.component';
 import {ProxCitaComponent} from './proxcita.component';
@@ -12,8 +11,6 @@ import { Visita } from '../models/visita';
 
 import {VisitaService} from '../services/visita.service';
 import {PacienteService} from '../services/paciente.service';
-import { forEach } from '@angular/router/src/utils/collection';
-import { delay } from 'q';
 
 @Component({
     selector: 'perfil-paciente',
@@ -22,14 +19,14 @@ import { delay } from 'q';
     providers:[VisitaService,PacienteService]
 })
 
-export class PerfilPacienteComponent implements AfterViewInit {
+export class PerfilPacienteComponent {
     
     public paciente:Paciente;
     public visitas: any[]=[];
     public ordenados: any[];
     public cita: any[];
     public citas: any[];
-    public citas1: any[];
+    public citasT: any[];
     public errorMessage : any;
 
     public totaldevisitas:number;
@@ -105,15 +102,6 @@ export class PerfilPacienteComponent implements AfterViewInit {
         this.mostrarPaciente();
     }
 
-
-    ngAfterViewInit(){
-        for(let i=0;i<=this.spinval;i++){
-            setTimeout(() => {
-                this.spinner=(-184+(i*1.84));
-            }, 200);
-        } 
-    }
-
     mostrarPaciente(){
         this._route.params.forEach((params:Params)=>{
             let id = params['id'];
@@ -176,6 +164,7 @@ export class PerfilPacienteComponent implements AfterViewInit {
         this.gDcadera=[];
         this.gDglucosa=[];
         this.visitas=this.visitaService.getVisitasP(this.paciente.id);
+        console.log(this.visitas);
         this.totaldevisitas=this.visitas.length;
         if(this.visitas.length==0){ // Si no tiene citas
             // Cambiar boton de consultar por agendar cita
@@ -213,30 +202,32 @@ export class PerfilPacienteComponent implements AfterViewInit {
                     this.showList=true;
                     this.proxcita=true;
                     this.yaConsultar=true;
-                    this.citas1=this.visitas;
+                    this.citasT=this.visitas;
                 }
              }else{ //Si tiene mas de una cita
                 this.showList=true;                
                 this.showGraf=false;
                 this.showAvances=false;
-
+                this.ordenar(); //ordenar las citas de mas nuevo arriba 
+                // cambiar vista del mes del formato MM al MMM                
+                this.formatoMes(); 
                 // Revisa si estan completas
                 for(let i=0;i<this.totaldevisitas;i++){
-                    if(this.visitas[i].completo==true){
+                    if(this.ordenados[i].completo==true){
                         // si esta completa
                         console.log("Visita No: " + i + " completa");
                         // guardar datos en un array
-                        this.gDpeso.push(this.visitas[i].peso);
-                        this.gDgrasa.push(this.visitas[i].grasa);
-                        this.gDmusculo.push(this.visitas[i].musculo);
-                        this.gDabdomen.push(this.visitas[i].abdomen);
-                        this.gDcadera.push(this.visitas[i].cadera);
-                        this.gDglucosa.push(this.visitas[i].glucosa);
-                        this.gDfechas.push(this.visitas[i].fecha);
+                        this.gDpeso.push(this.ordenados[i].peso);
+                        this.gDgrasa.push(this.ordenados[i].grasa);
+                        this.gDmusculo.push(this.ordenados[i].musculo);
+                        this.gDabdomen.push(this.ordenados[i].abdomen);
+                        this.gDcadera.push(this.ordenados[i].cadera);
+                        this.gDglucosa.push(this.ordenados[i].glucosa);
+                        this.gDfechas.push(this.ordenados[i].fecha);
                     }else{
                         // si no esta completa guarda la que no esta completa
                         console.log("Visita No: " + i + " incompleta");
-                        this.incompleta=this.visitas[i];
+                        this.incompleta=this.ordenados[i];
                     }
                 }
                 
@@ -263,25 +254,34 @@ export class PerfilPacienteComponent implements AfterViewInit {
                     this.proxcita=true;
                     this.incompleta=null;
                 }
-
-                
-                this.ordenar(); //ordena el listado cn el mas nuevo arriba y el mes en formato MMM
+                this.citasT=JSON.parse(JSON.stringify(this.ordenados));
                 this.calcularAvances(); //calcula los avances (de la lista y del spinner)
                 if(this.gDfechas.length>1){ //peeeeero solo muestra si tiene 2 o mas citas completas
                     this.gData=[{data:this.gDpeso, label:"Peso"}];
                     this.parseGraficos(); //los graficos
                     this.showAvances=true; // y el spinner
+                    this.updateSpinner(); 
                 }
                 this.citas=this.ordenados.slice().reverse();
-                this.citas1=this.ordenados.slice().reverse();
+                this.citasT.reverse();
                 // Esto es para que al momento de consultar no se vea en la lista la cita en ceros.
-                if (this.proxcita == false){ this.citas1.shift() }    
+                if (this.proxcita == false){ this.citasT.shift() }  
+                 
             }    
         }
     }
-
     ordenar(){
-        this.ordenados = this.visitas
+        let clone=JSON.parse(JSON.stringify(this.visitas));
+        clone.sort(function(a, b) {
+            a = new Date(a.fecha);
+            b = new Date(b.fecha);
+            return a>b ? -1 : a<b ? 1 : 0;
+        });
+        console.log(clone);
+        this.ordenados=clone.reverse();
+    }
+
+    formatoMes(){
         for(let i=0;i<this.totaldevisitas;i++){
             this.fechaSplit =  this.ordenados[i].fecha.split("-");
             for(let j=1;j<=12;j++){
@@ -290,9 +290,9 @@ export class PerfilPacienteComponent implements AfterViewInit {
                 }
             }
             this.ordenados[i].fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2])
+            console.log(this.ordenados[i].fecha);
         }
     }
-
     calcularAvances(){
         this.subio=false;
         this.acabo=false;
@@ -338,49 +338,49 @@ export class PerfilPacienteComponent implements AfterViewInit {
         for(let k=0; k<tov; k++){
             if(k==0){
                 arrP[k]=arrG[k]=arrM[k]=arrA[k]=arrC[k]=arrGl[k]='black';
-                this.ordenados[k].colP=arrP[k];
-                this.ordenados[k].colG=arrG[k];
-                this.ordenados[k].colM=arrM[k];
-                this.ordenados[k].colA=arrA[k];
-                this.ordenados[k].colC=arrC[k];
-                this.ordenados[k].colGl=arrGl[k];
+                this.citasT[k].colP=arrP[k];
+                this.citasT[k].colG=arrG[k];
+                this.citasT[k].colM=arrM[k];
+                this.citasT[k].colA=arrA[k];
+                this.citasT[k].colC=arrC[k];
+                this.citasT[k].colGl=arrGl[k];
             }else{
                 // peso
                 arrP[k]=this.calculosTabla(k,pesos[k],pesos[k-1],this.ordenados[k].peso,false);
-                this.ordenados[k].colP=arrP[k][0];
-                this.ordenados[k].arrowP=arrP[k][1];
-                this.ordenados[k].difP=arrP[k][2];
-                this.ordenados[k].peso=arrP[k][3];
+                this.citasT[k].colP=arrP[k][0];
+                this.citasT[k].arrowP=arrP[k][1];
+                this.citasT[k].difP=arrP[k][2];
+                this.citasT[k].peso=arrP[k][3];
                 // grasa
                 arrG[k]=this.calculosTabla(k,grasas[k],grasas[k-1],this.ordenados[k].grasa,false);
-                this.ordenados[k].colG=arrG[k][0];
-                this.ordenados[k].arrowG=arrG[k][1];
-                this.ordenados[k].difG=arrG[k][2];
-                this.ordenados[k].grasa=arrG[k][3];
+                this.citasT[k].colG=arrG[k][0];
+                this.citasT[k].arrowG=arrG[k][1];
+                this.citasT[k].difG=arrG[k][2];
+                this.citasT[k].grasa=arrG[k][3];
                 // musculo
                 arrM[k]=this.calculosTabla(k,musculos[k],musculos[k-1],this.ordenados[k].musculo,true);
-                this.ordenados[k].colM=arrM[k][0];
-                this.ordenados[k].arrowM=arrM[k][1];
-                this.ordenados[k].difM=arrM[k][2];
-                this.ordenados[k].musculo=arrM[k][3];
+                this.citasT[k].colM=arrM[k][0];
+                this.citasT[k].arrowM=arrM[k][1];
+                this.citasT[k].difM=arrM[k][2];
+                this.citasT[k].musculo=arrM[k][3];
                 // abdomen
                 arrA[k]=this.calculosTabla(k,abdomenes[k],abdomenes[k-1],this.ordenados[k].abdomen,false);
-                this.ordenados[k].colA=arrA[k][0];
-                this.ordenados[k].arrowA=arrA[k][1];
-                this.ordenados[k].difA=arrA[k][2];
-                this.ordenados[k].abdomen=arrA[k][3];
+                this.citasT[k].colA=arrA[k][0];
+                this.citasT[k].arrowA=arrA[k][1];
+                this.citasT[k].difA=arrA[k][2];
+                this.citasT[k].abdomen=arrA[k][3];
                 // cadera
                 arrC[k]=this.calculosTabla(k,caderas[k],caderas[k-1],this.ordenados[k].cadera,false);
-                this.ordenados[k].colC=arrC[k][0];
-                this.ordenados[k].arrowC=arrC[k][1];
-                this.ordenados[k].difC=arrC[k][2];
-                this.ordenados[k].cadera=arrC[k][3];
+                this.citasT[k].colC=arrC[k][0];
+                this.citasT[k].arrowC=arrC[k][1];
+                this.citasT[k].difC=arrC[k][2];
+                this.citasT[k].cadera=arrC[k][3];
                 // glucosa
                 arrGl[k]=this.calculosTabla(k,glucosas[k],glucosas[k-1],this.ordenados[k].glucosa,false);
-                this.ordenados[k].colGl=arrGl[k][0];
-                this.ordenados[k].arrowGl=arrGl[k][1];
-                this.ordenados[k].difGl=arrGl[k][2];
-                this.ordenados[k].glucosa=arrGl[k][3];
+                this.citasT[k].colGl=arrGl[k][0];
+                this.citasT[k].arrowGl=arrGl[k][1];
+                this.citasT[k].difGl=arrGl[k][2];
+                this.citasT[k].glucosa=arrGl[k][3];
             }
         }
     }
@@ -421,12 +421,20 @@ export class PerfilPacienteComponent implements AfterViewInit {
         // this.gData=clone;
         // console.log(clone);
         this.cLabels=this.gDfechas;
-        let clone = this.cLabels.reverse();
+        // let clone = this.cLabels.reverse();
+        let clone = JSON.parse(JSON.stringify(this.gDfechas));
         console.log(clone);
-
-        this.cLabels=clone.reverse();
+        setTimeout(() => {this.cLabels=clone},40);
+        // this.cLabels=clone;
         console.log(this.cLabels);
 
+    }
+    updateSpinner(){
+        for(let i=0;i<=this.spinval;i++){
+            setTimeout(() => {
+                this.spinner=(-184+(i*1.84));
+            }, 200);
+        } 
     }
 
 // Funciones para los Dialogs Consultar / Proxima Cita / Editar historiaClinica / Editar fecha de visita
@@ -530,7 +538,15 @@ showMore(){
     this.visible=!this.visible;
 }
 
-editVisita(v,P){
+editVisita(id,P){
+    let v:any=[];
+    for(let i=0;i<this.totaldevisitas;i++){
+        if(this.visitas[i].id==id){
+            v=this.visitas[i];
+        }
+    }
+
+
     this.fechaSplit =  v.fecha.split("-");
     for(let j=1;j<=12;j++){
         if(this.fechaSplit[1]==this.mes[j-1]){
@@ -584,6 +600,16 @@ siDelVisita(id){
         }
         let hoy=miFecha[0]+'-'+miFecha[1]+'-'+miFecha[2];
         console.log(hoy);
+        let fechaVis =  X.fecha.split("-");
+        for(let j=1;j<=12;j++){
+            if(fechaVis[1]==this.mes[j-1]){
+                fechaVis[1]=j;
+                if(fechaVis[1]<10){
+                    fechaVis[1]=('0'+fechaVis[1]);
+                }
+            }
+        }
+        X.fecha = fechaVis[0]+'-'+fechaVis[1]+'-'+fechaVis[2];
         if(X.fecha==hoy){
             return true;
         }else{

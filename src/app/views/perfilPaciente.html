@@ -108,7 +108,7 @@
                 </thead>
                 <tbody>
                     
-                    <tr *ngFor="let visita of citas1" >
+                    <tr *ngFor="let visita of citasT" >
                         <td >{{visita.fecha}}</td>
                         <td [ngStyle]="{'color':visita.colP}"> {{visita.peso}} Kg <md-icon *ngIf="visita.arrowP" class="arrow" > {{visita.arrowP}}</md-icon> {{visita.difP}} </td>
                         <td [ngStyle]="{'color':visita.colG}"> {{visita.grasa}} Kg <md-icon *ngIf="visita.arrowG" class="arrow" > {{visita.arrowG}}</md-icon> {{visita.difG}} </td>
@@ -119,7 +119,7 @@
                         <td >{{visita.menu}}</td>
                         <td >{{visita.comentarios}}</td>
                         <td *ngIf="visible">
-                            <button md-button (click)="editVisita(visita,paciente)" ><md-icon>mode_edit</md-icon></button> 
+                            <button md-button (click)="editVisita(visita.id,paciente)" ><md-icon>mode_edit</md-icon></button> 
                         </td>
                         <td *ngIf='seguroV' class="confirmDelVisita" >
                             <h4 style="margin: 0 auto">¿Elminar?</h4>
