@@ -1,0 +1,55 @@
+.addNew{
+    display: flex;
+}
+.descripcion{
+    width: 50vw;
+    margin: 0 auto;
+}
+.addNew button{
+    background-color: #8bc34a;
+    margin-left: 4em;
+    font-size: 1.4em;
+    height: 3em;
+    width: 10em;
+    border-radius: 10px;
+}
+.tdc{
+    margin: auto;
+}
+
+md-card{
+    margin: 0.5em;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0px 0px;
+    margin-bottom: 0;
+}
+th {
+    box-sizing: border-box;
+    width: 79px;
+    border-bottom: 3px solid #ddd;
+    padding: 8px;
+    font-weight:bold; 
+}
+tbody tr:hover{
+    background-color:lightgray;
+}
+tbody td {
+    box-sizing: border-box;
+    width: 254px;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 8px 0px;
+}
+.littlebtn{
+    margin: 0;
+    min-width:4em;
+}
+.acciones{
+    max-width: 1em;
+    text-align: center;
+}
+.platillo{
+    max-width: 1em;
+}

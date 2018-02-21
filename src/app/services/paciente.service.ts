@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
-import { VisitaService } from './visita.service';
 import { Paciente } from '../models/paciente';
 
 
 @Injectable()
 export class PacienteService{
 
-    public items:FirebaseListObservable<any>;
     public actualP:any;
 
+    constructor(private af: AngularFireDatabase){}
 
-    constructor( private visitaService:VisitaService, private af: AngularFireDatabase){
-        this.items = this.af.list('pacientes');
-    }
-
-    getPacientes() {
-        return this.items;
+    getPacientes():FirebaseListObservable<any> {
+        return this.af.list('pacientes');
     }
     getPaciente(idP) {
          let miP= this.af.object('pacientes/'+idP, {preserveSnapshot:true});
@@ -27,14 +22,13 @@ export class PacienteService{
          return this.actualP;
     }
     savePaciente(paciente:Paciente){
-        let idP=this.items.push(paciente).key;
+        let idP=this.af.list('pacientes').push(paciente).key;
         paciente.id=idP;
-        this.items.update(idP,paciente);
+        this.af.list('pacientes').update(idP,paciente);
     }
-    updatePaciente(id:any,paciente:Paciente){
-        this.items.update(id,paciente);
+    updatePaciente(id,paciente){
+        this.af.list('pacientes').update(id,paciente);
     }
-
     deletePaciente(id){
         this.af.object('pacientes/'+id).remove();
     }

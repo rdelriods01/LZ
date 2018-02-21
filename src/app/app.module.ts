@@ -43,7 +43,10 @@ import { FlatpickerComponent } from './components/flatpicker.component';
 import { HistoriaClinicaComponent } from './components/historiaClinica.component';
 import { ConsultarComponent } from './components/consultar.component';
 import { ProxCitaComponent } from './components/proxcita.component';  
-import { ViejosComponent } from './components/viejos.component';
+import { MenusComponent } from './components/menus.component';
+import { AddPlatillosComponent } from './components/addPlatillos.component';
+import { PlatillosComponent } from './components/Platillos.component';
+
 
 // Configuracion de las Rutas
 const routes: Routes = [
@@ -52,7 +55,7 @@ const routes: Routes = [
   { path:'login', component: LoginComponent },
   { path:'pacientes', component: PacientesComponent},
   { path:'paciente/:id', component: PerfilPacienteComponent},
-  { path:'viejos', component: ViejosComponent },
+  { path:'platillos', component: PlatillosComponent},
 
   { path:'**', component: DashboardComponent}
 ];
@@ -72,7 +75,9 @@ const routes: Routes = [
     HistoriaClinicaComponent,
     ConsultarComponent,
     ProxCitaComponent,
-    ViejosComponent
+    MenusComponent,
+    AddPlatillosComponent,
+    PlatillosComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +97,6 @@ const routes: Routes = [
     VisitaService
   ],
   bootstrap: [AppComponent],
-  entryComponents:[NewPacienteComponent,HistoriaClinicaComponent,ConsultarComponent,ProxCitaComponent]
+  entryComponents:[NewPacienteComponent,HistoriaClinicaComponent,ConsultarComponent,ProxCitaComponent,AddPlatillosComponent]
 })
 export class AppModule { }

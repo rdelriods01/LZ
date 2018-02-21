@@ -52,7 +52,9 @@ export class ConsultarComponent implements OnInit {
                                   this.miUltimaVisita.menu,
                                   "",
                                   false,
-                                  this.paciente.id );
+                                  this.paciente.id,
+                                  {desayuno:[],comida:[],cena:[],snack:[]},
+                                  false);
             this.resultado=[false,this.visit];
         }
     }
@@ -71,6 +73,7 @@ export class ConsultarComponent implements OnInit {
         this.visit.fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
         // 
         if(this.flag){
+            console.log(this.visit.id);
             this.visitaService.editVisita(this.visit.id, this.visit)
             this.flag=false;
             this.dialogRef.close();

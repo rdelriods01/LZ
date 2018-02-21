@@ -13,7 +13,14 @@ export class Visita{
         public menu: String,
         public comentarios: String,
         public completo: Boolean,
-        public paciente: any 
+        public paciente: any,
+        public menuCompleto:{
+            desayuno:any[],
+            comida:any[],
+            cena:any[],
+            snack:any[]
+        },
+        public menuF:Boolean
     ){
         this.id=id;
         this.numero=numero;
@@ -29,6 +36,11 @@ export class Visita{
         this.comentarios=comentarios;
         this.completo=completo;
         this.paciente=paciente;
+        this.menuCompleto.desayuno=menuCompleto.desayuno;
+        this.menuCompleto.comida=menuCompleto.comida;
+        this.menuCompleto.cena=menuCompleto.cena;
+        this.menuCompleto.snack=menuCompleto.snack;
+        this.menuF=menuF;
     }
 
 }

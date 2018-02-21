@@ -1,0 +1,39 @@
+<md-card>
+    <h1>Menus del paciente {{paciente.nombre}}</h1>
+        <md-tab-group [selectedIndex]="nTabs" (selectChange)="onTabChange($event)" >
+            <md-tab *ngFor="let d of Citas" label="{{d.fecha}}">
+                <div>
+                    <div class="superior">
+                        <button md-button *ngIf="d.menuF && save" class="btn_small"  (click)="unlock(d)" > <md-icon>lock</md-icon> </button>
+                        <button md-button *ngIf="!d.menuF && !save" class="btn_small" (click)="lock(d); clearTemp()"  > <md-icon>lock_open</md-icon> </button>
+                        <span class="fill-space"></span>    
+                        <button md-button *ngIf="d.menuF && save" class="btn" >Imprimir</button>
+                        <button md-button *ngIf="!d.menuF" class="btn" (click)="guardar(d)" >Guardar</button>
+                    </div>
+                    <div class="inferior">
+                        <span> MenuF: {{d.menuF}}  Save: {{save}}  </span>
+                        <div class="tiempo" id="des" (click)="openPlatillosDialog(d,'desayuno')" >
+                            <div id="desL" class="left"> <p>Desayuno</p> </div> 
+                                <p *ngIf="d.menuF" class="text"> <span class="lista" *ngFor="let t of d.menuCompleto.desayuno" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                                <p *ngIf="!d.menuF" class="text"> <span class="lista" *ngFor="let t of temp.desayuno" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                        </div>
+                        <div class="tiempo" id="com" (click)="openPlatillosDialog(d,'comida')" >
+                            <div id="comL" class="left"><p>Comida</p></div> 
+                            <p *ngIf="d.menuF" class="text"> <span class="lista" *ngFor="let t of d.menuCompleto.comida" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                            <p *ngIf="!d.menuF" class="text"> <span class="lista" *ngFor="let t of temp.comida" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                        </div>
+                        <div class="tiempo" id="cen" (click)="openPlatillosDialog(d,'cena')" >
+                            <div id="cenL" class="left"><p>Cena</p></div> 
+                            <p *ngIf="d.menuF" class="text"> <span class="lista" *ngFor="let t of d.menuCompleto.cena" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                            <p *ngIf="!d.menuF" class="text"> <span class="lista" *ngFor="let t of temp.cena" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                        </div>
+                        <div class="tiempo" id="sdia" (click)="openPlatillosDialog(d,'snack')" >
+                            <div id="sdiaL" class="left snack"><p>Snack</p></div> 
+                            <p *ngIf="d.menuF" class="text"> <span class="lista" *ngFor="let t of d.menuCompleto.snack" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                            <p *ngIf="!d.menuF" class="text"> <span class="lista" *ngFor="let t of temp.snack" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                        </div>
+                    </div>
+                </div>
+            </md-tab>
+        </md-tab-group>
+</md-card>

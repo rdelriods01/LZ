@@ -164,7 +164,6 @@ export class PerfilPacienteComponent {
         this.gDcadera=[];
         this.gDglucosa=[];
         this.visitas=this.visitaService.getVisitasP(this.paciente.id);
-        console.log(this.visitas);
         this.totaldevisitas=this.visitas.length;
         if(this.visitas.length==0){ // Si no tiene citas
             // Cambiar boton de consultar por agendar cita
@@ -203,6 +202,8 @@ export class PerfilPacienteComponent {
                     this.proxcita=true;
                     this.yaConsultar=true;
                     this.citasT=this.visitas;
+                    this.gDfechas=this.visitas[0].fecha;
+                    this.ordenar();
                 }
              }else{ //Si tiene mas de una cita
                 this.showList=true;                
@@ -277,7 +278,6 @@ export class PerfilPacienteComponent {
             b = new Date(b.fecha);
             return a>b ? -1 : a<b ? 1 : 0;
         });
-        console.log(clone);
         this.ordenados=clone.reverse();
     }
 
@@ -417,16 +417,9 @@ export class PerfilPacienteComponent {
             [{data: this.gDglucosa, label:'Glucosa'}]
         ];
         // Truco con JSON.parse y JSON.stringify para actualizar los datos
-        // let clone = JSON.parse(JSON.stringify(this.gData));
-        // this.gData=clone;
-        // console.log(clone);
         this.cLabels=this.gDfechas;
-        // let clone = this.cLabels.reverse();
         let clone = JSON.parse(JSON.stringify(this.gDfechas));
-        console.log(clone);
         setTimeout(() => {this.cLabels=clone},40);
-        // this.cLabels=clone;
-        console.log(this.cLabels);
 
     }
     updateSpinner(){
@@ -586,7 +579,6 @@ siDelVisita(id){
 
 // Otras funciones utiles para comprimir codigo
     yaEsHoraDeConsultar(X){
-        console.log(X);
         let d = new Date();
         let miFecha:any[]=[];
         miFecha[0]=d.getFullYear();
@@ -599,7 +591,6 @@ siDelVisita(id){
             miFecha[2]=('0'+miFecha[2]);
         }
         let hoy=miFecha[0]+'-'+miFecha[1]+'-'+miFecha[2];
-        console.log(hoy);
         let fechaVis =  X.fecha.split("-");
         for(let j=1;j<=12;j++){
             if(fechaVis[1]==this.mes[j-1]){

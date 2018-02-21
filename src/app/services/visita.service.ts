@@ -8,14 +8,11 @@ export class VisitaService{
 
     public visitasP:any=[];
 
-    constructor( private af: AngularFireDatabase){
-
-    }
+    constructor( private af: AngularFireDatabase){}
 
     getVisitas(): FirebaseListObservable<any> {
         return this.af.list('visitas');
     }
-
     getVisitasP(idP){
         this.visitasP=[];
         let misV = this.af.object('visitas', {preserveSnapshot:true});
@@ -29,17 +26,14 @@ export class VisitaService{
         });
         return this.visitasP;
     }
-
     saveVisita(visita:Visita){
         let idV=this.af.list('visitas').push(visita).key;
         visita.id=idV;
         this.af.list('visitas').update(idV,visita);
     }
-
     editVisita(id,V){
         this.af.list('visitas').update(id,V);
     }
-
     deleteVisita(id){
         this.af.object('visitas/'+id).remove();
     }
