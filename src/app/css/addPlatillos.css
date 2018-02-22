@@ -1,0 +1,72 @@
+.container{
+    max-height: 100vh;
+    min-height: 90vh;
+    width: 70vw;
+}
+.superior{
+    display: flex;
+    margin: 1em 0;
+}
+.fill-space{
+    flex: 1 1 auto;
+}
+#guardar{
+    background-color: #8bc34a;
+    font-weight: bold;
+    border-radius: 12px;
+    width: 12em;
+    font-size: 1em;
+    color: ghostwhite;
+    height: 3em;
+    margin: auto;
+}
+/* Inferior */
+.izq{
+    margin: 0 2%;
+    width: 50%;
+    zoom: 88%;
+}
+.addNew{
+    display: flex;
+    font-size: 0.85em;
+}
+.descripcion{
+    width: 22em;
+}
+.addNew button{
+    margin: auto;
+    height: fit-content;
+}
+.sugerencias{
+    zoom: 80%;
+    margin: 0 auto;
+    width: 50%;
+}
+table {
+    width: 100%;
+    border-spacing: 0px 0px;
+    margin-bottom: 0;
+}
+th {
+    box-sizing: border-box;
+    width: 79px;
+    border-bottom: 3px solid #ddd;
+    padding: 8px;
+    font-weight:bold; 
+}
+tbody tr:hover{
+    background-color:lightgray;
+    cursor: pointer;
+}
+tbody td {
+    box-sizing: border-box;
+    width: 254px;
+    border-top: 1px solid rgb(221, 221, 221);
+    padding: 8px 0px;
+}
+.platilloT{
+    width:8em !important;
+}
+.btnSmall{
+    min-width: 1em;
+}

@@ -6,6 +6,8 @@ import { ConsultarComponent } from './consultar.component';
 import {ProxCitaComponent} from './proxcita.component';
 import { HistoriaClinicaComponent } from './historiaClinica.component';
 
+import { LayoutComponent} from './layout.component';
+
 import { Paciente } from '../models/paciente';
 import { Visita } from '../models/visita';
 
@@ -25,7 +27,7 @@ export class PerfilPacienteComponent {
     public visitas: any[]=[];
     public ordenados: any[];
     public cita: any[];
-    public citas: any[];
+    public citasTabs: any[];
     public citasT: any[];
     public errorMessage : any;
 
@@ -97,9 +99,13 @@ export class PerfilPacienteComponent {
         private visitaService: VisitaService,
         private pacienteService: PacienteService,
         public dialog: MdDialog,
+        public layoutC:LayoutComponent
     ){
         this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","","","","",false);
         this.mostrarPaciente();
+
+        this.layoutC.sidenavVisible=false;
+
     }
 
     mostrarPaciente(){
@@ -164,8 +170,8 @@ export class PerfilPacienteComponent {
         this.gDcadera=[];
         this.gDglucosa=[];
         this.visitas=this.visitaService.getVisitasP(this.paciente.id);
-        console.log(this.visitas);
         this.totaldevisitas=this.visitas.length;
+
         if(this.visitas.length==0){ // Si no tiene citas
             // Cambiar boton de consultar por agendar cita
             this.yaConsultar=true; //muestra botones por que aun no hay fecha de cita
@@ -186,7 +192,7 @@ export class PerfilPacienteComponent {
                     if(this.yaConsultar=this.yaEsHoraDeConsultar(this.visitas[0])){// si si es el dia
                         this.proxcita=false; //Se habilita boton Consultar
                         this.horaCita=this.visitas[0].hora;
-                        this.citas=this.visitas;
+                        this.ordenar();
                     }else{//si no es el dia a consltar uestra cuando es la fecha de consulta
                         this.horaCita=this.visitas[0].hora;
                         let temp=this.visitas[0].fecha.split("-");
@@ -203,6 +209,9 @@ export class PerfilPacienteComponent {
                     this.proxcita=true;
                     this.yaConsultar=true;
                     this.citasT=this.visitas;
+                    this.gDfechas=this.visitas[0].fecha;
+                    this.ordenar();
+                    this.citasTabs=JSON.parse(JSON.stringify(this.ordenados)); // este es para los tabs
                 }
              }else{ //Si tiene mas de una cita
                 this.showList=true;                
@@ -254,7 +263,8 @@ export class PerfilPacienteComponent {
                     this.proxcita=true;
                     this.incompleta=null;
                 }
-                this.citasT=JSON.parse(JSON.stringify(this.ordenados));
+                this.citasT=JSON.parse(JSON.stringify(this.ordenados));// este es para la tabla
+                this.citasTabs=JSON.parse(JSON.stringify(this.ordenados)); // este es para los tabs
                 this.calcularAvances(); //calcula los avances (de la lista y del spinner)
                 if(this.gDfechas.length>1){ //peeeeero solo muestra si tiene 2 o mas citas completas
                     this.gData=[{data:this.gDpeso, label:"Peso"}];
@@ -262,11 +272,11 @@ export class PerfilPacienteComponent {
                     this.showAvances=true; // y el spinner
                     this.updateSpinner(); 
                 }
-                this.citas=this.ordenados.slice().reverse();
                 this.citasT.reverse();
+                this.citasTabs.reverse()
                 // Esto es para que al momento de consultar no se vea en la lista la cita en ceros.
-                if (this.proxcita == false){ this.citasT.shift() }  
-                 
+                if (this.proxcita == false){ this.citasT.shift(); this.citasTabs.shift(); }  
+
             }    
         }
     }
@@ -277,8 +287,8 @@ export class PerfilPacienteComponent {
             b = new Date(b.fecha);
             return a>b ? -1 : a<b ? 1 : 0;
         });
-        console.log(clone);
         this.ordenados=clone.reverse();
+        console.log(this.ordenados);
     }
 
     formatoMes(){
@@ -417,16 +427,9 @@ export class PerfilPacienteComponent {
             [{data: this.gDglucosa, label:'Glucosa'}]
         ];
         // Truco con JSON.parse y JSON.stringify para actualizar los datos
-        // let clone = JSON.parse(JSON.stringify(this.gData));
-        // this.gData=clone;
-        // console.log(clone);
         this.cLabels=this.gDfechas;
-        // let clone = this.cLabels.reverse();
         let clone = JSON.parse(JSON.stringify(this.gDfechas));
-        console.log(clone);
         setTimeout(() => {this.cLabels=clone},40);
-        // this.cLabels=clone;
-        console.log(this.cLabels);
 
     }
     updateSpinner(){
@@ -438,155 +441,156 @@ export class PerfilPacienteComponent {
     }
 
 // Funciones para los Dialogs Consultar / Proxima Cita / Editar historiaClinica / Editar fecha de visita
-openConsultarDialog(P,V){
-    for(let i=0;i<this.totaldevisitas-1;i++){
-        let dateSplit =  V[i].fecha.split("-");
+    openConsultarDialog(P,C){
+        let V=JSON.parse(JSON.stringify(C.reverse()));
+        for(let i=0;i<this.totaldevisitas-1;i++){
+            let dateSplit =  V[i].fecha.split("-");
+            for(let j=1;j<=12;j++){
+                if(dateSplit[1]==this.mes[j-1]){
+                    dateSplit[1]=j;
+                    if(dateSplit[1]<10){
+                        dateSplit[1]=('0'+dateSplit[1]);
+                    }
+                }
+            }
+            V[i].fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
+        }
+        // Preparar datos de la ultima visita para que se despliegen en el dialog
+        let VA={};
+        let UV={};
+        if(V[0].completo == true){
+            this.proxcita=true;
+        }else{
+            VA=V[0];            
+            if(this.totaldevisitas==1){
+                UV=VA;
+            }else{
+                UV=V[1];  
+            }
+            this.proxcita=false;
+        }
+
+        let dialogRef = this.dialog.open(ConsultarComponent);
+        dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.miUltimaVisita=UV;
+        dialogRef.componentInstance.visit=VA;
+        dialogRef.afterClosed().subscribe(result => {
+            if(result!=null){
+                this.proxcita=result[0];
+                this.pesoactual=result[1].peso;
+                this.incompleta=null;
+            }        
+            this.totalbajado=this.pesoinicial-this.pesoactual;
+            this.mostrarPaciente();
+        });
+    }
+
+    openProxCitaDialog(P){
+        let dialogRef = this.dialog.open(ProxCitaComponent);
+        dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.editFlag=false;
+    }
+
+    openHisCliDialog(P){
+        let dialogRef = this.dialog.open(HistoriaClinicaComponent);
+        dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.flag=true;
+        dialogRef.afterClosed().subscribe(result=>{
+            this.mostrarPaciente();
+        });
+    }
+
+    editCita(V){
+        let dialogRef = this.dialog.open(ProxCitaComponent);
+        dialogRef.componentInstance.paciente=this.paciente;
+        dialogRef.componentInstance.visita=V;
+        dialogRef.componentInstance.editFlag=true;
+        dialogRef.afterClosed().subscribe(result=>{
+            this.mostrarPaciente();
+        });
+    }
+
+    
+
+    // Funciones para eliminar Paciente
+    seguroElim(){
+        this.seguro=true;
+    }
+    noEliminar(){
+        this.seguro=false;
+    }
+    siEliminar(){
+        console.log('Se eliminará el paciente: ' + this.paciente.nombre);
+        // ya tengo las visitas del paciente en this.visitas,
+        // ahora a eliminarlas una por una por id
+        for(let i=0; i < this.totaldevisitas; i++){
+            let id=this.visitas[i].id;
+            this.visitaService.deleteVisita(id);
+            console.log('Visita eliminada: '+ id);
+        }
+        // finalmente eliminar paciente por id
+        this._route.params.forEach((params:Params)=>{
+            let idP = params['id'];
+            this.pacienteService.deletePaciente(idP)
+            console.log('Paciente eliminado: '+ idP);
+        });
+        // reiniciar variable seguro e ir a dashboard
+        this.seguro=false;
+        this._router.navigate(['/']);
+    }
+
+    // Funciones para eliminar o editar visita del List
+    showMore(){
+        this.visible=!this.visible;
+    }
+
+    editVisita(id,P){
+        let v:any=[];
+        for(let i=0;i<this.totaldevisitas;i++){
+            if(this.visitas[i].id==id){
+                v=this.visitas[i];
+            }
+        }
+
+        this.fechaSplit =  v.fecha.split("-");
         for(let j=1;j<=12;j++){
-            if(dateSplit[1]==this.mes[j-1]){
-                dateSplit[1]=j;
-                if(dateSplit[1]<10){
-                    dateSplit[1]=('0'+dateSplit[1]);
+            if(this.fechaSplit[1]==this.mes[j-1]){
+                this.fechaSplit[1]=j;
+                if(this.fechaSplit[1]<10){
+                    this.fechaSplit[1]=('0'+this.fechaSplit[1]);
                 }
             }
         }
-        V[i].fecha=(dateSplit[0]+'-'+dateSplit[1]+'-'+dateSplit[2]);
+        v.fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2]);
+        // Se pasa la visita a editar por medio de la variable v, y se inician las constantes igual a variable
+        // para no alterar el dialog ConsultarComponent.
+        let dialogRef = this.dialog.open(ConsultarComponent);
+        dialogRef.componentInstance.paciente=P;
+        dialogRef.componentInstance.miUltimaVisita=v;
+        dialogRef.componentInstance.visit=v;
+        dialogRef.componentInstance.flag=true;
+        dialogRef.afterClosed().subscribe(result => {
+            this.mostrarPaciente();
+        });
     }
-    // Preparar datos de la ultima visita para que se despliegen en el dialog
-    let VA={};
-    let UV={};
-    if(V[0].completo == true){
-        this.proxcita=true;
-    }else{
-        VA=V[0];            
-        if(this.totaldevisitas==1){
-            UV=VA;
-        }else{
-            UV=V[1];  
-        }
-        this.proxcita=false;
+    seguroDelVisita(){
+        this.seguroV=true;
+        this.visible=false
     }
-
-    let dialogRef = this.dialog.open(ConsultarComponent);
-    dialogRef.componentInstance.paciente=P;
-    dialogRef.componentInstance.miUltimaVisita=UV;
-    dialogRef.componentInstance.visit=VA;
-    dialogRef.afterClosed().subscribe(result => {
-        if(result!=null){
-            this.proxcita=result[0];
-            this.pesoactual=result[1].peso;
-            this.incompleta=null;
-        }        
-        this.totalbajado=this.pesoinicial-this.pesoactual;
-        this.mostrarPaciente();
-    });
-}
-
-openProxCitaDialog(P){
-    let dialogRef = this.dialog.open(ProxCitaComponent);
-    dialogRef.componentInstance.paciente=P;
-    dialogRef.componentInstance.editFlag=false;
-}
-
-openHisCliDialog(P){
-     let dialogRef = this.dialog.open(HistoriaClinicaComponent);
-     dialogRef.componentInstance.paciente=P;
-     dialogRef.componentInstance.flag=true;
-     dialogRef.afterClosed().subscribe(result=>{
-         this.mostrarPaciente();
-     });
-}
-
-editCita(V){
-    let dialogRef = this.dialog.open(ProxCitaComponent);
-    dialogRef.componentInstance.paciente=this.paciente;
-    dialogRef.componentInstance.visita=V;
-    dialogRef.componentInstance.editFlag=true;
-    dialogRef.afterClosed().subscribe(result=>{
-        this.mostrarPaciente();
-    });
-  }
-
-// Funciones para eliminar Paciente
-seguroElim(){
-    this.seguro=true;
-}
-noEliminar(){
-    this.seguro=false;
-}
-siEliminar(){
-    console.log('Se eliminará el paciente: ' + this.paciente.nombre);
-    // ya tengo las visitas del paciente en this.visitas,
-    // ahora a eliminarlas una por una por id
-    for(let i=0; i < this.totaldevisitas; i++){
-        let id=this.visitas[i].id;
+    noDelVisita(){        
+        this.seguroV=false;
+        this.visible=true;
+    }
+    siDelVisita(id){
         this.visitaService.deleteVisita(id);
         console.log('Visita eliminada: '+ id);
-    }
-    // finalmente eliminar paciente por id
-    this._route.params.forEach((params:Params)=>{
-        let idP = params['id'];
-        this.pacienteService.deletePaciente(idP)
-        console.log('Paciente eliminado: '+ idP);
-    });
-    // reiniciar variable seguro e ir a dashboard
-    this.seguro=false;
-    this._router.navigate(['/']);
-}
-
-// Funciones para eliminar o editar visita del List
-showMore(){
-    this.visible=!this.visible;
-}
-
-editVisita(id,P){
-    let v:any=[];
-    for(let i=0;i<this.totaldevisitas;i++){
-        if(this.visitas[i].id==id){
-            v=this.visitas[i];
-        }
-    }
-
-
-    this.fechaSplit =  v.fecha.split("-");
-    for(let j=1;j<=12;j++){
-        if(this.fechaSplit[1]==this.mes[j-1]){
-            this.fechaSplit[1]=j;
-            if(this.fechaSplit[1]<10){
-                this.fechaSplit[1]=('0'+this.fechaSplit[1]);
-            }
-        }
-    }
-    v.fecha=(this.fechaSplit[0]+'-'+this.fechaSplit[1]+'-'+this.fechaSplit[2]);
-    // Se pasa la visita a editar por medio de la variable v, y se inician las constantes igual a variable
-    // para no alterar el dialog ConsultarComponent.
-    let dialogRef = this.dialog.open(ConsultarComponent);
-    dialogRef.componentInstance.paciente=P;
-    dialogRef.componentInstance.miUltimaVisita=v;
-    dialogRef.componentInstance.visit=v;
-    dialogRef.componentInstance.flag=true;
-    dialogRef.afterClosed().subscribe(result => {
         this.mostrarPaciente();
-    });
-}
-seguroDelVisita(){
-    this.seguroV=true;
-    this.visible=false
-}
-noDelVisita(){        
-    this.seguroV=false;
-    this.visible=true;
-}
-siDelVisita(id){
-    this.visitaService.deleteVisita(id);
-    console.log('Visita eliminada: '+ id);
-    this.mostrarPaciente();
-    this.seguroV=false;
-    this.visible=true;
-}
+        this.seguroV=false;
+        this.visible=true;
+    }
 
 // Otras funciones utiles para comprimir codigo
     yaEsHoraDeConsultar(X){
-        console.log(X);
         let d = new Date();
         let miFecha:any[]=[];
         miFecha[0]=d.getFullYear();
@@ -599,7 +603,6 @@ siDelVisita(id){
             miFecha[2]=('0'+miFecha[2]);
         }
         let hoy=miFecha[0]+'-'+miFecha[1]+'-'+miFecha[2];
-        console.log(hoy);
         let fechaVis =  X.fecha.split("-");
         for(let j=1;j<=12;j++){
             if(fechaVis[1]==this.mes[j-1]){

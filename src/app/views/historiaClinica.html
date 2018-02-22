@@ -11,7 +11,7 @@
                     <md-button-toggle value="Hombre">H</md-button-toggle>
                 </md-button-toggle-group>
                 <md-input-container class="edad">   
-                    <input mdInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2">
+                    <input mdInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2" required>
                 </md-input-container>
             </div>
         </div>
@@ -47,7 +47,7 @@
                 </div>
                 <p class="valores" >
                     <md-input-container>    
-                        <input mdInput #estatura="ngModel" name="estatura" [(ngModel)]="paciente.estatura" placeholder="Estatura.." maxlength="3" >
+                        <input mdInput #estatura="ngModel" name="estatura" [(ngModel)]="paciente.estatura" placeholder="Estatura.." maxlength="3" required >
                     </md-input-container>
                     <md-input-container>
                         <input mdInput #pesoajustado="ngModel" name="pesoajustado" [(ngModel)]="paciente.pesoajustado" placeholder="Peso ajustado.." maxlength="4" required>

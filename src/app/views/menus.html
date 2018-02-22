@@ -1,0 +1,36 @@
+<div>
+    <h2 class="siPrintFecha" >Cita del día {{fechaPrint}} </h2>
+    <div class="superior">
+        <!-- <button md-button *ngIf="Cita.menuF && save" class="btn_small"  (click)="unlock()" > <md-icon>lock</md-icon> </button>
+        <button md-button *ngIf="!Cita.menuF && !save" class="btn_small" (click)="lock(); clearTemp()"  > <md-icon>lock_open</md-icon> </button>
+        <span class="fill-space"></span>    
+        <button md-button *ngIf="Cita.menuF && save" class="btn" >Imprimir</button>
+        <button md-button *ngIf="!Cita.menuF" class="btn" (click)="guardar()" >Guardar</button> -->
+        <button md-button *ngIf="Cita.menuF" class="btn_small" (click)="editarMenu()" ><md-icon>edit</md-icon></button> 
+        <span class="fill-space"></span>    
+        <button md-button *ngIf="Cita.menuF" class="btn" (click)="imprimir()" >Imprimir</button>
+        <button md-button *ngIf="!Cita.menuF" class="btn" (click)="guardar()" >Guardar</button>
+    </div>
+    <div class="inferior">
+        <div class="tiempo" id="des" (click)="openPlatillosDialog('desayuno')" >
+            <div id="desL" class="left"> <p>Desayuno</p> </div> 
+                <p *ngIf="Cita.menuF" class="text"> <span class="lista" *ngFor="let t of Cita.menuCompleto.desayuno" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+                <p *ngIf="!Cita.menuF" class="text"> <span class="lista" *ngFor="let t of temp.desayuno" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+        </div>
+        <div class="tiempo" id="com" (click)="openPlatillosDialog('comida')" >
+            <div id="comL" class="left"><p>Comida</p></div> 
+            <p *ngIf="Cita.menuF" class="text"> <span class="lista" *ngFor="let t of Cita.menuCompleto.comida" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+            <p *ngIf="!Cita.menuF" class="text"> <span class="lista" *ngFor="let t of temp.comida" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+        </div>
+        <div class="tiempo" id="cen" (click)="openPlatillosDialog('cena')" >
+            <div id="cenL" class="left"><p>Cena</p></div> 
+            <p *ngIf="Cita.menuF" class="text"> <span class="lista" *ngFor="let t of Cita.menuCompleto.cena" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+            <p *ngIf="!Cita.menuF" class="text"> <span class="lista" *ngFor="let t of temp.cena" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+        </div>
+        <div class="tiempo" id="sdia" (click)="openPlatillosDialog('snack')" >
+            <div id="sdiaL" class="left snack"><p>Snack</p></div> 
+            <p *ngIf="Cita.menuF" class="text"> <span class="lista" *ngFor="let t of Cita.menuCompleto.snack" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+            <p *ngIf="!Cita.menuF" class="text"> <span class="lista" *ngFor="let t of temp.snack" > <span style="font-weight:bold"> {{t.platillo}}: </span> {{t.descripcion}} </span>  </p>
+        </div>
+    </div>
+</div>

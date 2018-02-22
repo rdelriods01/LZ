@@ -29,6 +29,16 @@
 
         </div>
     </div>
+    <div class="siPrintIzq">
+        <div class="siPrintLogo">
+            <img src="../../assets/images/LZ_logo.png" alt="LZ_logo">
+        </div>
+        <div class="siPrintPaciente">
+            <h1> {{paciente.nombre}} </h1>
+            <h2> Edad: {{paciente.edad}} años  Estatura: {{paciente.estatura}} cms </h2>
+        </div>
+    </div>
+
     <div class="perfSupDer">
         <div *ngIf="showAvances" class="avances" >
             <div *ngIf="!subio && !acabo" class="spinners">
@@ -67,7 +77,7 @@
                 
         <div *ngIf="yaConsultar" class="botones">
             <h3 *ngIf="!proxcita" style="text-align:center;"  >Cita programada hoy a las {{horaCita}} hrs. </h3>
-            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>
+            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,ordenados)" id="btnConsultar">Consultar</button>
             <button md-button *ngIf="!proxcita" (click)="editCita(cita)" >Cambiar cita</button>
             <h3 *ngIf="!showList && proxcita" style="text-align: center;" >Paciente sin citas aun</h3>
             <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Agendar Cita</button>
@@ -79,69 +89,86 @@
         </div>
     </div>
 </div>
-<div *ngIf="showList"  class="perfInferior">
-    <md-card>   
-        <div class="perfInfTitle">
-            <h2 *ngIf="proxcita" >{{totaldevisitas}} Consultas previas
-                <button md-button *ngIf="visible" class="btnSmall btnTrash" (click)="seguroDelVisita()" ><md-icon>delete</md-icon></button>    
-            </h2>
-            <h2 *ngIf="!proxcita" >{{totaldevisitas-1}} Consultas previas
-                <button md-button *ngIf="visible" class="btnSmall btnTrash" (click)="seguroDelVisita()" ><md-icon>delete</md-icon></button>    
-            </h2>
-            <button md-button (click)="showMore()" ><md-icon>more_horiz</md-icon></button>
+
+<md-tab-group *ngIf="showList"  >
+    <md-tab label="Citas">
+        <div class="perfInferior">
+            <md-card>   
+                <div class="perfInfTitle">
+                    <h2 *ngIf="proxcita" >{{totaldevisitas}} Consultas previas
+                        <button md-button *ngIf="visible" class="btnSmall btnTrash" (click)="seguroDelVisita()" ><md-icon>delete</md-icon></button>    
+                    </h2>
+                    <h2 *ngIf="!proxcita" >{{totaldevisitas-1}} Consultas previas
+                        <button md-button *ngIf="visible" class="btnSmall btnTrash" (click)="seguroDelVisita()" ><md-icon>delete</md-icon></button>    
+                    </h2>
+                    <button md-button (click)="showMore()" ><md-icon>more_horiz</md-icon></button>
+                </div>
+                <div style="overflow-x:auto;">   
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Peso</th>
+                                <th>Grasa</th>
+                                <th>Músculo</th>
+                                <th>Abdomen</th>
+                                <th *ngIf="genero=='Mujer'"  >Cadera</th>
+                                <th>Glucosa</th>
+                                <th>Menú</th>
+                                <th class="comentariosT" >Comentarios</th>
+                                <th *ngIf="visible" >Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr *ngFor="let visita of citasT" >
+                                <td >{{visita.fecha}}</td>
+                                <td [ngStyle]="{'color':visita.colP}"> {{visita.peso}} Kg <md-icon *ngIf="visita.arrowP" class="arrow" > {{visita.arrowP}}</md-icon> {{visita.difP}} </td>
+                                <td [ngStyle]="{'color':visita.colG}"> {{visita.grasa}} Kg <md-icon *ngIf="visita.arrowG" class="arrow" > {{visita.arrowG}}</md-icon> {{visita.difG}} </td>
+                                <td [ngStyle]="{'color':visita.colM}"> {{visita.musculo}} % <md-icon *ngIf="visita.arrowM" class="arrow" > {{visita.arrowM}}</md-icon> {{visita.difM}} </td>
+                                <td [ngStyle]="{'color':visita.colA}"> {{visita.abdomen}} cm <md-icon *ngIf="visita.arrowA" class="arrow" > {{visita.arrowA}}</md-icon> {{visita.difA}} </td>
+                                <td *ngIf="genero=='Mujer'" [ngStyle]="{'color':visita.colC}"> {{visita.cadera}} cm <md-icon *ngIf="visita.arrowC" class="arrow" > {{visita.arrowC}}</md-icon> {{visita.difC}} </td>
+                                <td [ngStyle]="{'color':visita.colGl}"> {{visita.glucosa}} mg/dl <md-icon *ngIf="visita.arrowGl" class="arrow" > {{visita.arrowGl}}</md-icon> {{visita.difGl}} </td>
+                                <td >{{visita.menu}}</td>
+                                <td class="comentariosT" >{{visita.comentarios}}</td>
+                                <td *ngIf="visible">
+                                    <button md-button class="btnSmall" (click)="editVisita(visita.id,paciente)" ><md-icon>mode_edit</md-icon></button> 
+                                </td>
+                                <td *ngIf='seguroV' class="confirmDelVisita" >
+                                    <h4 style="margin: 0 auto">¿Elminar?</h4>
+                                    <button md-button class="btnSmall" (click)="siDelVisita(visita.id)" >Si</button> 
+                                    <button md-button class="btnSmall" (click)="noDelVisita()" >No</button>
+                                </td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+            </md-card>
+            <md-card style="padding-bottom:5em" *ngIf="showGraf">
+                <div class="graficaProgreso">
+                    <div class="btnsChangeGraph">
+                        <button md-button (click)="chartMenos()"> < </button>
+                        <button class="btnGraf" md-button (click)="showPesoGraph()"> {{gData[0].label}} </button>
+                        <button md-button (click)="chartMas()"> > </button>
+                    </div>
+                    <canvas baseChart [datasets]="gData" [labels]="cLabels" [options]="cOptions" [legend]=false [chartType]="'line'"></canvas>
+                </div>
+            </md-card>
         </div>
-        <div style="overflow-x:auto;">   
-            <table>
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Peso</th>
-                        <th>Grasa</th>
-                        <th>Músculo</th>
-                        <th>Abdomen</th>
-                        <th *ngIf="genero=='Mujer'"  >Cadera</th>
-                        <th>Glucosa</th>
-                        <th>Menú</th>
-                        <th>Comentarios</th>
-                        <th *ngIf="visible" >Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr *ngFor="let visita of citasT" >
-                        <td >{{visita.fecha}}</td>
-                        <td [ngStyle]="{'color':visita.colP}"> {{visita.peso}} Kg <md-icon *ngIf="visita.arrowP" class="arrow" > {{visita.arrowP}}</md-icon> {{visita.difP}} </td>
-                        <td [ngStyle]="{'color':visita.colG}"> {{visita.grasa}} Kg <md-icon *ngIf="visita.arrowG" class="arrow" > {{visita.arrowG}}</md-icon> {{visita.difG}} </td>
-                        <td [ngStyle]="{'color':visita.colM}"> {{visita.musculo}} % <md-icon *ngIf="visita.arrowM" class="arrow" > {{visita.arrowM}}</md-icon> {{visita.difM}} </td>
-                        <td [ngStyle]="{'color':visita.colA}"> {{visita.abdomen}} cm <md-icon *ngIf="visita.arrowA" class="arrow" > {{visita.arrowA}}</md-icon> {{visita.difA}} </td>
-                        <td *ngIf="genero=='Mujer'" [ngStyle]="{'color':visita.colC}"> {{visita.cadera}} cm <md-icon *ngIf="visita.arrowC" class="arrow" > {{visita.arrowC}}</md-icon> {{visita.difC}} </td>
-                        <td [ngStyle]="{'color':visita.colGl}"> {{visita.glucosa}} mg/dl <md-icon *ngIf="visita.arrowGl" class="arrow" > {{visita.arrowGl}}</md-icon> {{visita.difGl}} </td>
-                        <td >{{visita.menu}}</td>
-                        <td >{{visita.comentarios}}</td>
-                        <td *ngIf="visible">
-                            <button md-button (click)="editVisita(visita.id,paciente)" ><md-icon>mode_edit</md-icon></button> 
-                        </td>
-                        <td *ngIf='seguroV' class="confirmDelVisita" >
-                            <h4 style="margin: 0 auto">¿Elminar?</h4>
-                            <button md-button class="btnSmall" (click)="siDelVisita(visita.id)" >Si</button> 
-                            <button md-button class="btnSmall" (click)="noDelVisita()" >No</button>
-                        </td>
-                    </tr> 
-                </tbody>
-            </table>
-        </div>
-    </md-card>
-    <md-card style="padding-bottom:5em" *ngIf="showGraf">
-        <div class="graficaProgreso">
-            <div class="btnsChangeGraph">
-                <button md-button (click)="chartMenos()"> < </button>
-                <button class="btnGraf" md-button (click)="showPesoGraph()"> {{gData[0].label}} </button>
-                <button md-button (click)="chartMas()"> > </button>
-            </div>
-            <canvas baseChart [datasets]="gData" [labels]="cLabels" [options]="cOptions" [legend]=false [chartType]="'line'"></canvas>
-        </div>
-    </md-card>
-</div>
+    </md-tab>
+    <md-tab label="Menus">
+            <md-card class="mdCardNoPrint">
+                    <h1 class="noPrint" >Menus del paciente {{paciente.nombre}}</h1>
+                        <md-tab-group [selectedIndex]="nTabs" >
+                            <md-tab *ngFor="let c of citasTabs" label="{{c.fecha}}">
+                                <menusC [Cita]="c" (yaGuardado)="mostrarPaciente($event)" ></menusC>
+                            </md-tab>
+                        </md-tab-group>
+                </md-card>      
+    </md-tab>
+  </md-tab-group>
+
+
 
 <div *ngIf='seguro' class="dialogDelete">       
     <md-card>

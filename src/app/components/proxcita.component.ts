@@ -29,7 +29,7 @@ export class ProxCitaComponent implements OnInit{
         if(this.editFlag==true){
             console.log(this.visita);
         }else{
-            this.visita = new Visita("",0,"","",0,0,0,0,0,0,"","",false,this.paciente.id);
+            this.visita = new Visita("",0,"","",0,0,0,0,0,0,"","",false,this.paciente.id,{desayuno:[],comida:[],cena:[],snack:[]},false);
         }
     }
     sendFecha(event){

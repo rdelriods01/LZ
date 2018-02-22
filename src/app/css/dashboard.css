@@ -18,6 +18,9 @@
     .unaFecha{
         margin: 0 auto;
     }
+    .btnHoy{
+        width: 5em;
+    }
 }
 
 .dashSupIzq{
@@ -63,4 +66,7 @@
 .btnsFecha{
     margin-top: 1em;
     text-align: center;
+}
+.btnHoy{
+    width: 10em;
 }

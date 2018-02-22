@@ -1,0 +1,161 @@
+<h1>
+    Platillos para menús
+</h1>
+
+<form #formPlatillo="ngForm" >
+    <div class="addNew">
+        <md-input-container>    
+            <input mdInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
+        </md-input-container>
+        <md-input-container class="descripcion" >    
+                <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
+        </md-input-container>
+        <md-select class="tdc" *ngIf="!editF" placeholder="Tiempo de comida.." name="tiempo" [(ngModel)]="tiempo" required>
+            <md-option *ngFor="let t of tiempos" [value]="t">{{ t }}</md-option>
+        </md-select>
+        <button md-button *ngIf="!editF" (click)="addPlatillo(tiempo)" [disabled]="!formPlatillo.form.valid" >Agregar</button>
+        <button md-button *ngIf="editF" (click)="actualizar()" [disabled]="!formPlatillo.form.valid" >Guardar</button>
+
+    </div>
+</form>
+
+<div class="todos">
+<md-tab-group>
+    <md-tab label="Desayunos" >
+        <md-card>
+                <div style="overflow-x:auto;">       
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="platillo">Platillo</th>
+                                <th>Descripción</th>
+                                <th class="acciones">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let de of desayunos" >
+                                <td class="platillo">{{de.platillo}}</td>
+                                <td>{{de.descripcion}}</td>
+                                <td class="acciones">
+                                    <button md-button class="littlebtn" (click)="edit(de,'desayuno')" ><md-icon>edit</md-icon></button>
+                                    <button md-button class="littlebtn" (click)="delete(de,'desayuno')" ><md-icon>delete</md-icon></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </md-card>
+    </md-tab>
+    <md-tab label="Comidas" >
+            <md-card>
+                    <div style="overflow-x:auto;">       
+                                                <table>
+                            <thead>
+                                <tr>
+                                    <th class="platillo">Platillo</th>
+                                    <th>Descripción</th>
+                                    <th class="acciones" >Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let co of comidas" >
+                                    <td class="platillo">{{co.platillo}}</td>
+                                    <td>{{co.descripcion}}</td>
+                                    <td class="acciones" >
+                                        <button md-button class="littlebtn" (click)="edit(co,'comida')" ><md-icon>edit</md-icon></button>
+                                        <button md-button class="littlebtn" (click)="delete(co,'comida')" ><md-icon>delete</md-icon></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </md-card>
+    </md-tab>
+    <md-tab label="Cenas" >
+            <md-card>
+                    <div style="overflow-x:auto;">              
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="platillo">Platillo</th>
+                                    <th>Descripción</th>
+                                    <th class="acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let ce of cenas" >
+                                    <td class="platillo">{{ce.platillo}}</td>
+                                    <td>{{ce.descripcion}}</td>
+                                    <td class="acciones">
+                                        <button md-button class="littlebtn" (click)="edit(ce,'cena')" ><md-icon>edit</md-icon></button>
+                                        <button md-button class="littlebtn" (click)="delete(ce,'cena')" ><md-icon>delete</md-icon></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </md-card>
+    </md-tab>
+    <md-tab label="Snacks" >
+            <md-card>
+                    <div style="overflow-x:auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="platillo">Nombre</th>
+                                    <th>Descripción</th>
+                                    <th class="acciones">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let sn of snacks" >
+                                    <td class="platillo">{{sn.platillo}}</td>
+                                    <td>{{sn.descripcion}}</td>
+                                    <td class="acciones" >
+                                        <button md-button class="littlebtn" (click)="edit(sn,'snack')" ><md-icon>edit</md-icon></button>
+                                        <button md-button class="littlebtn" (click)="delete(sn,'snack')" ><md-icon>delete</md-icon></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+            </md-card>
+    </md-tab>
+</md-tab-group>
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+    <h3>Desayunos</h3>
+    <p *ngFor="let de of desayunos"  > <span style="font-weight:bold" >{{de.platillo}}:</span> {{de.descripcion}} </p>
+    <h3>Comidas</h3>
+    <p *ngFor="let co of comidas"  > <span style="font-weight:bold" >{{co.platillo}}:</span> {{co.descripcion}} </p>
+    <h3>Cenas</h3>
+    <p *ngFor="let ce of cenas"  > <span style="font-weight:bold" >{{ce.platillo}}:</span> {{ce.descripcion}} </p>
+    <h3>Snacks</h3>
+    <p *ngFor="let sn of snacks"  > <span style="font-weight:bold" >{{sn.platillo}}:</span> {{sn.descripcion}} </p>
+
+ -->
+
+
+</div>

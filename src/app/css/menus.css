@@ -1,0 +1,119 @@
+md-card{
+    margin: 1em;
+    border-radius: 10px;
+}
+
+.superior{
+    display: flex;
+    margin: 1em 0;
+}
+.fill-space{
+    flex: 1 1 auto;
+}
+.btn{
+    font-weight: bold;
+    background-color: #f44336;
+    border-radius: 12px;
+    width: 12em;
+    height: 3em;
+    font-size: 1.2em;
+    color: ghostwhite;
+}
+.btn_small{
+    font-weight: bold;
+    background-color: silver;
+    width: 2em;
+    margin: 0 0.5em;    
+    border-radius: 12px;
+    font-size: 1.2em;
+    color: ghostwhite;
+}
+.inferior{
+    zoom: 100%;
+}
+.tiempo{
+    display: flex;
+    margin: 1em 0;
+    flex-direction: row;
+    width: auto;
+    border: 1px solid;
+    border-radius: 10px;
+}
+.left{
+    text-align: center;
+    align-items: center;
+    width: 4em;
+    padding: 1em 0;
+    text-orientation: upright;
+    -webkit-writing-mode: vertical-lr;
+    writing-mode: vertical-lr;
+    font-size: 1.1em;
+    font-weight: bold;
+    max-height: 12em;
+    border-radius: 10px 0 0 10px;
+    border-right: none !important;
+}
+.snack p{
+    max-height: 7em;
+}
+.text{
+    width: 100%;
+    margin: auto;
+    padding: 1em 1em 1em 2em;
+    display: flex;
+    flex-direction: column;
+}
+.lista{
+    display: list-item;
+}
+
+/* cada tiempo */
+#desL{
+    background-color:#7dff0080;
+}
+#desL p{
+    color:#84b456;
+}
+#des{
+    border: 1px solid #7dff0080;
+}
+#comL{
+    background-color: #f4433680;
+}
+#comL p{
+    color:#aa6f6a;
+}
+#com{
+    border: 1px solid #f4433680;
+}
+#cenL{
+    background-color: #2196f380;
+}
+#cenL p{
+    color: #577a97;
+}
+#cen{
+    border: 1px solid #2196f380;
+}
+#sdiaL{
+    background-color: #ff980080;
+}
+#sdiaL p{
+    color: #b08a54;
+}
+#sdia{
+    border: 1px solid #ff980080;
+}
+
+.siPrintFecha{
+    display: none;
+}
+
+@media only print{
+    .superior{
+        display: none;
+    }
+    .siPrintFecha{
+        display: block;
+    }
+}

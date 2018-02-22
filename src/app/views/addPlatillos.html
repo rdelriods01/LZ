@@ -1,0 +1,50 @@
+<div class="container" md-dialog-content>
+
+    <div class="superior">
+        <h2>Agregar {{tiempo}} </h2>
+        <span class="fill-space"></span>
+        <button id="guardar" md-button (click)="enviar()" >Guardar</button>
+    </div>
+
+    <div style="display:flex">
+        <div class="izq">
+            <form #formPlatillo="ngForm" >
+                <div class="addNew">
+                    <md-input-container>    
+                        <input mdInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
+                    </md-input-container>
+                    <md-input-container class="descripcion" >    
+                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
+                    </md-input-container>
+                    <button md-button (click)="addPlatillo()" [disabled]="!formPlatillo.form.valid" >Agregar</button>
+                </div>
+            </form>
+        
+            <div class="agregados">
+                <h3>Por agregar</h3>
+                <p *ngFor="let p of seleccionados"  > 
+                    <button md-button class="btnSmall" (click)="delPlatillo(p)" >X</button>
+                    <span style="font-weight:bold" >{{p.platillo}}:</span> {{p.descripcion}}  
+                </p>
+            </div>
+        </div>
+    
+        <div class="sugerencias" style="overflow-x:auto;">   
+            <table>
+                <thead>
+                    <tr>
+                        <th class="platilloT"  >Platillo</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row" (click)="select(p)" *ngFor="let p of sugerencias" >
+                        <td class="row platilloT" [ngStyle]="{'background-color':p.flag?'#8bc34a':'white'}" >{{p.platillo}}</td>
+                        <td class="row" [ngStyle]="{'background-color':p.flag?'#8bc34a':'white'}" >{{p.descripcion}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
