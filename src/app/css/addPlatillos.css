@@ -22,7 +22,9 @@
 }
 /* Inferior */
 .izq{
-    margin: 0 auto;
+    margin: 0 2%;
+    width: 50%;
+    zoom: 88%;
 }
 .addNew{
     display: flex;
@@ -36,9 +38,9 @@
     height: fit-content;
 }
 .sugerencias{
-    zoom:80%;
-    margin: 0 1em;
-    min-width: 40vw;
+    zoom: 80%;
+    margin: 0 auto;
+    width: 50%;
 }
 table {
     width: 100%;
@@ -61,4 +63,10 @@ tbody td {
     width: 254px;
     border-top: 1px solid rgb(221, 221, 221);
     padding: 8px 0px;
+}
+.platilloT{
+    width:8em !important;
+}
+.btnSmall{
+    min-width: 1em;
 }

@@ -35,7 +35,7 @@
   </div>
 
   <md-sidenav-container  class="sideb" (click)="hideResBus()">   
-    <md-sidenav #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
+    <md-sidenav class="noprint" #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
       <ul>
         <li><a [routerLink]="['/']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
         <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
@@ -45,7 +45,9 @@
         <li><a (click)="logout()"><md-icon class="icon">exit_to_app</md-icon>Cerrar Sesión</a></li>
       </ul>
     </md-sidenav>
-    <div style="padding: 1em 2em">
+    <div class="rutas">
       <router-outlet></router-outlet>
     </div>
   </md-sidenav-container>
+
+  

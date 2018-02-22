@@ -22,7 +22,10 @@
         
             <div class="agregados">
                 <h3>Por agregar</h3>
-                <p *ngFor="let p of seleccionados"  > <span style="font-weight:bold" >{{p.platillo}}:</span> {{p.descripcion}} </p>
+                <p *ngFor="let p of seleccionados"  > 
+                    <button md-button class="btnSmall" (click)="delPlatillo(p)" >X</button>
+                    <span style="font-weight:bold" >{{p.platillo}}:</span> {{p.descripcion}}  
+                </p>
             </div>
         </div>
     
@@ -30,13 +33,13 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Platillo</th>
+                        <th class="platilloT"  >Platillo</th>
                         <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="row" (click)="select(p)" *ngFor="let p of sugerencias" >
-                        <td class="row" [ngStyle]="{'background-color':p.flag?'#8bc34a':'white'}" >{{p.platillo}}</td>
+                        <td class="row platilloT" [ngStyle]="{'background-color':p.flag?'#8bc34a':'white'}" >{{p.platillo}}</td>
                         <td class="row" [ngStyle]="{'background-color':p.flag?'#8bc34a':'white'}" >{{p.descripcion}}</td>
                     </tr>
                 </tbody>

@@ -29,6 +29,16 @@
 
         </div>
     </div>
+    <div class="siPrintIzq">
+        <div class="siPrintLogo">
+            <img src="../../assets/images/LZ_logo.png" alt="LZ_logo">
+        </div>
+        <div class="siPrintPaciente">
+            <h1> {{paciente.nombre}} </h1>
+            <h2> Edad: {{paciente.edad}} años  Estatura: {{paciente.estatura}} cms </h2>
+        </div>
+    </div>
+
     <div class="perfSupDer">
         <div *ngIf="showAvances" class="avances" >
             <div *ngIf="!subio && !acabo" class="spinners">
@@ -67,7 +77,7 @@
                 
         <div *ngIf="yaConsultar" class="botones">
             <h3 *ngIf="!proxcita" style="text-align:center;"  >Cita programada hoy a las {{horaCita}} hrs. </h3>
-            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,citas)" id="btnConsultar">Consultar</button>
+            <button md-button *ngIf="!proxcita" (click)="openConsultarDialog(paciente,ordenados)" id="btnConsultar">Consultar</button>
             <button md-button *ngIf="!proxcita" (click)="editCita(cita)" >Cambiar cita</button>
             <h3 *ngIf="!showList && proxcita" style="text-align: center;" >Paciente sin citas aun</h3>
             <button md-button *ngIf="proxcita" (click)="openProxCitaDialog(paciente)" id="btnProxCita" >Agendar Cita</button>
@@ -105,7 +115,7 @@
                                 <th *ngIf="genero=='Mujer'"  >Cadera</th>
                                 <th>Glucosa</th>
                                 <th>Menú</th>
-                                <th>Comentarios</th>
+                                <th class="comentariosT" >Comentarios</th>
                                 <th *ngIf="visible" >Acciones</th>
                             </tr>
                         </thead>
@@ -120,9 +130,9 @@
                                 <td *ngIf="genero=='Mujer'" [ngStyle]="{'color':visita.colC}"> {{visita.cadera}} cm <md-icon *ngIf="visita.arrowC" class="arrow" > {{visita.arrowC}}</md-icon> {{visita.difC}} </td>
                                 <td [ngStyle]="{'color':visita.colGl}"> {{visita.glucosa}} mg/dl <md-icon *ngIf="visita.arrowGl" class="arrow" > {{visita.arrowGl}}</md-icon> {{visita.difGl}} </td>
                                 <td >{{visita.menu}}</td>
-                                <td >{{visita.comentarios}}</td>
+                                <td class="comentariosT" >{{visita.comentarios}}</td>
                                 <td *ngIf="visible">
-                                    <button md-button (click)="editVisita(visita.id,paciente)" ><md-icon>mode_edit</md-icon></button> 
+                                    <button md-button class="btnSmall" (click)="editVisita(visita.id,paciente)" ><md-icon>mode_edit</md-icon></button> 
                                 </td>
                                 <td *ngIf='seguroV' class="confirmDelVisita" >
                                     <h4 style="margin: 0 auto">¿Elminar?</h4>
@@ -147,7 +157,14 @@
         </div>
     </md-tab>
     <md-tab label="Menus">
-      <menusC [paciente]="paciente" [Citas]="ordenados" [yaConsulto]="proxcita" (yaGuardado)="mostrarPaciente($event)" ></menusC>
+            <md-card class="mdCardNoPrint">
+                    <h1 class="noPrint" >Menus del paciente {{paciente.nombre}}</h1>
+                        <md-tab-group [selectedIndex]="nTabs" >
+                            <md-tab *ngFor="let c of citasTabs" label="{{c.fecha}}">
+                                <menusC [Cita]="c" (yaGuardado)="mostrarPaciente($event)" ></menusC>
+                            </md-tab>
+                        </md-tab-group>
+                </md-card>      
     </md-tab>
   </md-tab-group>
 

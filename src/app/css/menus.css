@@ -44,11 +44,11 @@ md-card{
     align-items: center;
     width: 4em;
     padding: 1em 0;
-    display: flex;
     text-orientation: upright;
     -webkit-writing-mode: vertical-lr;
     writing-mode: vertical-lr;
     font-size: 1.1em;
+    font-weight: bold;
     max-height: 12em;
     border-radius: 10px 0 0 10px;
     border-right: none !important;
@@ -71,11 +71,17 @@ md-card{
 #desL{
     background-color:#7dff0080;
 }
+#desL p{
+    color:#84b456;
+}
 #des{
     border: 1px solid #7dff0080;
 }
 #comL{
     background-color: #f4433680;
+}
+#comL p{
+    color:#aa6f6a;
 }
 #com{
     border: 1px solid #f4433680;
@@ -83,18 +89,31 @@ md-card{
 #cenL{
     background-color: #2196f380;
 }
+#cenL p{
+    color: #577a97;
+}
 #cen{
     border: 1px solid #2196f380;
 }
 #sdiaL{
     background-color: #ff980080;
 }
+#sdiaL p{
+    color: #b08a54;
+}
 #sdia{
     border: 1px solid #ff980080;
 }
-#starL{
-    background-color: palevioletred;
+
+.siPrintFecha{
+    display: none;
 }
-#star{
-    border: 1px solid palevioletred;
+
+@media only print{
+    .superior{
+        display: none;
+    }
+    .siPrintFecha{
+        display: block;
+    }
 }

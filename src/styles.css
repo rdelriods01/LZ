@@ -70,3 +70,12 @@ div .mat-dialog-container{
     }
 }
 
+@media only print{
+    .mat-sidenav-container{
+        background-color: white !important;
+    }
+    .mat-tab-header{
+        display: none !important;
+    }
+}
+

@@ -19,23 +19,17 @@ export class AddPlatillosComponent implements OnInit{
     descripcion:String;
     temp:any;
     sugerencias:any;
-    newM:Boolean;
     seleccionados:any[];
 
     constructor(public dialogRef: MdDialogRef<AddPlatillosComponent>,public platilloService: PlatilloService){
-   
     }
 
     ngOnInit(){
         this.sugerencias=this.platilloService.getPlatillos(this.tiempo);
-        if(this.newM==true){
-            this.seleccionados=[];
-        } 
     }
 
     select(p){
         let n=this.seleccionados.length;
-        console.log(n);
         if(n==0){
             this.seleccionados.push(p);
             for(let i=0;i<this.sugerencias.length;i++){
@@ -43,7 +37,6 @@ export class AddPlatillosComponent implements OnInit{
                     this.sugerencias[i].flag=true;
                 }
             }
-            console.log(this.seleccionados);
         }else{
             let yasta:Boolean=false;
             for(let i=0;i<n;i++){
@@ -51,7 +44,6 @@ export class AddPlatillosComponent implements OnInit{
                     yasta=true;
                     this.seleccionados.splice(i,1);
                     n--;
-                    console.log(this.seleccionados);
                     for(let j=0;j<this.sugerencias.length;j++){
                         if(p.platillo==this.sugerencias[j].platillo){
                             this.sugerencias[j].flag=false;
@@ -66,24 +58,35 @@ export class AddPlatillosComponent implements OnInit{
                         this.sugerencias[j].flag=true;
                     }
                 }
-                console.log(this.seleccionados);
             }
         }      
     }
 
     addPlatillo(){
-        this.temp={id:"",platillo:this.platillo,descripcion:this.descripcion,f:true};
-        // this.platilloService.savePlatillo(this.temp,t);
+        this.temp={id:"",platillo:this.platillo,descripcion:this.descripcion,flag:true};
         this.seleccionados.push(this.temp);
         this.sugerencias.push(this.temp);
-
         this.platillo="";
         this.descripcion="";
         this.temp={};
     }
 
-    enviar(){
+    delPlatillo(p){
+        let n=this.seleccionados.length;
+        for(let i=0;i<n;i++){
+            if(p.platillo==this.seleccionados[i].platillo){
+                this.seleccionados.splice(i,1);
+                n--;
+                for(let j=0;j<this.sugerencias.length;j++){
+                    if(p.platillo==this.sugerencias[j].platillo){
+                        this.sugerencias[j].flag=false;
+                    }
+                }
+            }
+        }
+    }
 
+    enviar(){
         this.dialogRef.close(this.seleccionados);
     }
 
