@@ -5,7 +5,6 @@
 }
 .perfSupIzq{
     height: fit-content;
-    margin: auto;
     min-width: 58%;
     padding: 1em;
     border-radius: 10px;
@@ -61,9 +60,8 @@ h1 button{
 }
 /*Superior Derecho*/
 .perfSupDer{
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
+    /* display: flex;
+    flex-direction: column; */
 }
 .botones, .avances, .aunNo{
     margin: 1em auto;
@@ -235,6 +233,8 @@ tbody td {
 .spinners{
     zoom:350%;
     position: relative;
+    display: grid;
+    justify-content: center;
 }
 svg {
     margin: auto;
@@ -254,9 +254,7 @@ svg {
   path.frontS {
     stroke: purple;
     stroke-dasharray: calc(40 * 3.142 * 1.85);
-    /* transition: stroke-dashoffset 2.5s; */
 }
-
 
 .btnGraf{
     width: 10em;
@@ -318,6 +316,9 @@ svg {
         zoom:65%;
         margin-top: 4em;
     }
+    .pesosSup{
+        color: dimgray;
+    }
     .mdCardNoPrint{
         box-shadow: none !important;
     }
@@ -329,10 +330,10 @@ svg {
     .siPrintLogo{
         height: fit-content;
         background: white;
-        margin: 0.4em 0 0 2.5em;
+        margin: 0.4em 0 2em 2.5em;
     }
     .siPrintLogo img{
-        width: 55vw;
+        width: 40vw;
     }
     .siPrintPaciente{
         zoom: 70%;

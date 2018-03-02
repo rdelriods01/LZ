@@ -49,9 +49,9 @@ md-card{
     writing-mode: vertical-lr;
     font-size: 1.1em;
     font-weight: bold;
-    max-height: 12em;
     border-radius: 10px 0 0 10px;
     border-right: none !important;
+    z-index: -1;
 }
 .snack p{
     max-height: 7em;
@@ -69,51 +69,44 @@ md-card{
 
 /* cada tiempo */
 #desL{
-    background-color:#7dff0080;
+    background-color:#beff7f;
 }
 #desL p{
     color:#84b456;
 }
 #des{
-    border: 1px solid #7dff0080;
+    border: 1px solid #beff7f;
 }
 #comL{
-    background-color: #f4433680;
+    background-color: #f9a19a;
 }
 #comL p{
     color:#aa6f6a;
 }
 #com{
-    border: 1px solid #f4433680;
+    border: 1px solid #f9a19a;
 }
 #cenL{
-    background-color: #2196f380;
+    background-color: #90caf9;
 }
 #cenL p{
     color: #577a97;
 }
 #cen{
-    border: 1px solid #2196f380;
+    border: 1px solid #90caf9;
 }
 #sdiaL{
-    background-color: #ff980080;
+    background-color: #ffcb7f;
 }
 #sdiaL p{
     color: #b08a54;
 }
 #sdia{
-    border: 1px solid #ff980080;
-}
-
-.siPrintFecha{
-    display: none;
+    border: 1px solid #ffcb7f;
 }
 
 @media only print{
     .superior{
         display: none;
-    }
-    .siPrintFecha{
-        display: block;
     }
 }

@@ -185,6 +185,15 @@ li a:hover {
 .rutas{
   padding: 1em 2em;
 }
+
+@media only screen 
+  and (max-device-width: 800px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+    .btn-floating{
+      left: 85%;
+    }
+}
+
 @media only print {
   .noprint, .navbar{
       display: none;   
@@ -195,5 +204,4 @@ li a:hover {
   .rutas{
     padding: 0;
   }
-
 }

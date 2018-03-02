@@ -1,11 +1,7 @@
 <div>
-    <h2 class="siPrintFecha" >Cita del día {{fechaPrint}} </h2>
+    <h2>{{fechaPrint}} </h2>
     <div class="superior">
-        <!-- <button md-button *ngIf="Cita.menuF && save" class="btn_small"  (click)="unlock()" > <md-icon>lock</md-icon> </button>
-        <button md-button *ngIf="!Cita.menuF && !save" class="btn_small" (click)="lock(); clearTemp()"  > <md-icon>lock_open</md-icon> </button>
-        <span class="fill-space"></span>    
-        <button md-button *ngIf="Cita.menuF && save" class="btn" >Imprimir</button>
-        <button md-button *ngIf="!Cita.menuF" class="btn" (click)="guardar()" >Guardar</button> -->
+        
         <button md-button *ngIf="Cita.menuF" class="btn_small" (click)="editarMenu()" ><md-icon>edit</md-icon></button> 
         <span class="fill-space"></span>    
         <button md-button *ngIf="Cita.menuF" class="btn" (click)="imprimir()" >Imprimir</button>

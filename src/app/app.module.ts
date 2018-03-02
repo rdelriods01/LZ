@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 import 'hammerjs';
 // Import de ChartJS
@@ -82,14 +84,15 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(firebaseConfig, 'LIGHTZONE'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     MaterialModule,
     BrowserAnimationsModule,
-    ChartsModule
+    ChartsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
     ],
   providers: [
     AuthService,

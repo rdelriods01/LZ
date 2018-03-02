@@ -2,15 +2,9 @@
 <ul>
    <li *ngFor="let pac of pacientes" >
      <p class="itemPaciente">{{pac.nombre}}</p>
-     <p *ngFor="let visita of enviarID(pac.id)" (click)="eV(visita.id)">{{visita.id}}
-     </p>
-     <button md-button (click)="agregarCita(pac.id)" >Agregar Cita</button>
+     <p *ngFor="let visita of enviarID(pac.id)" (click)="eV(visita.id)">{{visita.id}} </p>
    </li>
 </ul>
 
-<md-input-container>  
-  <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
-</md-input-container>
-<button md-raised-button (click)="sendPaciente()" >Enviar</button>
 
 

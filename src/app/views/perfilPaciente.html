@@ -12,11 +12,11 @@
             </div>
             <div class="Contacto"> 
                 <div><h5>Telefono: </h5><p>{{paciente.telefono}}</p></div>
-                <div><h5>e-mail: </h5><p>{{paciente.correo}}</p></div>
-                <div><h5>Dirección:</h5> <p>{{paciente.direccion.calle + ' , ' + paciente.direccion.colonia + ' en ' + paciente.direccion.ciudad}}</p></div>
+                <div *ngIf="paciente.correo!=''"  ><h5>e-mail: </h5><p>{{paciente.correo}}</p></div>
+                <div *ngIf="paciente.direccion.calle!=''" ><h5>Dirección:</h5> <p>{{paciente.direccion.calle + ' , ' + paciente.direccion.colonia + ' en ' + paciente.direccion.ciudad}}</p></div>
             </div>
         </div>
-        <div class="historiaClinica">
+        <div *ngIf="!sinHisCli" class="historiaClinica">
             <h3 style="text-align: center">Historia Clínica</h3>
             <div *ngIf="motivo!=''" ><h5>Motivo de la consulta: </h5><p>{{paciente.motivo}}</p></div>
             <div *ngIf="enf!=''" ><h5>Enfermedades: </h5><p>{{enf}}</p></div>
@@ -26,7 +26,6 @@
             <div *ngIf="agua!=''" ><h5>Ingesta de agua: </h5><p>{{paciente.agua}}</p></div>
             <div *ngIf="ejer!=''" ><h5>Ejercicio: </h5><p>{{paciente.ejercicio}}</p></div>
             <div *ngIf="observa!=''" ><h5>Observaciones: </h5><p>{{paciente.observaciones}}</p></div>
-
         </div>
     </div>
     <div class="siPrintIzq">
@@ -158,7 +157,6 @@
     </md-tab>
     <md-tab label="Menus">
             <md-card class="mdCardNoPrint">
-                    <h1 class="noPrint" >Menus del paciente {{paciente.nombre}}</h1>
                         <md-tab-group [selectedIndex]="nTabs" >
                             <md-tab *ngFor="let c of citasTabs" label="{{c.fecha}}">
                                 <menusC [Cita]="c" (yaGuardado)="mostrarPaciente($event)" ></menusC>

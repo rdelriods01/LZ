@@ -47,7 +47,6 @@ export class LayoutComponent {
 
     this.authService.af.authState.subscribe((data: firebase.User)=>{
       if(data){
-        console.log(data);
         if(data.email=='ricardo@delrioperez.com'){
           data.updateProfile({ displayName:'Ricardo Del Rio',photoURL:'../assets/images/google.png'})
           this.usuario= new Usuario(data.uid,data.displayName,data.email,data.photoURL,'admin');

@@ -44,6 +44,7 @@ export class PerfilPacienteComponent {
     public showList:Boolean=false;
     public showAvances:Boolean=false;
     public showGraf:Boolean=false;
+    public sinHisCli:Boolean=false;
  
     // para mostrar correctamente la historia clinica
     public enf:string; 
@@ -139,6 +140,11 @@ export class PerfilPacienteComponent {
                 this.ejer=this.paciente.ejercicio;
                 this.observa=this.paciente.observaciones;
                 this.genero=this.paciente.sexo;
+
+                if(this.motivo=='' && this.alerg=='' && this.noinclu=='' && this.agua=='' && this.ejer=='' && this.observa=='' && this.enf=='' && this.malesta==''){
+                    this.sinHisCli=true;
+                }else{ this.sinHisCli=false}
+
                 // Ya que se tiene el paciente, ahora hay que mostrar las visitas
                 this.mostrarVisitasP();
             }

@@ -53,3 +53,21 @@ tbody td {
 .platillo{
     max-width: 1em;
 }
+
+@media only screen 
+  and (max-device-width: 800px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  { 
+    .addNew{
+        flex-direction: column;
+    }
+    .descripcion{
+        width: 100vw;
+    }
+    .tdc{
+        margin: 2em 0;
+    }
+    .addNew button{
+        margin: 1em auto;
+    }
+}
