@@ -9,7 +9,7 @@ import {PacienteService} from '../services/paciente.service';
   styleUrls: ['../css/pacientes.css'],
   providers:[PacienteService]
 })
-export class PacientesComponent implements OnInit{
+export class PacientesComponent {
 
     public pacientes : any;
     public errorMessage: any;

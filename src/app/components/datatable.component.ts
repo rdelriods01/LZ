@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { HistoriaClinicaComponent } from './historiaClinica.component';
@@ -14,7 +14,7 @@ import { PacienteService } from '../services/paciente.service';
   templateUrl:'../views/datatable.html',
   styleUrls: ['../css/datatable.css'],
 })
-export class DatatableComponent implements OnInit{ 
+export class DatatableComponent{ 
   
   public filteredList:any=[];
   public visitas:any=[];
@@ -25,7 +25,7 @@ export class DatatableComponent implements OnInit{
 
   @Input() fecha:string;
 
-  constructor( private visitaService:VisitaService, private pacienteService:PacienteService, public dialog: MdDialog){
+  constructor( private visitaService:VisitaService, private pacienteService:PacienteService, public dialog: MatDialog){
   }
 
   ngOnInit(){

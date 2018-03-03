@@ -18,7 +18,7 @@
     font-size: 1.9em;
     margin: 0 auto;
 }
-.agenda md-input-container{
+.agenda mat-input-container{
     margin: 0 auto;
     width: 8em;
     text-align-last: center;

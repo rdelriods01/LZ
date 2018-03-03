@@ -4,6 +4,7 @@
     margin-bottom: 1em;
 }
 .perfSupIzq{
+    margin: auto 0;
     height: fit-content;
     min-width: 58%;
     padding: 1em;
@@ -59,10 +60,6 @@ h1 button{
     margin-left: 2%;
 }
 /*Superior Derecho*/
-.perfSupDer{
-    /* display: flex;
-    flex-direction: column; */
-}
 .botones, .avances, .aunNo{
     margin: 1em auto;
     width: auto;
@@ -126,7 +123,7 @@ h1 button{
     font-size: 2em;
 }
 /*Perfil Inferior*/
-.perfInferior md-card{
+.perfInferior mat-card{
     margin: 1em;
     border-radius: 10px;
 }
@@ -319,7 +316,7 @@ svg {
     .pesosSup{
         color: dimgray;
     }
-    .mdCardNoPrint{
+    .matCardNoPrint{
         box-shadow: none !important;
     }
     .siPrintIzq{

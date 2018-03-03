@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-// import { Router } from '@angular/router';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 import { AuthService } from '../services/auth.service';

@@ -3,12 +3,20 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { MaterialModule } from '@angular/material';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+// Angular Material
+import {
+  MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule,
+  MatDialogModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule, 
+  MatSidenavModule, MatSliderModule, MatTabsModule, MatFormFieldModule, MatToolbarModule
+} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import 'hammerjs';
+
 // Import de ChartJS
 import { ChartsModule } from 'ng2-charts';
 
@@ -89,10 +97,12 @@ const routes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig, 'LIGHTZONE'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MaterialModule,
     BrowserAnimationsModule,
     ChartsModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    MatButtonModule, MatButtonToggleModule, MatCardModule, MatCheckboxModule,
+    MatDialogModule, MatIconModule, MatInputModule, MatMenuModule, MatSelectModule, 
+    MatSidenavModule, MatSliderModule, MatTabsModule, MatFormFieldModule, MatToolbarModule
     ],
   providers: [
     AuthService,

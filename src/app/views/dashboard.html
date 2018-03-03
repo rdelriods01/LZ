@@ -2,10 +2,10 @@
     <h1 class="title">Dashboard</h1>
     <br>
     <div class="dbItems">
-        <md-card class="dashSupIzq">
+        <mat-card class="dashSupIzq">
             <datatable [fecha]="miFechaDeCitas" ></datatable>
-        </md-card>
-        <md-card class="dashSupDer">
+        </mat-card>
+        <mat-card class="dashSupDer">
             <div style="display: flex">
                 <div class="unaFecha">
                     <span id="uFdia">{{dia}}</span><span id="uFd">{{d}}</span><span id="uFmes">{{mes}}</span><span id="uFaño">{{y}}</span>
@@ -15,10 +15,10 @@
                 </div>
             </div>
             <div class="btnsFecha">
-                <button md-button (click)="diaMenos()"> < </button>
-                <button class="btnHoy" md-button (click)="today()"> Hoy </button>
-                <button md-button (click)="diaMas()"> > </button>
+                <button mat-button (click)="diaMenos()"> < </button>
+                <button class="btnHoy" mat-button (click)="today()"> Hoy </button>
+                <button mat-button (click)="diaMas()"> > </button>
             </div>
-        </md-card>
+        </mat-card>
     </div>
 </div>

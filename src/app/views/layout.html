@@ -1,7 +1,7 @@
   <div *ngIf="isLoggedIn" class="navbar" >
-    <md-toolbar color="primary">  
+    <mat-toolbar color="primary">  
       <!--Boton SideNavigation-->
-      <button class="vAlign" md-button id="bSidenav" (click)="sidenavtoggle()"><md-icon>menu</md-icon></button>
+      <button class="vAlign" mat-button id="bSidenav" (click)="sidenavtoggle()"><mat-icon>menu</mat-icon></button>
       <!--Logo-->
       <div class="logo">
         <img class="logoIcon" src="../assets/images/logo.png" alt="logo">
@@ -11,43 +11,43 @@
       <span class="fill-space"></span>    
       <div id="rightElements" >
         <!--Boton Buscar-->
-        <button class="vAlign" md-button id="bSidenav" (click)="toggleBuscar()"><md-icon>search</md-icon></button>
-        <md-input-container [ngClass]='mostrar'>
-            <input mdInput class="vAlign"  type="text" [(ngModel)]=query (keyup)="filter();showResBus()" placeholder="Buscar...">
-        </md-input-container>
+        <button class="vAlign" mat-button id="bSidenav" (click)="toggleBuscar()"><mat-icon>search</mat-icon></button>
+        <mat-input-container [ngClass]='mostrar'>
+            <input matInput class="vAlign"  type="text" [(ngModel)]=query (keyup)="filter();showResBus()" placeholder="Buscar...">
+        </mat-input-container>
         
         <div class="resBusqueda" [ngClass]='mostrar2' >
-            <button md-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" 
+            <button mat-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" 
             (click)="resetQuery();hideResBus()" >{{item.nombre}} </button>         
         </div>
         <!--Usuario-->
-        <button class="userProfile" [mdMenuTriggerFor]="menu">
+        <button class="userProfile" [matMenuTriggerFor]="menu">
             <span class="userText vAlign">{{usuario.name}}</span>
-            <button md-icon-button class="userAvatar vAlign" ><img md-card-avatar src="{{usuario.avatar}}"></button>
-            <md-menu #menu="mdMenu">
-              <button md-menu-item (click)="logout()">Cerrar Sesion</button>
-              <button md-menu-item> Help </button>
-            </md-menu>
+            <button mat-icon-button class="userAvatar vAlign" ><img mat-card-avatar src="{{usuario.avatar}}"></button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="logout()">Cerrar Sesion</button>
+              <button mat-menu-item> Help </button>
+            </mat-menu>
         </button>
       </div>     
-    </md-toolbar>
-    <button md-fab class="btn-floating" (click)="openDialog()"><md-icon>add</md-icon></button>
+    </mat-toolbar>
+    <button mat-fab class="btn-floating" (click)="openDialog()"><mat-icon>add</mat-icon></button>
   </div>
 
-  <md-sidenav-container  class="sideb" (click)="hideResBus()">   
-    <md-sidenav class="noprint" #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
+  <mat-sidenav-container  class="sideb" (click)="hideResBus()">   
+    <mat-sidenav class="noprint" #sidenav mode="side" opened="true" *ngIf="isLoggedIn && sidenavVisible" >
       <ul>
-        <li><a [routerLink]="['/']"><md-icon class="icon">dashboard</md-icon>Dashboard</a></li>
-        <li><a [routerLink]="['/pacientes']"><md-icon class="icon">face</md-icon>Pacientes</a></li>
-        <li><a [routerLink]="['/platillos']"><md-icon class="icon">restaurant</md-icon>Menús</a></li>
-        <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/home']"><md-icon class="icon">dashboard</md-icon>Test</a></li>
+        <li><a [routerLink]="['/']"><mat-icon class="icon">dashboard</mat-icon>Dashboard</a></li>
+        <li><a [routerLink]="['/pacientes']"><mat-icon class="icon">face</mat-icon>Pacientes</a></li>
+        <li><a [routerLink]="['/platillos']"><mat-icon class="icon">restaurant</mat-icon>Menús</a></li>
+        <li><a *ngIf="usuario.role=='admin'"  [routerLink]="['/home']"><mat-icon class="icon">dashboard</mat-icon>Test</a></li>
         <span class="fill-space"></span>
-        <li><a (click)="logout()"><md-icon class="icon">exit_to_app</md-icon>Cerrar Sesión</a></li>
+        <li><a (click)="logout()"><mat-icon class="icon">exit_to_app</mat-icon>Cerrar Sesión</a></li>
       </ul>
-    </md-sidenav>
+    </mat-sidenav>
     <div class="rutas">
       <router-outlet></router-outlet>
     </div>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 
   

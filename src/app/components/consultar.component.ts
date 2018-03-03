@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { VisitaService } from '../services/visita.service';
@@ -13,7 +13,7 @@ import { Paciente } from '../models/paciente';
     styleUrls: ['../css/consultar.css'],
     providers:[VisitaService]
 })
-export class ConsultarComponent implements OnInit {
+export class ConsultarComponent{
     public visit:any;
     public miUltimaVisita:any;
 
@@ -25,7 +25,7 @@ export class ConsultarComponent implements OnInit {
         'ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'
     ];
 
-    constructor(public dialogRef: MdDialogRef<ConsultarComponent>,
+    constructor(public dialogRef: MatDialogRef<ConsultarComponent>,
                 private visitaService: VisitaService,
                 private _route:ActivatedRoute,
                 private _router: Router,

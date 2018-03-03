@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { AuthService } from '../services/auth.service';
 import { PacienteService } from '../services/paciente.service';
@@ -35,7 +35,7 @@ export class LayoutComponent {
   constructor(public authService: AuthService, 
               public pacienteService: PacienteService, 
               public router: Router,
-              public dialog: MdDialog) {
+              public dialog: MatDialog) {
     this.winWidth=(window.screen.width);
     if(this.winWidth<800){ this.sidenavVisible=false }
     this.usuario=new Usuario('','','','','');

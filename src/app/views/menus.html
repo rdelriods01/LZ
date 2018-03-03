@@ -2,10 +2,10 @@
     <h2>{{fechaPrint}} </h2>
     <div class="superior">
         
-        <button md-button *ngIf="Cita.menuF" class="btn_small" (click)="editarMenu()" ><md-icon>edit</md-icon></button> 
+        <button mat-button *ngIf="Cita.menuF" class="btn_small" (click)="editarMenu()" ><mat-icon>edit</mat-icon></button> 
         <span class="fill-space"></span>    
-        <button md-button *ngIf="Cita.menuF" class="btn" (click)="imprimir()" >Imprimir</button>
-        <button md-button *ngIf="!Cita.menuF" class="btn" (click)="guardar()" >Guardar</button>
+        <button mat-button *ngIf="Cita.menuF" class="btn" (click)="imprimir()" >Imprimir</button>
+        <button mat-button *ngIf="!Cita.menuF" class="btn" (click)="guardar()" >Guardar</button>
     </div>
     <div class="inferior">
         <div class="tiempo" id="des" (click)="openPlatillosDialog('desayuno')" >

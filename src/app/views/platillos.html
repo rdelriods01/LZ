@@ -4,25 +4,25 @@
 
 <form #formPlatillo="ngForm" >
     <div class="addNew">
-        <md-input-container>    
-            <input mdInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
-        </md-input-container>
-        <md-input-container class="descripcion" >    
-                <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
-        </md-input-container>
-        <md-select class="tdc" *ngIf="!editF" placeholder="Tiempo de comida.." name="tiempo" [(ngModel)]="tiempo" required>
-            <md-option *ngFor="let t of tiempos" [value]="t">{{ t }}</md-option>
-        </md-select>
-        <button md-button *ngIf="!editF" (click)="addPlatillo(tiempo)" [disabled]="!formPlatillo.form.valid" >Agregar</button>
-        <button md-button *ngIf="editF" (click)="actualizar()" [disabled]="!formPlatillo.form.valid" >Guardar</button>
+        <mat-input-container>    
+            <input matInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
+        </mat-input-container>
+        <mat-input-container class="descripcion" >    
+                <textarea matInput matTextareaAutosize matAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
+        </mat-input-container>
+        <mat-select class="tdc" *ngIf="!editF" placeholder="Tiempo de comida.." name="tiempo" [(ngModel)]="tiempo" required>
+            <mat-option *ngFor="let t of tiempos" [value]="t">{{ t }}</mat-option>
+        </mat-select>
+        <button mat-button *ngIf="!editF" (click)="addPlatillo(tiempo)" [disabled]="!formPlatillo.form.valid" >Agregar</button>
+        <button mat-button *ngIf="editF" (click)="actualizar()" [disabled]="!formPlatillo.form.valid" >Guardar</button>
 
     </div>
 </form>
 
 <div class="todos">
-<md-tab-group>
-    <md-tab label="Desayunos" >
-        <md-card>
+<mat-tab-group>
+    <mat-tab label="Desayunos" >
+        <mat-card>
                 <div style="overflow-x:auto;">       
                     <table>
                         <thead>
@@ -37,17 +37,17 @@
                                 <td class="platillo">{{de.platillo}}</td>
                                 <td>{{de.descripcion}}</td>
                                 <td class="acciones">
-                                    <button md-button class="littlebtn" (click)="edit(de,'desayuno')" ><md-icon>edit</md-icon></button>
-                                    <button md-button class="littlebtn" (click)="delete(de,'desayuno')" ><md-icon>delete</md-icon></button>
+                                    <button mat-button class="littlebtn" (click)="edit(de,'desayuno')" ><mat-icon>edit</mat-icon></button>
+                                    <button mat-button class="littlebtn" (click)="delete(de,'desayuno')" ><mat-icon>delete</mat-icon></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </md-card>
-    </md-tab>
-    <md-tab label="Comidas" >
-            <md-card>
+            </mat-card>
+    </mat-tab>
+    <mat-tab label="Comidas" >
+            <mat-card>
                     <div style="overflow-x:auto;">       
                                                 <table>
                             <thead>
@@ -62,17 +62,17 @@
                                     <td class="platillo">{{co.platillo}}</td>
                                     <td>{{co.descripcion}}</td>
                                     <td class="acciones" >
-                                        <button md-button class="littlebtn" (click)="edit(co,'comida')" ><md-icon>edit</md-icon></button>
-                                        <button md-button class="littlebtn" (click)="delete(co,'comida')" ><md-icon>delete</md-icon></button>
+                                        <button mat-button class="littlebtn" (click)="edit(co,'comida')" ><mat-icon>edit</mat-icon></button>
+                                        <button mat-button class="littlebtn" (click)="delete(co,'comida')" ><mat-icon>delete</mat-icon></button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-            </md-card>
-    </md-tab>
-    <md-tab label="Cenas" >
-            <md-card>
+            </mat-card>
+    </mat-tab>
+    <mat-tab label="Cenas" >
+            <mat-card>
                     <div style="overflow-x:auto;">              
                         <table>
                             <thead>
@@ -87,17 +87,17 @@
                                     <td class="platillo">{{ce.platillo}}</td>
                                     <td>{{ce.descripcion}}</td>
                                     <td class="acciones">
-                                        <button md-button class="littlebtn" (click)="edit(ce,'cena')" ><md-icon>edit</md-icon></button>
-                                        <button md-button class="littlebtn" (click)="delete(ce,'cena')" ><md-icon>delete</md-icon></button>
+                                        <button mat-button class="littlebtn" (click)="edit(ce,'cena')" ><mat-icon>edit</mat-icon></button>
+                                        <button mat-button class="littlebtn" (click)="delete(ce,'cena')" ><mat-icon>delete</mat-icon></button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-            </md-card>
-    </md-tab>
-    <md-tab label="Snacks" >
-            <md-card>
+            </mat-card>
+    </mat-tab>
+    <mat-tab label="Snacks" >
+            <mat-card>
                     <div style="overflow-x:auto;">
                         <table>
                             <thead>
@@ -112,14 +112,14 @@
                                     <td class="platillo">{{sn.platillo}}</td>
                                     <td>{{sn.descripcion}}</td>
                                     <td class="acciones" >
-                                        <button md-button class="littlebtn" (click)="edit(sn,'snack')" ><md-icon>edit</md-icon></button>
-                                        <button md-button class="littlebtn" (click)="delete(sn,'snack')" ><md-icon>delete</md-icon></button>
+                                        <button mat-button class="littlebtn" (click)="edit(sn,'snack')" ><mat-icon>edit</mat-icon></button>
+                                        <button mat-button class="littlebtn" (click)="delete(sn,'snack')" ><mat-icon>delete</mat-icon></button>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-            </md-card>
-    </md-tab>
-</md-tab-group>
+            </mat-card>
+    </mat-tab>
+</mat-tab-group>
 </div>

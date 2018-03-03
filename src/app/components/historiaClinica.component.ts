@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef , MdRadioChange} from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { PacienteService } from '../services/paciente.service';
@@ -12,7 +13,7 @@ import { Paciente } from '../models/paciente';
     styleUrls: ['../css/historiaClinica.css'],
     providers:[PacienteService]
 })
-export class HistoriaClinicaComponent implements OnInit, OnChanges{
+export class HistoriaClinicaComponent {
     public paciente:any;
     public males:any=[
       [' Estreñimiento ','0'],[' Insomnio ','0'],[' Dolor de cabeza ','0'],[' Zumbido de oidos ','0'],[' Cansancio excesivo ','0'],[' Inflamación ','0']
@@ -22,7 +23,7 @@ export class HistoriaClinicaComponent implements OnInit, OnChanges{
     ];
     public flag:boolean;
 
-    constructor(public dialogRef: MdDialogRef<HistoriaClinicaComponent>,
+    constructor(public dialogRef: MatDialogRef<HistoriaClinicaComponent>,
                 private pacienteService: PacienteService,
                 private route:ActivatedRoute,
                 private router: Router,
@@ -59,8 +60,5 @@ export class HistoriaClinicaComponent implements OnInit, OnChanges{
     togglecb(x){
       this.paciente.enfermedades[x][1]=!this.paciente.enfermedades[x][1];
     }
-
-
-//FIN     <script src="https://unpkg.com/@angular/material@2.0.0-beta.5/bundles/material.umd.js"></script>
 
 }

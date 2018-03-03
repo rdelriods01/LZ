@@ -2,24 +2,24 @@
   <div class="logo">
     <img class="LZlogo" src="../assets/images/logo.png" alt="LZlogo">
   </div>
-  <md-card class="loginCard" > 
+  <mat-card class="loginCard" > 
     <div>
       <div class="textSup">
           <h1>Inicia Sesion</h1>
       </div>
       <div class="inputs">
-        <p><md-icon class="icons" >mail</md-icon></p>
-        <md-input-container>
-             <input mdInput [(ngModel)]="email" placeholder="email.." required >
-        </md-input-container>
-        <p><md-icon class="icons" >lock</md-icon></p>
-        <md-input-container>
-             <input mdInput type="password" [(ngModel)]="pass" placeholder="pass.." required >
-        </md-input-container>
+        <p><mat-icon class="icons" >mail</mat-icon></p>
+        <mat-input-container>
+             <input matInput [(ngModel)]="email" placeholder="email.." required >
+        </mat-input-container>
+        <p><mat-icon class="icons" >lock</mat-icon></p>
+        <mat-input-container>
+             <input matInput type="password" [(ngModel)]="pass" placeholder="pass.." required >
+        </mat-input-container>
       </div>
       <div class="btnLogin" > 
-        <button md-button (click)="login()">Login</button>
+        <button mat-button (click)="login()">Login</button>
       </div>
     </div>
-  </md-card>
+  </mat-card>
 </div>

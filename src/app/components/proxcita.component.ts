@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router} from '@angular/router';
 
 import { VisitaService } from '../services/visita.service';
@@ -19,7 +19,7 @@ export class ProxCitaComponent implements OnInit{
     public min:string="today";
     public editFlag:Boolean=false;
 
-    constructor(public dialogRef: MdDialogRef<ProxCitaComponent>,
+    constructor(public dialogRef: MatDialogRef<ProxCitaComponent>,
                 private visitaService: VisitaService,
                 private _router: Router,
                 ) {
