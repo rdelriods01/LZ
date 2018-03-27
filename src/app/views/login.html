@@ -1,0 +1,36 @@
+<div *ngIf="auth.user | async; then showApp else showLogin"></div>
+<ng-template #showApp>
+    <layoutC></layoutC>
+</ng-template>
+
+<ng-template #showLogin>
+    <div class="bg">
+        <div *ngIf="conf.cliente as cliente" class="logo">
+            <img class="Milogo" src="{{cliente.logoURL}}" alt="logo">
+        </div>
+        <mat-card class="loginCard">
+            <div>
+                <div class="textSup">
+                    <h1>Inicia Sesion</h1>
+                </div>
+                <div class="inputs">
+                    <p>
+                        <mat-icon class="icons">mail</mat-icon>
+                    </p>
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="email" placeholder="email.." required>
+                    </mat-form-field>
+                    <p>
+                        <mat-icon class="icons">lock</mat-icon>
+                    </p>
+                    <mat-form-field>
+                        <input matInput type="password" [(ngModel)]="pass" placeholder="pass.." required>
+                    </mat-form-field>
+                </div>
+                <div class="btnLogin">
+                    <button mat-raised-button color="primary" (click)="auth.login(email,pass)">Login</button>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</ng-template>
