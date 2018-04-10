@@ -1,8 +1,11 @@
 @mixin theme-custom-components($theme) {
     $primary: map-get($theme, primary);
-    // $warn: map-get($theme, warn);
+    $accent: map-get($theme, accent);
     .loginCard {
         border-top: 5px solid mat-color($primary);
+    }
+    #btn-login:hover {
+        background-color: mat-color($primary, 700);
     }
     .sb-list-items li a:hover {
         color: mat-color($primary) !important;
@@ -10,5 +13,8 @@
     }
     .resBusqueda {
         border: 4px solid mat-color($primary);
+    }
+    #btn-newPaciente-guardar:hover {
+        background-color: mat-color($accent, 700);
     }
 }

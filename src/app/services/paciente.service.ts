@@ -1,57 +1,49 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 
-import { Observable } from 'rxjs/Observable';
+// import { Observable } from 'rxjs/Observable';
 
-interface Paciente {
-    id?:string;
-  nombre: string;
-  edad: string;
-}
+import { Paciente } from '../models/paciente'
 
 @Injectable()
 export class PacienteService {
 
-    pacienteColRef: AngularFirestoreCollection<Paciente>;
-    pacienteDocRef: AngularFirestoreDocument<Paciente>;
-    pacientes: Observable<Paciente[]>;
-    paciente:Observable<Paciente>;
-    pacienteDoc: AngularFirestoreDocument<Paciente>;
+    colRefPacientes: AngularFirestoreCollection<Paciente>;
+    docRefPaciente: AngularFirestoreDocument<Paciente>;
 
     constructor( private afs: AngularFirestore ){
-        this.pacienteColRef = this.afs.collection<Paciente>('pacientes');
-        this.pacientes = this.pacienteColRef.snapshotChanges().map(pacs =>{
+        this.colRefPacientes = this.afs.collection<Paciente>('pacientes');
+    }
+
+    getPacientes(){
+        return this.colRefPacientes.snapshotChanges().map(pacs =>{
             return pacs.map(p=>{
-                const data = p.payload.doc.data() as Paciente;
+                const data = p.payload.doc.data();
                 data.id = p.payload.doc.id;
                 return data;
             })
         });
-        console.log(this.pacientes);
     }
-
-    getPacientes(){
-        return this.pacientes;
-    }
-
+    
     getPaciente(idP){
-        this.pacienteDocRef = this.afs.doc('pacientes/'+idP);
-        this.paciente=this.pacienteDocRef.valueChanges();
-        return this.paciente;
+        return this.colRefPacientes.doc(idP).snapshotChanges().map(pac=>{
+            let data = pac.payload.data();
+            return data;
+        })   
     }
 
     savePaciente(paciente: Paciente){
-        this.pacienteColRef.add(paciente);
+        this.colRefPacientes.add(paciente);
     }
 
     deletePaciente(idP){
-        this.pacienteDoc = this.afs.doc('pacientes/'+idP);
-        this.pacienteDoc.delete();
+        this.docRefPaciente = this.afs.doc('pacientes/'+idP);
+        this.docRefPaciente.delete();
     }
 
     updatePaciente(paciente: Paciente){
-        this.pacienteDoc = this.afs.doc('pacientes/'+paciente.id);
-        this.pacienteDoc.update(paciente);
+        this.docRefPaciente = this.afs.doc('pacientes/'+paciente.id);
+        this.docRefPaciente.update(paciente);
     }
 
 

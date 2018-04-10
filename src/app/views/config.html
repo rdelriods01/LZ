@@ -1,0 +1,24 @@
+<h1>Configuracion del sitio</h1>
+
+<div class="empresa">
+    <h2>Cliente</h2>
+    <mat-form-field>
+        <input matInput [(ngModel)]="nombre" placeholder="Nombre del cliente.." (keyup)="dale()" required>
+    </mat-form-field>
+</div>
+
+<div class="tema">
+    <h2>Elegir Tema</h2>
+
+    <mat-form-field>
+        <mat-select [ngModel]="temaElegido" (ngModelChange)="themeChange($event)" placeholder="Escoge el color primario">
+            <mat-option class="temaO" *ngFor="let clr of colors" [value]="clr.nombre" [style.color]="clr.color">
+                <button mat-fab [style.background-color]="clr.color">
+                    </button>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+
+
+<button mat-raised-button color="primary" (click)="guardarConfig()">Guardar Configuración</button>

@@ -4,8 +4,8 @@
         <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
         <!-- EMPRESA -->
         <div *ngIf="conf.cliente as cliente" class="empresa">
-            <img class="empresaLogo" src="{{cliente.logoURL}}" alt="logo">
-            <a class="empresaText" [routerLink]="['/dashboard']">{{cliente.nombre}}</a>
+            <img class="empresaLogo" src="{{cliente.logoURL}}" alt="{{cliente.logoURL}}">
+            <a class="empresaText" [routerLink]="['/']">{{cliente.nombre}}</a>
         </div>
         <!-- separador -->
         <span class="spacer"></span>
@@ -30,10 +30,10 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="sideb" (click)="hideResBus()">
-    <mat-sidenav #snav>
+    <mat-sidenav #snav mode="side">
         <ul class="sb-list-items">
             <li>
-                <a [routerLink]="['/dashboard']">
+                <a [routerLink]="['/']">
                     <mat-icon class="icon">dashboard</mat-icon>Dashboard</a>
             </li>
             <li>
@@ -41,14 +41,18 @@
                     <mat-icon class="icon">face</mat-icon>Pacientes</a>
             </li>
             <li>
-                <a [routerLink]="['/platillos']">
+                <a [routerLink]="['/pacientes']">
                     <mat-icon class="icon">restaurant</mat-icon>Menús</a>
             </li>
             <li>
-                <a [routerLink]="['/home']">
+                <a [routerLink]="['/test']">
                     <mat-icon class="icon">dashboard</mat-icon>Test</a>
             </li>
             <span class="spacer"></span>
+            <li>
+                <a [routerLink]="['/config']">
+                    <mat-icon class="icon">settings</mat-icon>Configuración</a>
+            </li>
             <li>
                 <a (click)="auth.logout()">
                     <mat-icon class="icon">exit_to_app</mat-icon>Cerrar Sesión</a>
@@ -57,25 +61,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="rutas">
-
-        <mat-form-field floatLabel="never">
-            <input matInput type="text" [(ngModel)]=nombrePaci placeholder="Nombre...">
-        </mat-form-field>
-        <mat-form-field floatLabel="never">
-            <input matInput type="text" [(ngModel)]=edadPaci placeholder="Edad...">
-        </mat-form-field>
-        <button mat-raised-button (click)="agregarPaciente(nombrePaci,edadPaci)">Guardar</button>
-
-        <ul>
-            <li *ngFor="let p of pacientes">
-                <p (click)="showIdP(p.id)">{{p.nombre}} <strong> {{p.edad}} </strong> <button mat-icon-button (click)="deleteP(p.id)"><mat-icon>delete</mat-icon></button></p>
-            </li>
-        </ul>
-
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
 
-<button mat-fab class="btn-floating" (click)="openDialog()"><mat-icon>add</mat-icon></button>
-
-<!-- 7390594661 password EPIQ 7C US -->
+<button mat-fab class="btn-floating" (click)="newPaciente()"><mat-icon>add</mat-icon></button>

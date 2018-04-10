@@ -1,0 +1,30 @@
+.webIcon {
+    font-size: 3em;
+    width: 1em;
+}
+.empresa {
+    font-size: 1em;
+}
+
+/* SELECT PANEL */
+
+::ng-deep .cdk-overlay-pane {
+    min-width: 1px !important;
+}
+::ng-deep .mat-select-panel {
+    min-width: 1em !important;
+}
+::ng-deep .mat-select-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.temaO {
+    zoom: 100%;
+    color: tomato;
+    width: 6em;
+    height: 6em !important;
+    text-align: center;
+}
+::ng-deep .mat-option-text {
+    overflow: visible !important;
+}

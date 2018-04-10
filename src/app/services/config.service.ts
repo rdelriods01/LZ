@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 interface Config {
   nombre: string;
   logoURL: string;
+  theme: string;
 }
 
 @Injectable()
 export class ConfigService {
 
-  cliente: Config;
+  cliente:any;
 
-  constructor() { 
-
-    this.cliente={
-        nombre: 'LIGHTZONE',
-        logoURL:'assets/images/logo.png'
-    }
-
-
+  constructor(  private afs: AngularFirestore  ) { 
+  
   }
+
+  getConfig(){
+    return this.afs.doc('/configuracion/cliente').snapshotChanges().map(pac=>{
+      let data = pac.payload.data();
+      console.log(data);
+      return data;
+    })
+  }
+
+  updateConfig(cliente:Config){
+    this.afs.doc('configuracion/cliente').update(cliente);
+  }
+
 
 
 }

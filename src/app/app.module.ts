@@ -13,26 +13,38 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 // Angular Material ====================
 import { MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, 
-          MatInputModule, MatFormFieldModule, MatSidenavModule, MatListModule
+          MatInputModule, MatFormFieldModule, MatSidenavModule, MatListModule,
+          MatExpansionModule, MatPaginatorModule, MatSortModule,MatTabsModule,
+          MatDatepickerModule, MatNativeDateModule, MatDialogModule,MatSelectModule
     } from '@angular/material';
 
 // Servicios ==========================
 import { AuthService } from './services/auth.service';
 import { ConfigService } from './services/config.service';
 import { PacienteService } from './services/paciente.service';
+import { VisitaService } from './services/visita.service';
 
 // Componentes ========================
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login.component';
+import { ConfigComponent } from './components/config.component';
 import { LayoutComponent } from './components/layout.component';
 import { DashboardComponent } from './components/dashboard.component';
+import { TestComponent } from './components/test.component';
+import { NewPacienteComponent } from './components/newPaciente.component';
 import { PacientesComponent } from './components/pacientes.component';
+import { FlatpickerComponent } from './components/flatpicker.component';
 
 // Rutas =============================
 const routes: Routes = [
-  { path:'', component: AppComponent },
-  { path:'dashboard', component: DashboardComponent},
-  { path:'pacientes', component: PacientesComponent},
+  { path:'', component: LayoutComponent ,children:[
+    { path:'', component: DashboardComponent},
+    { path:'config', component: ConfigComponent },
+    { path:'test', component: TestComponent },
+    { path:'pacientes', component: PacientesComponent},
+  ]},
+  { path:'login', component: LoginComponent},
+   
   // { path:'paciente/:id', component: PerfilPacienteComponent},
   // { path:'platillos', component: PlatillosComponent},
   { path:'**', redirectTo: '', pathMatch: 'full'}
@@ -42,9 +54,16 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    ConfigComponent,
     LayoutComponent,
     DashboardComponent,
-    PacientesComponent
+    TestComponent,
+    NewPacienteComponent, 
+    PacientesComponent,
+    FlatpickerComponent
+  ],
+  entryComponents:[
+    NewPacienteComponent
   ],
   imports: [
     BrowserModule,
@@ -58,12 +77,14 @@ const routes: Routes = [
     AngularFireAuthModule,
     // Material
     MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule,MatInputModule, MatFormFieldModule,
-    MatSidenavModule, MatListModule
+    MatSidenavModule, MatListModule, MatExpansionModule, MatPaginatorModule, MatSortModule, MatTabsModule,
+    MatDatepickerModule, MatNativeDateModule,MatDialogModule, MatSelectModule
   ],
   providers: [
     AuthService,
     ConfigService,
-    PacienteService
+    PacienteService,
+    VisitaService
   ],
   bootstrap: [AppComponent]
 })

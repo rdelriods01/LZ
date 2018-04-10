@@ -47,7 +47,7 @@ export class AuthService {
         //   return this.user;
         // })
         this.updateUserData(fullUser);
-          return this.user;
+        return this.user;
       })
       .catch(err => {
         console.log('Something went wrong: ', err.message);
@@ -62,12 +62,12 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL
     }
-    return userRef.set(data, { merge: true })
+    userRef.set(data, { merge: true })
   }
 
   logout() {
     this.afAuth.auth.signOut().then(() => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
     });
   }
 }

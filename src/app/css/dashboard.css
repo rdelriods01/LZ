@@ -1,0 +1,72 @@
+.dashContainer {
+    text-align: center;
+}
+.title {
+    color: #444;
+    margin: 0 0 1em 0;
+}
+.dashSupDer {
+    zoom: 70%;
+}
+@media only screen and (max-device-width: 800px) and (-webkit-min-device-pixel-ratio: 2) {
+    .dbItems {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    #dbPicker {
+        display: none;
+    }
+    .unaFecha {
+        margin: 0 auto;
+    }
+    .btnHoy {
+        width: 5em;
+    }
+}
+.dashSupIzq {
+    min-width: 52.7%;
+    float: left;
+}
+.dashSupDer {
+    display: inline-block;
+}
+.unaFecha {
+    text-align: center;
+    width: 14em;
+    background: white;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+}
+.unaFecha span {
+    display: block;
+    background: white
+}
+#uFdia {
+    font-size: 1.2em;
+    background: #f44336;
+    padding: 0.5em 4em;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+#uFd {
+    font-size: 8em;
+    color: #f44336;
+}
+#uFmes {
+    font-size: 2em;
+}
+#uFaño {
+    font-size: 1.5em;
+}
+#dbPicker {
+    margin-left: 1em;
+}
+.btnsFecha {
+    margin-top: 1em;
+    text-align: center;
+}
+.btnHoy {
+    width: 10em;
+}

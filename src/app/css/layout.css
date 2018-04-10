@@ -148,8 +148,8 @@ mat-sidenav {
     zoom: 80%;
     color: white;
     padding-top: 64px;
-    background-color: #212121;
-    outline: 1px solid #212121;
+    background-color: #212121 !important;
+    outline: 1px solid #212121 !important;
 }
 mat-sidenav .icon {
     padding-right: 10px;
@@ -160,7 +160,7 @@ ul {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 94%;
+    height: 96%;
 }
 li {
     width: 90%;

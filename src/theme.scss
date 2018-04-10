@@ -5,20 +5,35 @@
 $primary: mat-palette($mat-red);
 $accent: mat-palette($mat-light-green, 500, 100, 700);
 $warn: mat-palette($mat-deep-orange);
-$light-theme: mat-light-theme($primary, $accent, $warn);
+$red-theme: mat-light-theme($primary, $accent, $warn);
 // Include the default theme styles.
-@include angular-material-theme($light-theme);
+@include angular-material-theme($red-theme);
 // Include los custom components para light theme
-@include theme-custom-components($light-theme);
-// Define an alternate dark theme.
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent: mat-palette($mat-amber, A200, A100, A400);
-$dark-warn: mat-palette($mat-deep-orange);
-$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-// Include the alternative theme styles inside of a block with a CSS class. You can make this
-// CSS class whatever you want. In this example, any component inside of an element with
-// `.dark-theme` will be affected by this alternate dark theme instead of the default theme.
-.dark-theme {
-    @include angular-material-theme($dark-theme);
-    @include theme-custom-components($dark-theme);
+@include theme-custom-components($red-theme);
+// INDIGO
+$indigo-primary: mat-palette($mat-indigo);
+$indigo-accent: mat-palette($mat-red, A200, A100, A400);
+$indigo-warn: mat-palette($mat-deep-purple);
+$indigo-theme: mat-light-theme($indigo-primary, $indigo-accent, $indigo-warn);
+.indigo-theme {
+    @include angular-material-theme($indigo-theme);
+    @include theme-custom-components($indigo-theme);
+}
+// PURPLE
+$purple-theme-primary: mat-palette($mat-purple);
+$purple-theme-accent: mat-palette($mat-light-blue, A200, A100, A400);
+$purple-theme-warn: mat-palette($mat-red);
+$purple-theme: mat-light-theme($purple-theme-primary, $purple-theme-accent, $purple-theme-warn);
+.purple-theme {
+    @include angular-material-theme($purple-theme);
+    @include theme-custom-components($purple-theme);
+}
+// GREEN
+$green-theme-primary: mat-palette($mat-green);
+$green-theme-accent: mat-palette($mat-deep-orange, A200, A100, A400);
+$green-theme-warn: mat-palette($mat-red);
+$green-theme: mat-light-theme($green-theme-primary, $green-theme-accent, $green-theme-warn);
+.green-theme {
+    @include angular-material-theme($green-theme);
+    @include theme-custom-components($green-theme);
 }

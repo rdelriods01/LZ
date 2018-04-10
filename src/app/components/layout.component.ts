@@ -5,6 +5,11 @@ import { AuthService } from '../services/auth.service';
 import { ConfigService } from '../services/config.service';
 import { PacienteService } from '../services/paciente.service';
 
+import { MatDialog } from '@angular/material';
+
+import { NewPacienteComponent } from './newPaciente.component';
+
+
 @Component({
   selector: 'layoutC',
   templateUrl: '../views/layout.html',
@@ -12,14 +17,6 @@ import { PacienteService } from '../services/paciente.service';
 })
 export class LayoutComponent {
   
-  // pacientes=[
-  //   {nombre:'Benito Juarez'},
-  //   {nombre:'Jose Ma Morelos'},
-  //   {nombre:'Nezahualcoyotl'},
-  //   {nombre:'Sor Juana Ines de la Cruz'},
-  //   {nombre:'Diego Rivera'},
-  //   {nombre:'Miguel Hidalgo'}
-  // ]
   pacientes:any=[];
 
 // Variables para el buscador 
@@ -29,20 +26,22 @@ export class LayoutComponent {
   showItm: string ='hideResItem';
   buscado = "";
   filteredList:any;
-paci:any;
  
 
 
-  constructor(public auth: AuthService, public conf: ConfigService , public pacser: PacienteService, public router: Router) 
+  constructor(public auth: AuthService, 
+              public conf: ConfigService, 
+              public pacser: PacienteService,
+              public router: Router,
+              public dialog: MatDialog) 
   {
-    this.router.navigate(['dashboard']);
     this.getPacientes();
   }
 
   getPacientes(){
-    this.pacser.getPacientes().subscribe(pacs =>{
+    this.pacser.getPacientes().subscribe(pacs=>{
       console.log(pacs);
-      this.pacientes= pacs;
+      this.pacientes=pacs;
     })
   }
 
@@ -82,41 +81,9 @@ paci:any;
       }   
       return filtered;
   }
-
   
-agregarPaciente(n,e){
-  let PAC = {nombre:n,edad:e}
-  this.pacser.savePaciente(PAC);
-}
-
-showIdP(idP){
-  this.pacientes.forEach(el => {
-    if(el.id == idP){this.paci=el}
-  });
-  console.log(this.paci);
-}
-
-deleteP(idP){
-  this.pacser.deletePaciente(idP);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  openDialog(){
+  newPaciente(){
     console.log('Aun no hace nada el boton pero jala chido jjjj');
+    let dialogRef = this.dialog.open(NewPacienteComponent);
   }
 }

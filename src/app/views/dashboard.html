@@ -1,1 +1,24 @@
-<h1>Hello Dashboard</h1>
+<div class="dashContainer">
+    <h1 class="title">Dashboard</h1>
+    <br>
+    <div class="dbItems">
+        <mat-card class="dashSupIzq">
+            <!-- <datatable [fecha]="miFechaDeCitas" ></datatable> -->
+        </mat-card>
+        <mat-card class="dashSupDer">
+            <div style="display: flex">
+                <div class="unaFecha">
+                    <span id="uFdia">{{dia}}</span><span id="uFd">{{d}}</span><span id="uFmes">{{mes}}</span><span id="uFaño">{{y}}</span>
+                </div>
+                <div id="dbPicker">
+                    <datepicker class="pckrCal" [fechaMin]="min" [jump]="miFechaDeCitas" [sticky]="true" (mifecha)="sendFecha($event)"></datepicker>
+                </div>
+            </div>
+            <div class="btnsFecha">
+                <button mat-button (click)="diaMenos()"> < </button>
+                <button class="btnHoy" mat-button (click)="today()"> Hoy </button>
+                <button mat-button (click)="diaMas()"> > </button>
+            </div>
+        </mat-card>
+    </div>
+</div>
