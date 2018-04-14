@@ -2,9 +2,9 @@
     <input matInput type="text" [(ngModel)]=nombrePaci placeholder="Nombre...">
 </mat-form-field>
 <mat-form-field floatLabel="never">
-    <input matInput type="text" [(ngModel)]=edadPaci placeholder="Edad...">
+    <input matInput type="text" [(ngModel)]=telPaci placeholder="Telefono...">
 </mat-form-field>
-<button mat-raised-button (click)="agregarPaciente(nombrePaci,edadPaci)">Agregar paciente</button>
+<button mat-raised-button (click)="agregarPaciente(nombrePaci,telPaci)">Agregar paciente</button>
 
 
 <div class="tablaPac">
@@ -18,27 +18,20 @@
     <mat-accordion displayMode="flat" class="mat-table">
         <section matSort class="mat-elevation-z2 mat-header-row">
             <span class="mat-header-cell" mat-sort-header="nombre">Nombre</span>
-            <span class="mat-header-cell" mat-sort-header="edad">Edad</span>
+            <span class="mat-header-cell" mat-sort-header="telefono">Telefono</span>
             <span class="mat-header-cell" mat-sort-header="id">ID</span>
         </section>
 
         <mat-expansion-panel *ngFor="let pac of displayedRows$ | async" (opened)="getVisitasP(pac.id)">
             <mat-expansion-panel-header class="mat-row">
                 <span class="mat-cell">{{pac.nombre}}</span>
-                <span class="mat-cell">{{pac.edad}}</span>
+                <span class="mat-cell">{{pac.telefono}}</span>
                 <span class="mat-cell">{{pac.id}}</span>
             </mat-expansion-panel-header>
             <div class="expan">
                 <div class="acciones">
-                    <mat-form-field>
-                        <input matInput [(ngModel)]=fecha [matDatepicker]="picker" placeholder="Fecha de visita...">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                    <!-- <mat-form-field floatLabel="never">
-                        <input matInput type="text" [(ngModel)]=menu placeholder="Menu...">
-                    </mat-form-field> -->
-                    <button mat-raised-button (click)="agregarVisita(fecha,pac.id)">Agregar visita</button>
+                    <datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)"></datepicker>
+                    <button *ngIf="btnGuardarB" mat-raised-button (click)="agregarVisita(pac.id)">Agregar visita</button>
                     <button mat-button (click)="deleteP(pac.id)">Eliminar Paciente<mat-icon>delete</mat-icon></button>
                 </div>
                 <div class="visitas">

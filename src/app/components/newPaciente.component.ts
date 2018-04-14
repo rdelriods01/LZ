@@ -14,8 +14,8 @@ import { Visita } from '../models/visita';
    styleUrls: ['../css/newPaciente.css']
 })
 export class NewPacienteComponent{
-    public paciente:Paciente;
-    public visita: Visita;
+    public paciente:any;
+    public visita:any;
     public id:string;
     public btnGuardarB:boolean=false;
 
@@ -41,10 +41,15 @@ export class NewPacienteComponent{
     }
     onSubmit(){
         this.paciente.nombre=this.toCapital(this.paciente.nombre);
-        this.pacienteService.savePaciente(this.paciente);
-        this.visita.paciente=this.paciente.id;
-        this.visitaService.saveVisita(this.visita);
-        this.dialogRef.close();
+        this.paciente=JSON.parse(JSON.stringify(this.paciente));
+        this.pacienteService.savePaciente(this.paciente).then(pac=>{
+            console.log(pac);
+            this.visita.paciente=pac.id;
+            this.visita=JSON.parse(JSON.stringify(this.visita));
+            this.visitaService.saveVisita(this.visita);
+            this.dialogRef.close();
+        })
+        
     }
 
     toCapital(str){

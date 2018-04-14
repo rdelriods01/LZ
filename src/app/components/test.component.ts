@@ -25,7 +25,9 @@ export class TestComponent {
 
     pacientes:any[];
     visitas:Observable<any[]>;
-    paci:any;
+
+    temp:any=[];
+    btnGuardarB:boolean=false;
 
     // Variables para la tabla
     @ViewChild(MatSort) sort: MatSort;
@@ -72,25 +74,39 @@ export class TestComponent {
         return filtered;
     }
 
-    agregarPaciente(n,e){
+    agregarPaciente(n,t){
         let PAC = new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","","","","",false);
         PAC.nombre=n;
-        PAC.edad=e;
+        PAC.telefono=t;
+        PAC=JSON.parse(JSON.stringify(PAC))
         this.pacSer.savePaciente(PAC);
         this.getPacientes();
     }
 
-    agregarVisita(f,p){
-        let VIS = new Visita('',0,"","",0,0,0,0,0,0,"","",false,"",{desayuno:[],comida:[],cena:[],snack:[]},false);
-        VIS.fecha=f;
-        VIS.paciente=p;
-        this.visSer.saveVisita(VIS);
-        this.getVisitasP(p);
+    sendFecha(event){
+        let fyh =event.mifecha.split(" ");
+        this.temp.fecha=fyh[0];
+        this.temp.hora=fyh[1];
+        if(fyh==""){
+            this.btnGuardarB=false;
+        }else{
+            this.btnGuardarB=true;
+        }
     }
 
-    getVisitasP(p){
-        this.visitas=this.visSer.getVisitasP(p);
-        console.log(this.visitas);
+    agregarVisita(idP){
+        let VIS = new Visita('',0,"","",0,0,0,0,0,0,"","",false,"",{desayuno:[],comida:[],cena:[],snack:[]},false);
+        VIS.fecha=this.temp.fecha;
+        VIS.hora=this.temp.hora;
+        this.temp=[];
+        VIS.paciente=idP;
+        VIS=JSON.parse(JSON.stringify(VIS));
+        this.visSer.saveVisita(VIS);
+        this.getVisitasP(idP);
+    }
+
+    getVisitasP(idP){
+        this.visitas=this.visSer.getVisitasP(idP);
     }
 
     deleteP(idP){

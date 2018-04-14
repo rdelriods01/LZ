@@ -15,7 +15,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { MatButtonModule, MatToolbarModule, MatIconModule, MatCardModule, 
           MatInputModule, MatFormFieldModule, MatSidenavModule, MatListModule,
           MatExpansionModule, MatPaginatorModule, MatSortModule,MatTabsModule,
-          MatDatepickerModule, MatNativeDateModule, MatDialogModule,MatSelectModule
+          MatDatepickerModule, MatNativeDateModule, MatDialogModule,MatSelectModule,
+          MatRadioModule, MatButtonToggleModule, MatSliderModule
     } from '@angular/material';
 
 // Servicios ==========================
@@ -34,6 +35,9 @@ import { TestComponent } from './components/test.component';
 import { NewPacienteComponent } from './components/newPaciente.component';
 import { PacientesComponent } from './components/pacientes.component';
 import { FlatpickerComponent } from './components/flatpicker.component';
+import { DatatableComponent } from './components/datatable.component';
+import { HistoriaClinicaComponent } from './components/historiaClinica.component';
+
 
 // Rutas =============================
 const routes: Routes = [
@@ -60,10 +64,13 @@ const routes: Routes = [
     TestComponent,
     NewPacienteComponent, 
     PacientesComponent,
-    FlatpickerComponent
+    FlatpickerComponent, 
+    DatatableComponent,
+    HistoriaClinicaComponent
   ],
   entryComponents:[
-    NewPacienteComponent
+    NewPacienteComponent,
+    HistoriaClinicaComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +85,8 @@ const routes: Routes = [
     // Material
     MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule,MatInputModule, MatFormFieldModule,
     MatSidenavModule, MatListModule, MatExpansionModule, MatPaginatorModule, MatSortModule, MatTabsModule,
-    MatDatepickerModule, MatNativeDateModule,MatDialogModule, MatSelectModule
+    MatDatepickerModule, MatNativeDateModule,MatDialogModule, MatSelectModule, MatRadioModule,
+    MatButtonToggleModule,MatSliderModule
   ],
   providers: [
     AuthService,

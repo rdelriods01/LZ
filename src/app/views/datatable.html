@@ -1,0 +1,33 @@
+<div class="tituloTable">
+    <h3>{{visitas.length}} citas programadas</h3>
+</div>
+<div style="overflow-x:auto;">
+    <table>
+        <thead>
+            <tr>
+                <th>Hora</th>
+                <th>Paciente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let visita of visitas">
+                <td>{{visita.hora}}</td>
+                <td class="tPaciente">{{visita.paciente.nombre}}</td>
+                <td><button mat-button class="btnverde" *ngIf="!visita.paciente.completo" (click)="openHisCliDialog(visita.paciente)">Historia Clinica</button>
+                    <button mat-button class="btnverde" *ngIf="visita.paciente.completo" [routerLink]="['/paciente',visita.paciente.id]">Ver Perfil</button>
+                    <button mat-button class="littlebtn" (click)="editVisita(visita)"><mat-icon>edit</mat-icon></button>
+                    <button mat-button class="littlebtn" (click)="seguroDelVisita(visita)"><mat-icon>delete</mat-icon></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf='seguro' class="dialogDelete">
+    <mat-card>
+        <h2>Seguro que desea eliminar la cita de {{cita.paciente.nombre}} </h2>
+        <button mat-button (click)='siDelVisita()'>Si</button>
+        <button mat-button (click)='noDelVisita()'>No</button>
+    </mat-card>
+</div>

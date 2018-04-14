@@ -19,7 +19,6 @@ export class AppComponent {
 
     this.afAuth.authState.subscribe(us=>{
       if(us){
-        console.log(us);
         // Si ya hay usuario, then=> cargar configuracion (cliente, logo, theme)
         this.conf.getConfig().subscribe(cliente=>{
           if(cliente){

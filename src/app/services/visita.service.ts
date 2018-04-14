@@ -42,8 +42,21 @@ export class VisitaService {
         });
     }
 
+    getVisitasXFecha(dia){
+        return this.afs.collection('visitas', ref=> ref.where('fecha','==',dia)).snapshotChanges().map( visi =>{
+            return visi.map(v=>{
+                const data = v.payload.doc.data();
+                data.id = v.payload.doc.id;
+                return data;
+            });
+        });
+    }
+
     saveVisita(visita: Visita){
-        this.colRefVisitas.add(visita);
+        this.colRefVisitas.add(visita).then(data=>{
+            visita.id=data.id;
+            this.updateVisita(visita);
+        })
     }
 
     deleteVisita(idV){

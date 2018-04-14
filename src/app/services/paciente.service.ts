@@ -9,7 +9,6 @@ import { Paciente } from '../models/paciente'
 export class PacienteService {
 
     colRefPacientes: AngularFirestoreCollection<Paciente>;
-    docRefPaciente: AngularFirestoreDocument<Paciente>;
 
     constructor( private afs: AngularFirestore ){
         this.colRefPacientes = this.afs.collection<Paciente>('pacientes');
@@ -33,17 +32,19 @@ export class PacienteService {
     }
 
     savePaciente(paciente: Paciente){
-        this.colRefPacientes.add(paciente);
+        return this.colRefPacientes.add(paciente).then(data=>{
+            paciente.id=data.id;
+            this.updatePaciente(paciente);
+            return paciente;
+        })
     }
 
     deletePaciente(idP){
-        this.docRefPaciente = this.afs.doc('pacientes/'+idP);
-        this.docRefPaciente.delete();
+        this.afs.doc('pacientes/'+idP).delete();
     }
 
     updatePaciente(paciente: Paciente){
-        this.docRefPaciente = this.afs.doc('pacientes/'+paciente.id);
-        this.docRefPaciente.update(paciente);
+        this.afs.doc('pacientes/'+paciente.id).update(paciente);
     }
 
 

@@ -1,0 +1,161 @@
+* {
+    font-family: 'Roboto';
+}
+.hiscli {
+    max-height: fit-content;
+}
+.first {
+    display: flex;
+    flex-direction: row;
+}
+.edadygen {
+    display: flex;
+}
+button {
+    font-size: 15px;
+    border-radius: 6px;
+    width: 280px;
+    height: 40px;
+    color: white;
+}
+.divNombre {
+    width: 17.4em;
+}
+.nombre {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.genero {
+    margin: 1em 6em;
+}
+.edad {
+    text-align-last: center;
+    width: 4em;
+    margin: auto;
+}
+.allItems {
+    display: flex;
+    margin: 1em 0;
+}
+.lefties {
+    margin: 0px;
+}
+.datos {
+    display: flex;
+    font-size: 86%;
+    text-align: center;
+}
+.contacto, .direccion, .multiEnf, .malestares, .enfermedades {
+    margin: 0 auto;
+}
+.valores {
+    text-align: center;
+    font-weight: bold;
+}
+.valores mat-form-field {
+    margin: 0px 2em;
+    width: 7em;
+    text-align: center;
+    text-align-last: center;
+}
+.pAjustado {
+    width: 8em !important;
+}
+.enfymal {
+    display: flex;
+    width: 40em;
+    margin: 2em 0;
+}
+#ck-button {
+    background-color: #FFF;
+    border-radius: 4px;
+    border: 1px solid #fafafa;
+}
+#ck-button label span {
+    text-align: center;
+    padding: 3px 20px;
+    display: block;
+}
+#ck-button label input {
+    position: absolute;
+    top: -20px;
+}
+#ck-button input:checked+span {
+    color: #fff;
+    border-radius: 4px;
+}
+.malestares {
+    display: flex;
+    flex-direction: column;
+}
+.malestares span {
+    height: 2.2em;
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+}
+.mat-slider {
+    zoom: 125% !important;
+}
+.areas {
+    width: 88%;
+    margin-left: 6%
+}
+.motivo {
+    padding: 0;
+}
+.btnGuardar {
+    text-align: end;
+}
+@media only screen and (max-device-width: 800px) and (-webkit-min-device-pixel-ratio: 2) {
+    .hiscli {
+        max-height: 100vh;
+    }
+    .first {
+        text-align-last: center;
+        flex-direction: column;
+    }
+    .divNombre {
+        width: auto;
+    }
+    .genero {
+        margin: .5em auto;
+        display: inline-table;
+    }
+    .allItems {
+        flex-direction: column;
+        zoom: 70%;
+    }
+    .datos {
+        flex-direction: column;
+        background-color: #f1f1f1;
+        margin: -1em 0 3em 0;
+        text-align-last: center;
+        padding-top: 2em;
+    }
+    .enfymal {
+        flex-direction: column;
+        width: 100%
+    }
+    #ck-button {
+        margin: 0 auto;
+    }
+    .malestares, .enfermedades {
+        margin: 1em auto;
+    }
+    .mat-slider {
+        zoom: 180% !important;
+        padding: 0;
+        height: 16px;
+    }
+     ::ng-deep .mat-slider-horizontal .mat-slider-wrapper {
+        top: 8px !important;
+    }
+    .areas {
+        width: 100%;
+        margin-left: 0;
+    }
+    .btnGuardar {
+        text-align: center;
+    }
+}

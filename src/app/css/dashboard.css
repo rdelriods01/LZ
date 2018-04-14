@@ -5,12 +5,15 @@
     color: #444;
     margin: 0 0 1em 0;
 }
+.dbItems {
+    display: flex;
+    justify-content: space-evenly;
+}
 .dashSupDer {
     zoom: 70%;
 }
 @media only screen and (max-device-width: 800px) and (-webkit-min-device-pixel-ratio: 2) {
     .dbItems {
-        display: flex;
         flex-direction: column-reverse;
     }
     #dbPicker {
@@ -22,13 +25,17 @@
     .btnHoy {
         width: 5em;
     }
+    .dashSupIzq {
+        zoom: 65% !important;
+    }
 }
 .dashSupIzq {
-    min-width: 52.7%;
     float: left;
+    zoom: 85%;
+    min-width: 56vw;
 }
 .dashSupDer {
-    display: inline-block;
+    display: table;
 }
 .unaFecha {
     text-align: center;

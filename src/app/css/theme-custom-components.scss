@@ -17,4 +17,27 @@
     #btn-newPaciente-guardar:hover {
         background-color: mat-color($accent, 700);
     }
+    // HISTORIACLINICA
+    /*Para darle color al genero en hisCli*/
+    .mat-button-toggle-checked .mat-button-toggle-label-content {
+        background-color: mat-color($accent) !important;
+    }
+    #guardarHisCli {
+        background-color: mat-color($accent) !important;
+    }
+    #guardarHisCli:hover {
+        background-color: mat-color($accent, 700) !important;
+    }
+    #ck-button:hover {
+        background-color: mat-color($accent) !important;
+    }
+    #ck-button input:checked+span {
+        background-color: mat-color($accent) !important;
+    }
+    #ck-button input:checked+span:hover {
+        background-color: mat-color($accent, 700) !important;
+    }
+    .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb, .mat-slider-min-value.mat-slider-thumb-label-showing .mat-slider-thumb-label {
+        background-color: mat-color($accent) !important;
+    }
 }

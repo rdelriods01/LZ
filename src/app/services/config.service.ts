@@ -19,7 +19,6 @@ export class ConfigService {
   getConfig(){
     return this.afs.doc('/configuracion/cliente').snapshotChanges().map(pac=>{
       let data = pac.payload.data();
-      console.log(data);
       return data;
     })
   }

@@ -144,15 +144,16 @@ mat-icon:hover {
 }
 mat-sidenav {
     position: fixed;
-    width: 200px;
-    zoom: 80%;
+    width: 160px;
     color: white;
-    padding-top: 64px;
+    padding-top: 50px;
+    font-size: 0.8em;
     background-color: #212121 !important;
     outline: 1px solid #212121 !important;
 }
 mat-sidenav .icon {
     padding-right: 10px;
+    zoom: 80%;
 }
 ul {
     list-style-type: none;
@@ -172,7 +173,6 @@ li a {
     padding: 12px 0 12px 16px;
     text-decoration: none;
     outline: 1px solid transparent;
-    font-size: 15px;
     font-weight: 400;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     transition: transform 1s;
@@ -185,7 +185,7 @@ a mat-icon:hover {
     transform: rotate(0deg);
 }
 .rutas {
-    padding: 1em 2em;
+    padding: 1em;
     height: 89vh;
 }
 .btn-floating {
