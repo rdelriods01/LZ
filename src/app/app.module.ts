@@ -68,7 +68,7 @@ const routes: Routes = [
   { path:'paciente/:id', component: PerfilPacienteComponent},
   { path:'platillos', component: PlatillosComponent},
 
-  { path:'**', component: DashboardComponent}
+  // { path:'**', component: DashboardComponent}
 ];
 
 @NgModule({

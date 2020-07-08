@@ -23,7 +23,8 @@ import {PacienteService} from '../services/paciente.service';
 
 export class PerfilPacienteComponent {
     
-    public paciente:Paciente;
+    public paciente:any;
+    // public paciente:Paciente;
     public visitas: any[]=[];
     public ordenados: any[];
     public cita: any[];
@@ -102,6 +103,8 @@ export class PerfilPacienteComponent {
         public dialog: MatDialog,
         public layoutC:LayoutComponent
     ){
+        console.log("si ntr");
+        
         this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","","","","",false);
         this.mostrarPaciente();
 
@@ -112,42 +115,46 @@ export class PerfilPacienteComponent {
     mostrarPaciente(){
         this._route.params.forEach((params:Params)=>{
             let id = params['id'];
-            this.paciente= this.pacienteService.getPaciente(id);
-            if(!this.paciente){this._router.navigate(['/'])}
-            else{
-                // Ajustar datos del paciente para poder visualizarlos correctamente al iniciar 
-                // enfermedades
-                for(let i=0;i<8;i++){
-                    if(this.paciente.enfermedades[i][1]){
-                        this.temp.push(this.paciente.enfermedades[i][0])
+            this.pacienteService.getPaciente(id).subscribe(pac => {
+                console.log(pac.payload.val());
+                
+                if(!pac){this._router.navigate(['/'])}
+                else{
+                    this.paciente = pac.payload.val();
+                    // Ajustar datos del paciente para poder visualizarlos correctamente al iniciar 
+                    // enfermedades
+                    for(let i=0;i<8;i++){
+                        if(this.paciente.enfermedades[i][1]){
+                            this.temp.push(this.paciente.enfermedades[i][0])
+                        }
                     }
-                }
-                if(this.temp.length>0){this.enf=this.temp.toString();}else{this.enf="";}
-                this.temp=[];
-                // malestares
-                for(let i=0;i<6;i++){
-                    if(this.paciente.malestares[i][1]!="0"){
-                        this.temp.push(this.paciente.malestares[i][0]+' '+this.paciente.malestares[i][1]+' dias a la semana');        
+                    if(this.temp.length>0){this.enf=this.temp.toString();}else{this.enf="";}
+                    this.temp=[];
+                    // malestares
+                    for(let i=0;i<6;i++){
+                        if(this.paciente.malestares[i][1]!="0"){
+                            this.temp.push(this.paciente.malestares[i][0]+' '+this.paciente.malestares[i][1]+' dias a la semana');        
+                        }
                     }
+                    if(this.temp.length>0){this.malesta=this.temp.toString();}else{this.malesta="";}
+                    this.temp=[];
+                    // otros
+                    this.motivo=this.paciente.motivo;
+                    this.alerg=this.paciente.alergias;
+                    this.noinclu=this.paciente.noincluir;
+                    this.agua=this.paciente.agua;
+                    this.ejer=this.paciente.ejercicio;
+                    this.observa=this.paciente.observaciones;
+                    this.genero=this.paciente.sexo;
+    
+                    if(this.motivo=='' && this.alerg=='' && this.noinclu=='' && this.agua=='' && this.ejer=='' && this.observa=='' && this.enf=='' && this.malesta==''){
+                        this.sinHisCli=true;
+                    }else{ this.sinHisCli=false}
+    
+                    // Ya que se tiene el paciente, ahora hay que mostrar las visitas
+                    this.mostrarVisitasP();
                 }
-                if(this.temp.length>0){this.malesta=this.temp.toString();}else{this.malesta="";}
-                this.temp=[];
-                // otros
-                this.motivo=this.paciente.motivo;
-                this.alerg=this.paciente.alergias;
-                this.noinclu=this.paciente.noincluir;
-                this.agua=this.paciente.agua;
-                this.ejer=this.paciente.ejercicio;
-                this.observa=this.paciente.observaciones;
-                this.genero=this.paciente.sexo;
-
-                if(this.motivo=='' && this.alerg=='' && this.noinclu=='' && this.agua=='' && this.ejer=='' && this.observa=='' && this.enf=='' && this.malesta==''){
-                    this.sinHisCli=true;
-                }else{ this.sinHisCli=false}
-
-                // Ya que se tiene el paciente, ahora hay que mostrar las visitas
-                this.mostrarVisitasP();
-            }
+            })
         });
     }
 
@@ -175,7 +182,16 @@ export class PerfilPacienteComponent {
         this.gDabdomen=[];
         this.gDcadera=[];
         this.gDglucosa=[];
-        this.visitas=this.visitaService.getVisitasP(this.paciente.id);
+
+        this.visitaService.getVisitasP()
+        .subscribe(res=>{
+            res.forEach(res=>{
+                let Vis=res.payload.val();
+                 if(Vis["paciente"]==this.paciente.id){
+                     this.visitas.push(Vis);
+                }
+            });
+            console.log(this.visitas);        
         this.totaldevisitas=this.visitas.length;
 
         if(this.visitas.length==0){ // Si no tiene citas
@@ -285,6 +301,9 @@ export class PerfilPacienteComponent {
 
             }    
         }
+        // aqui cierra el else
+    })
+
     }
     ordenar(){
         let clone=JSON.parse(JSON.stringify(this.visitas));

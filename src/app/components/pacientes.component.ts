@@ -23,6 +23,9 @@ export class PacientesComponent implements OnInit{
         this.getPacientes();
     }
 
+    show(pac){
+        console.log(pac);
+    }
     getPacientes(){
         this.pacienteService.getPacientes().subscribe(
             (result) =>{

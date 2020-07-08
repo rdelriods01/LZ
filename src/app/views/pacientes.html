@@ -8,7 +8,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let paciente of pacientes" >
-                <td [routerLink]="['/paciente',paciente.id]" >{{paciente.nombre}}</td>
+                <td [routerLink]="['/paciente',paciente.id]" (click)="show(paciente)" >{{paciente.nombre}} con ID: {{paciente.id}}</td>
             </tr>
         </tbody>
     </table>

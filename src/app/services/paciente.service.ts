@@ -7,18 +7,13 @@ import { Paciente } from '../models/paciente';
 @Injectable()
 export class PacienteService{
 
-    public actualP:any;
-
     constructor(private af: AngularFireDatabase){}
 
     getPacientes(){
         return this.af.list('pacientes').valueChanges();
     }
     getPaciente(idP) {
-         let miP= this.af.object('pacientes').snapshotChanges().subscribe(res=>{
-            this.actualP=res.payload.val();
-         });
-         return this.actualP;
+         return this.af.object('pacientes/'+idP).snapshotChanges();
     }
     savePaciente(paciente:Paciente){
         let idP=this.af.list('pacientes').push(paciente).key;

@@ -6,24 +6,13 @@ import { Visita } from '../models/visita';
 @Injectable()
 export class VisitaService{
 
-    public visitasP:any=[];
-
     constructor( private af: AngularFireDatabase){}
 
     getVisitas(){
         return this.af.list('visitas').valueChanges();
     }
-    getVisitasP(idP){
-        this.visitasP=[];
-        let misV = this.af.list('visitas').snapshotChanges().subscribe(res=>{
-            res.forEach(res=>{
-                let Vis=res.payload.val();
-                 if(Vis["paciente"]==idP){
-                     this.visitasP.push(Vis);
-                }
-            });
-        });
-        return this.visitasP;
+    getVisitasP(){
+        return this.af.list('visitas').snapshotChanges()
     }
     saveVisita(visita:Visita){
         let idV=this.af.list('visitas').push(visita).key;
