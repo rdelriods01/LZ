@@ -65,7 +65,7 @@ export class HomeComponent {
 
   enviarID(x:any){
         this.visita.paciente=this.pacienteService.getPaciente(x);
-        this.visitas=this.visitaService.getVisitasP(x);
+        this.visitas=this.visitaService.getVisitasP();
         return this.visitas;
   }
 

@@ -7,10 +7,11 @@ const Flatpickr = require("flatpickr");
     selector: 'datepicker',
     template: `
         <div >
-            <input #date (change)="salida($event)" data-input>
+            <input class="flatpick-input" #date (change)="salida($event)" data-input>
             <button style="min-width:1em; font-size:1.2em" mat-button  *ngIf="clear" (click)="clearDate()">X</button>
         </div>
     `,
+    styleUrls: ['../css/flatpicker.css'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,

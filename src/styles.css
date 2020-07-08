@@ -36,10 +36,16 @@ div .mat-dialog-container{
     z-index: 10 !important; 
 }
 /*Picker de Dashboard*/
-.pckrCal .flatpickr-input{
+.pckrCal input.flatpickr-input{
     width: 0;
     border: none;
     display: none;
+}
+.pckrCal input.flatpick-input.form-control.input{
+    width: 0;
+    border: none;
+    display: none;
+    height: 0;
 }
 /*Picker de AddPaciente*/
 .picker div{

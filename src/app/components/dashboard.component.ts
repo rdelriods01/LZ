@@ -41,7 +41,7 @@ export class DashboardComponent{
   }
   
   parseFecha(){
-    this.miFechaDeCitas=(this.y+'-'+this.m+'-'+this.d);
+    this.miFechaDeCitas=(this.y+'-'+this.m+'-'+this.d);   
     this.mes=this.m;
     for(let j=1;j<=12;j++){
         if(this.mes==j){
