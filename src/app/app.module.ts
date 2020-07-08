@@ -7,8 +7,6 @@ import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-
-import 'hammerjs';
 // Import de ChartJS
 import { ChartsModule } from 'ng2-charts';
 
