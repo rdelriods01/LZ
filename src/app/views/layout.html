@@ -12,19 +12,19 @@
       <div id="rightElements" >
         <!--Boton Buscar-->
         <button class="vAlign" mat-button id="bSidenav" (click)="toggleBuscar()"><mat-icon>search</mat-icon></button>
-        <mat-input-container [ngClass]='mostrar'>
-            <input mdInput class="vAlign"  type="text" [(ngModel)]=query (keyup)="filter();showResBus()" placeholder="Buscar...">
-        </mat-input-container>
+        <mat-form-field [ngClass]='mostrar'>
+            <input matInput class="vAlign"  type="text" [(ngModel)]=query (keyup)="filter();showResBus()" placeholder="Buscar...">
+        </mat-form-field>
         
         <div class="resBusqueda" [ngClass]='mostrar2' >
             <button mat-button class="busElement" [ngClass]='mostrar3' *ngFor=" let item of filteredList" [routerLink]="['/paciente',item.$key]" 
             (click)="resetQuery();hideResBus()" >{{item.nombre}} </button>         
         </div>
         <!--Usuario-->
-        <button class="userProfile" [mdMenuTriggerFor]="menu">
+        <button class="userProfile" [matMenuTriggerFor]="menu">
             <span class="userText vAlign">{{usuario.name}}</span>
             <button mat-icon-button class="userAvatar vAlign" ><img mat-card-avatar src="{{usuario.avatar}}"></button>
-            <mat-menu #menu="mdMenu">
+            <mat-menu #menu="matMenu">
               <button mat-menu-item (click)="logout()">Cerrar Sesion</button>
               <button mat-menu-item> Help </button>
             </mat-menu>

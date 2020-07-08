@@ -18,7 +18,7 @@
     font-size: 1.9em;
     margin: 0 auto;
 }
-.agenda mat-input-container{
+.agenda mat-form-field{
     margin: 0 auto;
     width: 8em;
     text-align-last: center;

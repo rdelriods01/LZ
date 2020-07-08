@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -10,6 +11,15 @@ import { ChartsModule } from 'ng2-charts';
 // Imports de Material
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 // configuracion necesaria para Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -83,12 +93,15 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(firebaseConfig, 'LIGHTZONE'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MatButtonModule,MatDialogModule,
+    MatButtonModule,MatDialogModule,MatCardModule,MatIconModule,
+    MatInputModule,MatSidenavModule,MatSliderModule,MatTabsModule,
+    MatButtonToggleModule,MatMenuModule,MatToolbarModule,
     ChartsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
     ],

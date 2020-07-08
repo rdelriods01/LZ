@@ -1,18 +1,18 @@
 <div mat-dialog-content class="hiscli">
     <form #formPaciente="ngForm">
         <div class="first">
-            <mat-input-container>
-                <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
-            </mat-input-container>
+            <mat-form-field>
+                <input matInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
+            </mat-form-field>
                 <span style="color: red" *ngIf="!nombre.valid && nombre.touched">*Requerido</span>
             <div class="edadygen">
                 <mat-button-toggle-group class="genero" #sexo="ngModel" name="sexo" [(ngModel)]="paciente.sexo" >
                     <mat-button-toggle value="Mujer">M</mat-button-toggle>
                     <mat-button-toggle value="Hombre">H</mat-button-toggle>
                 </mat-button-toggle-group>
-                <mat-input-container class="edad">   
-                    <input mdInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2" required>
-                </mat-input-container>
+                <mat-form-field class="edad">   
+                    <input matInput #edad="ngModel" name="edad" [(ngModel)]="paciente.edad" placeholder="Edad.." maxlength="2" required>
+                </mat-form-field>
             </div>
         </div>
         <div class="allItems">
@@ -21,40 +21,40 @@
                     <div class="contacto">
                         <label>Contacto</label>
                         <p>
-                            <mat-input-container>    
-                                <input mdInput #telefono="ngModel" name="telefono" [(ngModel)]="paciente.telefono" placeholder="Telefono.." required >
-                            </mat-input-container>
+                            <mat-form-field>    
+                                <input matInput #telefono="ngModel" name="telefono" [(ngModel)]="paciente.telefono" placeholder="Telefono.." required >
+                            </mat-form-field>
                                     <span style="color: red" *ngIf="!telefono.valid && telefono.touched">*Requerido</span>
-                            <mat-input-container style="display: block; width:15em;">
-                                <input mdInput #correo="ngModel" name="correo" [(ngModel)]="paciente.correo" type="email" placeholder="Correo.."  >
-                            </mat-input-container>
+                            <mat-form-field style="display: block; width:15em;">
+                                <input matInput #correo="ngModel" name="correo" [(ngModel)]="paciente.correo" type="email" placeholder="Correo.."  >
+                            </mat-form-field>
                         </p>
                     </div>
                     <div class="direccion" >
                         <label>Dirección</label>
                         <p>
-                            <mat-input-container style="display: block;">
-                                <input mdInput  #calle="ngModel" name="calle" [(ngModel)]="paciente.direccion.calle" placeholder="Calle y Numero..">
-                            </mat-input-container>
-                            <mat-input-container> 
-                                <input mdInput #colonia="ngModel" name="colonia" [(ngModel)]="paciente.direccion.colonia" placeholder="Colonia..">
-                            </mat-input-container>
-                            <mat-input-container>
-                                <input mdInput #ciudad="ngModel" name="ciudad" [(ngModel)]="paciente.direccion.ciudad" placeholder="Ciudad..">
-                            </mat-input-container>
+                            <mat-form-field style="display: block;">
+                                <input matInput  #calle="ngModel" name="calle" [(ngModel)]="paciente.direccion.calle" placeholder="Calle y Numero..">
+                            </mat-form-field>
+                            <mat-form-field> 
+                                <input matInput #colonia="ngModel" name="colonia" [(ngModel)]="paciente.direccion.colonia" placeholder="Colonia..">
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input matInput #ciudad="ngModel" name="ciudad" [(ngModel)]="paciente.direccion.ciudad" placeholder="Ciudad..">
+                            </mat-form-field>
                         </p>
                     </div>
                 </div>
                 <p class="valores" >
-                    <mat-input-container>    
-                        <input mdInput #estatura="ngModel" name="estatura" [(ngModel)]="paciente.estatura" placeholder="Estatura.." maxlength="3" required >
-                    </mat-input-container>
-                    <mat-input-container>
-                        <input mdInput #pesoajustado="ngModel" name="pesoajustado" [(ngModel)]="paciente.pesoajustado" placeholder="Peso ajustado.." maxlength="4" required>
-                    </mat-input-container>
-                    <mat-input-container>
-                        <input mdInput #pesoideal="ngModel" name="pesoideal" [(ngModel)]="paciente.pesoideal" placeholder="Peso ideal.." maxlength="4">
-                    </mat-input-container>
+                    <mat-form-field>    
+                        <input matInput #estatura="ngModel" name="estatura" [(ngModel)]="paciente.estatura" placeholder="Estatura.." maxlength="3" required >
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #pesoajustado="ngModel" name="pesoajustado" [(ngModel)]="paciente.pesoajustado" placeholder="Peso ajustado.." maxlength="4" required>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #pesoideal="ngModel" name="pesoideal" [(ngModel)]="paciente.pesoideal" placeholder="Peso ideal.." maxlength="4">
+                    </mat-form-field>
                 </p>
                 <div class="enfymal" >
                     <div class="enfermedades" >
@@ -68,36 +68,36 @@
                         <div id="ck-button"><label><input type="checkbox" [checked]="paciente.enfermedades[7][1]" (change)="togglecb(7)"><span>{{paciente.enfermedades[7][0]}}</span></label></div>
                     </div>
                     <div class="malestares" >
-                        <span><label>{{paciente.malestares[0][0]}}</label> <mat-slider #mal1="ngModel" name="mal1" [(ngModel)]="paciente.malestares[0][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[0][1]}}/7</label></span>
-                        <span><label>{{paciente.malestares[1][0]}}</label> <mat-slider #mal2="ngModel" name="mal2" [(ngModel)]="paciente.malestares[1][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[1][1]}}/7</label></span>
-                        <span><label>{{paciente.malestares[2][0]}}</label> <mat-slider #mal3="ngModel" name="mal3" [(ngModel)]="paciente.malestares[2][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[2][1]}}/7</label></span>
-                        <span><label>{{paciente.malestares[3][0]}}</label> <mat-slider #mal4="ngModel" name="mal4" [(ngModel)]="paciente.malestares[3][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[3][1]}}/7</label></span>
-                        <span><label>{{paciente.malestares[4][0]}}</label> <mat-slider #mal5="ngModel" name="mal5" [(ngModel)]="paciente.malestares[4][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[4][1]}}/7</label></span>
-                        <span><label>{{paciente.malestares[5][0]}}</label> <mat-slider #mal6="ngModel" name="mal6" [(ngModel)]="paciente.malestares[5][1]" [max]="7" [min]="0"  [step]="1" [thumb-label]=true ></mat-slider><label>{{paciente.malestares[5][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[0][0]}}</label> <mat-slider #mal1="ngModel" name="mal1" [(ngModel)]="paciente.malestares[0][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[0][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[1][0]}}</label> <mat-slider #mal2="ngModel" name="mal2" [(ngModel)]="paciente.malestares[1][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[1][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[2][0]}}</label> <mat-slider #mal3="ngModel" name="mal3" [(ngModel)]="paciente.malestares[2][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[2][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[3][0]}}</label> <mat-slider #mal4="ngModel" name="mal4" [(ngModel)]="paciente.malestares[3][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[3][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[4][0]}}</label> <mat-slider #mal5="ngModel" name="mal5" [(ngModel)]="paciente.malestares[4][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[4][1]}}/7</label></span>
+                        <span><label>{{paciente.malestares[5][0]}}</label> <mat-slider #mal6="ngModel" name="mal6" [(ngModel)]="paciente.malestares[5][1]" [max]="7" [min]="0"  [step]="1" [thumbLabel]=true ></mat-slider><label>{{paciente.malestares[5][1]}}/7</label></span>
                     </div>
                 </div>
             </div>
     
             <div class="righties">
                 <div>
-                    <mat-input-container class="areas">
-                        <input class="motivo" mdInput #motivo="ngModel" name="motivo" [(ngModel)]="paciente.motivo" placeholder="Motivo de la consulta.." >
-                    </mat-input-container>                    
-                    <mat-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="2" #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
-                    </mat-input-container>
-                    <mat-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="2" #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.noincluir" placeholder="No incluir.." ></textarea>
-                    </mat-input-container>
-                    <mat-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" #agua="ngModel" name="agua" [(ngModel)]="paciente.agua" placeholder="Ingesta de Agua.." ></textarea>
-                    </mat-input-container>
-                    <mat-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" #ejercicio="ngModel" name="ejercicio" [(ngModel)]="paciente.ejercicio" placeholder="Ejercicio.." ></textarea>
-                    </mat-input-container>
-                    <mat-input-container class="areas">
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="6" #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>
-                    </mat-input-container>
+                    <mat-form-field class="areas">
+                        <input class="motivo" matInput #motivo="ngModel" name="motivo" [(ngModel)]="paciente.motivo" placeholder="Motivo de la consulta.." >
+                    </mat-form-field>                    
+                    <mat-form-field class="areas">
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="2" #alergias="ngModel" name="alergias" [(ngModel)]="paciente.alergias" placeholder="Alergias.." ></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="areas">
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="2" #nogusta="ngModel" name="nogusta" [(ngModel)]="paciente.noincluir" placeholder="No incluir.." ></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="areas">
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="1" #agua="ngModel" name="agua" [(ngModel)]="paciente.agua" placeholder="Ingesta de Agua.." ></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="areas">
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="1" #ejercicio="ngModel" name="ejercicio" [(ngModel)]="paciente.ejercicio" placeholder="Ejercicio.." ></textarea>
+                    </mat-form-field>
+                    <mat-form-field class="areas">
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="6" #observaciones="ngModel" name="observaciones" [(ngModel)]="paciente.observaciones" placeholder="Observaciones.." ></textarea>
+                    </mat-form-field>
                 </div>
             </div> 
         </div>       

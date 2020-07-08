@@ -3,12 +3,12 @@
         <div class="agenda">
             <h2>Consulta de {{paciente.nombre}} </h2>
             <div class="fechayhora">
-                <mat-input-container>
-                    <input mdInput class="fecha" #fecha="ngModel" name="fecha" [(ngModel)]="visit.fecha" placeholder="Fecha.." required >
-                </mat-input-container>
-                <mat-input-container>
-                    <input mdInput class="hora" #hora="ngModel" name="hora" [(ngModel)]="visit.hora" placeholder="Hora.." required >
-                </mat-input-container>
+                <mat-form-field>
+                    <input matInput class="fecha" #fecha="ngModel" name="fecha" [(ngModel)]="visit.fecha" placeholder="Fecha.." required >
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput class="hora" #hora="ngModel" name="hora" [(ngModel)]="visit.hora" placeholder="Hora.." required >
+                </mat-form-field>
             </div>
         </div>  
 
@@ -27,14 +27,14 @@
         
         <div class="inferior">
             <p class="infIzq">
-                <mat-input-container class="comentarios">
-                    <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="6" id="comentarios" #comentarios="ngModel" name="comentarios" [(ngModel)]="visit.comentarios" placeholder="Comentarios.." ></textarea>
-                </mat-input-container>
+                <mat-form-field class="comentarios">
+                    <textarea matInput mdTextareaAutosize mdAutosizeMinRows="6" id="comentarios" #comentarios="ngModel" name="comentarios" [(ngModel)]="visit.comentarios" placeholder="Comentarios.." ></textarea>
+                </mat-form-field>
             </p>
             <div class="infDer">
-                <mat-input-container id="menu">
-                    <input mdInput #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
-                </mat-input-container>
+                <mat-form-field id="menu">
+                    <input matInput #menu="ngModel" name="menu" [(ngModel)]="visit.menu" placeholder="Menu.." required >
+                </mat-form-field>
                 <div id="btnGuardar">
                     <button mat-button type="submit" [disabled]="!formConsulta.form.valid" >Guardar</button>
                 </div>

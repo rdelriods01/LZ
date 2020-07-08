@@ -10,12 +10,12 @@
         <div class="izq">
             <form #formPlatillo="ngForm" >
                 <div class="addNew">
-                    <mat-input-container>    
-                        <input mdInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
-                    </mat-input-container>
-                    <mat-input-container class="descripcion" >    
-                        <textarea mdInput mdTextareaAutosize mdAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
-                    </mat-input-container>
+                    <mat-form-field>    
+                        <input matInput  [(ngModel)]="platillo" name="platillo" placeholder="Platillo.." required>
+                    </mat-form-field>
+                    <mat-form-field class="descripcion" >    
+                        <textarea matInput mdTextareaAutosize mdAutosizeMinRows="1" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion.." required></textarea>
+                    </mat-form-field>
                     <button mat-button (click)="addPlatillo()" [disabled]="!formPlatillo.form.valid" >Agregar</button>
                 </div>
             </form>

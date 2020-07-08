@@ -9,13 +9,13 @@
       </div>
       <div class="inputs">
         <p><mat-icon class="icons" >mail</mat-icon></p>
-        <mat-input-container>
-             <input mdInput [(ngModel)]="email" placeholder="email.." required >
-        </mat-input-container>
+        <mat-form-field>
+             <input matInput [(ngModel)]="email" placeholder="email.." required >
+        </mat-form-field>
         <p><mat-icon class="icons" >lock</mat-icon></p>
-        <mat-input-container>
-             <input mdInput type="password" [(ngModel)]="pass" placeholder="pass.." required >
-        </mat-input-container>
+        <mat-form-field>
+             <input matInput type="password" [(ngModel)]="pass" placeholder="pass.." required >
+        </mat-form-field>
       </div>
       <div class="btnLogin" > 
         <button mat-button (click)="login()">Login</button>
