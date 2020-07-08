@@ -1,7 +1,7 @@
-md-icon{
+mat-icon{
   transition: transform 1s;
 }
-button:hover md-icon{
+button:hover mat-icon{
   transform: rotate(360deg);
 }
 
@@ -11,12 +11,12 @@ button:hover md-icon{
     width: 100%;
     z-index: 10;
 }
-md-toolbar{
+mat-toolbar{
   font-size: medium;
   min-height: 50px;
   max-height: 50px;
 }
-md-toolbar-layout md-toolbar-row{
+mat-toolbar-layout mat-toolbar-row{
   height: 50px !important;
 }
 #bSidenav{
@@ -140,7 +140,7 @@ md-toolbar-layout md-toolbar-row{
   padding-top: 50px; 
   position: fixed;
 }
-md-sidenav {
+mat-sidenav {
   position: absolute;
   width: 200px;
   height: 100%;
@@ -149,7 +149,7 @@ md-sidenav {
   background-color: #212121;
   outline: 1px solid #212121;
 }
-md-sidenav .icon {
+mat-sidenav .icon {
     padding-right: 10px;
 }
 ul {

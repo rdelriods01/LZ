@@ -1,6 +1,6 @@
 import {Component } from '@angular/core';
 import { Router, ActivatedRoute, Params} from '@angular/router';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 import { ConsultarComponent } from './consultar.component';
 import {ProxCitaComponent} from './proxcita.component';
@@ -99,7 +99,7 @@ export class PerfilPacienteComponent {
         private _router: Router,
         private visitaService: VisitaService,
         private pacienteService: PacienteService,
-        public dialog: MdDialog,
+        public dialog: MatDialog,
         public layoutC:LayoutComponent
     ){
         this.paciente=new Paciente("","","","","","",{calle:"",colonia:"",ciudad:""},"","","","","","","","","","","",false);

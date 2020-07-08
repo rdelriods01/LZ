@@ -1,6 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import {PlatilloService} from '../services/platillos.service';
 
@@ -21,7 +21,7 @@ export class AddPlatillosComponent implements OnInit{
     sugerencias:any;
     seleccionados:any[];
 
-    constructor(public dialogRef: MdDialogRef<AddPlatillosComponent>,public platilloService: PlatilloService){
+    constructor(public dialogRef: MatDialogRef<AddPlatillosComponent>,public platilloService: PlatilloService){
     }
 
     ngOnInit(){

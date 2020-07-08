@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import { HistoriaClinicaComponent } from './historiaClinica.component';
 import {ProxCitaComponent} from './proxcita.component';
@@ -25,7 +25,7 @@ export class DatatableComponent implements OnInit{
 
   @Input() fecha:string;
 
-  constructor( private visitaService:VisitaService, private pacienteService:PacienteService, public dialog: MdDialog){
+  constructor( private visitaService:VisitaService, private pacienteService:PacienteService, public dialog: MatDialog){
   }
 
   ngOnInit(){
@@ -34,7 +34,7 @@ export class DatatableComponent implements OnInit{
 
   getVisitas(){
       this.visitaService.getVisitas().subscribe(
-        (result: FirebaseListObservable<any>)=>{
+        (result)=>{
           this.visitas=result;
           if(!this.visitas){alert('Error en el servidor de visitas');}
           this.getPacientes();
@@ -50,7 +50,7 @@ export class DatatableComponent implements OnInit{
 
   getPacientes(){
     this.pacienteService.getPacientes().subscribe(
-      (result: FirebaseListObservable<any>)=>{
+      (result)=>{
         this.pacientes=result;
         if(!this.pacientes){alert("Error en el servidor de pacientes")}
         this.filter();

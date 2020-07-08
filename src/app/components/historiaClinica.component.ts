@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef , MdRadioChange} from '@angular/material';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatRadioModule} from '@angular/material/radio';
+
 import { Router, ActivatedRoute, Params} from '@angular/router';
 
 import { PacienteService } from '../services/paciente.service';
@@ -22,7 +24,7 @@ export class HistoriaClinicaComponent implements OnInit, OnChanges{
     ];
     public flag:boolean;
 
-    constructor(public dialogRef: MdDialogRef<HistoriaClinicaComponent>,
+    constructor(public dialogRef: MatDialogRef<HistoriaClinicaComponent>,
                 private pacienteService: PacienteService,
                 private route:ActivatedRoute,
                 private router: Router,

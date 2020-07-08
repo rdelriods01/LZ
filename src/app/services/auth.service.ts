@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class AuthService {
   }
 
   loginWithEmail(email,password){
-    this.af.auth.signInWithEmailAndPassword(email, password).catch(function(error) {
+    this.af.signInWithEmailAndPassword(email, password).catch(function(error) {
       // Handle Errors here.
       // var errorCode = error.code;
       // var errorMessage = error.message; 
@@ -21,11 +21,11 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    this.af.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.af.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   logout() {
-    this.af.auth.signOut();
+    this.af.signOut();
   }
 
 }

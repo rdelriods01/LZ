@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 // import { Router } from '@angular/router';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import { AuthService } from '../services/auth.service';
 import { PacienteService } from '../services/paciente.service';
@@ -35,7 +35,7 @@ export class HomeComponent {
 
   getPacientes(){
     this.pacienteService.getPacientes().subscribe(
-            (result: FirebaseListObservable<any>) =>{
+            (result) =>{
                 this.pacientes=result;
                 if(!this.pacientes){alert('Error en el servidor')}
                 else{

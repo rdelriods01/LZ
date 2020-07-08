@@ -57,7 +57,7 @@ button:hover {
     font-size: 1.1em;
     font-weight: bold;
 }
-.valores md-input-container{
+.valores mat-input-container{
     margin: 0px 2em;
     width: 7em;
     text-align: center;

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import { Platillo } from '../models/platillo';
 
@@ -11,16 +10,11 @@ export class PlatilloService{
 
     constructor(private af: AngularFireDatabase){}
 
-    // getDesayunos():FirebaseListObservable<any> {
-    //     return this.af.list('platillos/Desayuno/');
-    // }
-
     getPlatillos(t) {
         let temp=[];
-        let miP= this.af.object('platillos/'+t, {preserveSnapshot:true});
-        miP.subscribe(data => {
+        let miP= this.af.list('platillos').snapshotChanges().subscribe(data => {
             data.forEach( res=>{
-                temp.push(res.val())
+                temp.push(res.payload.val())
             })
         })
         return temp;

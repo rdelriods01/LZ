@@ -8,7 +8,7 @@ const Flatpickr = require("flatpickr");
     template: `
         <div >
             <input #date (change)="salida($event)" data-input>
-            <button style="min-width:1em; font-size:1.2em" md-button  *ngIf="clear" (click)="clearDate()">X</button>
+            <button style="min-width:1em; font-size:1.2em" mat-button  *ngIf="clear" (click)="clearDate()">X</button>
         </div>
     `,
     providers: [

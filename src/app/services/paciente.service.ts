@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase} from '@angular/fire/database';
 
 import { Paciente } from '../models/paciente';
 
@@ -11,13 +11,12 @@ export class PacienteService{
 
     constructor(private af: AngularFireDatabase){}
 
-    getPacientes():FirebaseListObservable<any> {
-        return this.af.list('pacientes');
+    getPacientes(){
+        return this.af.list('pacientes').valueChanges();
     }
     getPaciente(idP) {
-         let miP= this.af.object('pacientes/'+idP, {preserveSnapshot:true});
-         miP.subscribe(res=>{
-            this.actualP=res.val();
+         let miP= this.af.object('pacientes').snapshotChanges().subscribe(res=>{
+            this.actualP=res.payload.val();
          });
          return this.actualP;
     }

@@ -1,19 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { MaterialModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 // Import de ChartJS
 import { ChartsModule } from 'ng2-charts';
+// Imports de Material
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
 
 // configuracion necesaria para Firebase
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 export const firebaseConfig = {
     apiKey: "AIzaSyA78Lla-odvclSMvdIZnWE_lrwK4556DcQ",
@@ -87,8 +88,7 @@ const routes: Routes = [
     AngularFireModule.initializeApp(firebaseConfig, 'LIGHTZONE'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    MaterialModule,
-    BrowserAnimationsModule,
+    MatButtonModule,MatDialogModule,
     ChartsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production})
     ],

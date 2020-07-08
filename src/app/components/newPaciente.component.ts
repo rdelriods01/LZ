@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { PacienteService } from '../services/paciente.service';
 import { VisitaService } from '../services/visita.service';
@@ -21,7 +21,7 @@ export class NewPacienteComponent implements OnInit{
     public id:String;
     public btnGuardarB:boolean=false;
 
-    constructor( public dialogRef: MdDialogRef<NewPacienteComponent>,
+    constructor( public dialogRef: MatDialogRef<NewPacienteComponent>,
                 private pacienteService: PacienteService,
                 private visitaService: VisitaService
                 ) {}

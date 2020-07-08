@@ -126,7 +126,7 @@ h1 button{
     font-size: 2em;
 }
 /*Perfil Inferior*/
-.perfInferior md-card{
+.perfInferior mat-card{
     margin: 1em;
     border-radius: 10px;
 }

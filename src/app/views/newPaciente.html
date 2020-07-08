@@ -2,15 +2,15 @@
     <div style="margin-top: 1em;height: 360px; width: 560px">
         <h2>Agendar nuevo Paciente</h2>
         <div>
-            <md-input-container>    
+            <mat-input-container>    
                 <input mdInput class="nombre" #nombre="ngModel" name="nombre" [(ngModel)]="paciente.nombre" placeholder="Nombre.." required >
-            </md-input-container>
+            </mat-input-container>
             <span style="color: red" *ngIf="!nombre.valid && nombre.touched">*Requerido</span>
 
             <br>
-            <md-input-container>    
+            <mat-input-container>    
                 <input mdInput class="telefono" #telefono="ngModel" name="telefono" [(ngModel)]="paciente.telefono" placeholder="Telefono.." required >
-            </md-input-container>
+            </mat-input-container>
             <span style="color: red" *ngIf="!telefono.valid && telefono.touched">*Requerido</span> 
         </div>
         <div>
@@ -18,7 +18,7 @@
             <datepicker class="picker" [time]="true" [clear]="true" (mifecha)="sendFecha($event)"></datepicker>
         </div>
         <div *ngIf="btnGuardarB" class="guardar">
-            <button md-button (click)="onSubmit()" [disabled]="!formAgendar.form.valid" >Guardar</button>
+            <button mat-button (click)="onSubmit()" [disabled]="!formAgendar.form.valid" >Guardar</button>
         </div>
     </div>
 </form> 

@@ -23,9 +23,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/theme.scss",
-              "node_modules/devextreme/dist/css/dx.common.css",
-              "node_modules/devextreme/dist/css/dx.light.css"
+              "src/theme.scss"
             ],
             "scripts": []
           },

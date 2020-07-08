@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnChanges} from '@angular/core';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 import { AddPlatillosComponent } from './addPlatillos.component';
 
@@ -22,7 +22,7 @@ export class MenusComponent implements OnChanges{
     ];
     fechaPrint:any;
 
-    constructor(public dialog: MdDialog,public visitaService: VisitaService,){
+    constructor(public dialog: MatDialog,public visitaService: VisitaService,){
         this.clearTemp();
     }
 

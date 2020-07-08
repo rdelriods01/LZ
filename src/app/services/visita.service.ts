@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase} from '@angular/fire/database';
 
 import { Visita } from '../models/visita';
 
@@ -10,16 +10,15 @@ export class VisitaService{
 
     constructor( private af: AngularFireDatabase){}
 
-    getVisitas(): FirebaseListObservable<any> {
-        return this.af.list('visitas');
+    getVisitas(){
+        return this.af.list('visitas').valueChanges();
     }
     getVisitasP(idP){
         this.visitasP=[];
-        let misV = this.af.object('visitas', {preserveSnapshot:true});
-        misV.subscribe(res=>{
+        let misV = this.af.list('visitas').snapshotChanges().subscribe(res=>{
             res.forEach(res=>{
-                let Vis=res.val();
-                 if(Vis.paciente==idP){
+                let Vis=res.payload.val();
+                 if(Vis["paciente"]==idP){
                      this.visitasP.push(Vis);
                 }
             });

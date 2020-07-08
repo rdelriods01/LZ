@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 import {PacienteService} from '../services/paciente.service';
 
@@ -25,7 +25,7 @@ export class PacientesComponent implements OnInit{
 
     getPacientes(){
         this.pacienteService.getPacientes().subscribe(
-            (result: FirebaseListObservable<any>) =>{
+            (result) =>{
                 this.pacientes=result;
                 if(!this.pacientes){alert('Error en el servidor')}
                 else{
